@@ -1,0 +1,222 @@
+﻿@model form_1a.Models.Form_1A
+@{
+    ViewBag.Title = "form_1a";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />   
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="container" style="width:40%;margin-top:2%">
+        <form id="myForm">
+            Fill-up All Fields
+            <table>
+               
+                <tr>
+                    <td>Date</td>
+                    <td>:</td>
+                    
+                    <td>@Html.TextBoxFor(model => model.entry, new { @class = "form-control" , @id="entry"})</td>
+                </tr>
+                <tr>
+                    <td>Page</td>
+                    <td>:</td>
+                    <td>@Html.TextBoxFor(model => model.page, new { @class = "form-control", @placeholder = "Page Number" })</td>
+                </tr>
+                <tr>
+                    <td>Book Number</td>
+                    <td>:</td>
+                    <td>@Html.TextBoxFor(model => model.book, new { @class = "form-control", @placeholder = "Book Number" })</td>
+                </tr>
+                <tr>
+                    <td>LCR Registry Number</td>
+                    <td>:</td>
+                    <td>@Html.TextBoxFor(model => model.lcr_reg_no, new { @class = "form-control", @placeholder = "LCR Registration Number" })</td>
+                </tr>
+                <tr>
+                    <td>Date of Registration</td>
+                    <td>:</td>
+                    <td>@Html.EditorFor(model => model.date_of_reg, new { @class = "datepicker", @placeholder = "Date of Registration" })</td>
+                </tr>
+                <tr>
+                    <td>Name of Child</td>
+                    <td>:</td>
+                    <td>@Html.TextBoxFor(model => model.name_child, new { @class = "form-control", @placeholder = "Name of Child" })</td>
+                </tr>
+                <tr>
+                    <td>Sex</td>
+                    <td>:</td>
+                    <td>@Html.TextBoxFor(model => model.sex, new { @class = "form-control", @placeholder = "Sex" })</td>
+                </tr>
+                <tr>
+                    <td>Date of Birth</td>
+                    <td>:</td>
+                    <td>@Html.EditorFor(model => model.date_of_birth, new { @class = "datepicker", @placeholder = "Date of Birth" })</td>
+                </tr>
+                <tr>
+                    <td>Place of Birth</td>
+                    <td>:</td>
+                    <td>@Html.TextBoxFor(model => model.place_of_birth, new { @class = "form-control", @placeholder = "Place of Birth" })</td>
+                </tr>
+                <tr>
+                    <td>Name of Mother</td>
+                    <td>:</td>
+                    <td>@Html.TextBoxFor(model => model.name_of_mother, new { @class = "form-control", @placeholder = "Name of Mother" })</td>
+                </tr>
+                <tr>
+                    <td>Citizenship of Mother</td>
+                    <td>:</td>
+                    <td>@Html.TextBoxFor(model => model.citizenship_of_mother, new { @class = "form-control", @placeholder = "Citizenship of Mother" })</td>
+                </tr>
+                <tr>
+                    <td>Name of Father</td>
+                    <td>:</td>
+                    <td>@Html.TextBoxFor(model => model.name_of_father, new { @class = "form-control", @placeholder = "Name of Father" })</td>
+                </tr>
+                <tr>
+                    <td>Citizenship of Father</td>
+                    <td>:</td>
+                    <td>@Html.TextBoxFor(model => model.citizenship_of_father, new { @class = "form-control", @placeholder = "Citizenship of Father" })</td>
+                </tr>
+                <tr>
+                    <td>Date of Marriage of Parents</td>
+                    <td>:</td>
+                    <td>@Html.EditorFor(model => model.date_of_marriage_of_parents, new { @class = "datepicker", @placeholder = "Date of Marriage of Parents" })</td>
+                </tr>
+                <tr>
+                    <td>Place of Marriage of Parents</td>
+                    <td>:</td>
+                    <td>@Html.TextBoxFor(model => model.place_of_marriage_of_parents, new { @class = "form-control", @placeholder = "Place of Marriage of Parents" })</td>
+                </tr>
+                <tr>
+                    <td>Issued to</td>
+                    <td>:</td>
+                    <td>@Html.TextBoxFor(model => model.issued_to, new { @class = "form-control", @placeholder = "Issued To" })</td>
+                </tr>
+                <tr>
+                    <td>Officer</td>
+                    <td>:</td>
+                    <td>@Html.TextBoxFor(model => model.officer_name, new { @class = "form-control", @placeholder = "Officer Name" })</td>
+                </tr>
+                <tr>
+                    <td>Officer Title</td>
+                    <td>:</td>
+                    <td>@Html.TextBoxFor(model => model.officer_title, new { @class = "form-control", @placeholder = "Officer Title" })</td>
+                </tr>
+                <tr>
+                    <td>Verifier</td>
+                    <td>:</td>
+                    <td>@Html.TextBoxFor(model => model.verifier_name, new { @class = "form-control", @placeholder = "Verifier Name" })</td>
+                </tr>
+                <tr>
+                    <td>Verifier Title</td>
+                    <td>:</td>
+                    <td>@Html.TextBoxFor(model => model.verifier_title, new { @class = "form-control", @placeholder = "Verifier Title" })</td>
+                </tr>
+                <tr>
+                    <td>Amount Paid</td>
+                    <td>:</td>
+                    <td>@Html.TextBoxFor(model => model.payment, new { @class = "form-control", @placeholder = "Payment" })</td>
+                </tr>
+                <tr>
+                    <td>O.R. Number</td>
+                    <td>:</td>
+                    <td>@Html.TextBoxFor(model => model.or_no, new { @class = "form-control", @placeholder = "OR Number" })</td>
+                </tr>
+                <tr>
+                    <td>Date Paid</td>
+                    <td>:</td>
+                    <td>@Html.EditorFor(model => model.date_paid, new { @class = "datepicker", @placeholder = "Date Paid" })</td>
+                </tr>
+            </table><br>
+            <input type="Submit" value="Submit" class="btn btn-block btn-primary" id="btnSubmit" />
+        </form>
+
+    </div>
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
+   
+    <script type="text/javascript">
+        var date = new Date();
+        var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+
+        var optSimple = {
+            format: 'mm-dd-yyyy',
+            todayHighlight: true,
+            orientation: 'bottom right',
+            autoclose: true,
+            inline: true,
+        };
+
+        $('#entry').datepicker(optSimple);
+        $('#entry').datepicker('setDate', today);
+
+        $(document).ready(function () {
+            $("#btnSubmit").click(function () {
+                debugger
+                var data = $("#myForm").serialize();
+                $.ajax({
+                    type: "POST",
+                    url: "/Home/form_1a",
+                    data: data,
+                    success: function (response) {
+                        alert("Successful");
+                    }
+                })
+            })
+        })
+    </script>
+
+    @*
+        <script type="text/javascript">
+
+            $('#btnSave').on('click', function () {
+                var txtlcrno = $('#txtlcrno').val();
+                var txtregdate = $('#txtregdate').val();
+                var txtchildname = $('#txtchildname').val();
+                var txtsex = $('#txtsex').val();
+                var txtdateofbirth = $('#txtdateofbirth').val();
+                var txtplaceofbirth = $('#txtplaceofbirth').val();
+                var txtmothername = $('#txtmothername').val();
+                var txtmothercship = $('#txtmothercship').val();
+                var txtfathername = $('#txtfathername').val();
+                var txtfathercship = $('#txtfathercship').val();
+                var txtdateofmrg = $('#txtdateofmrg').val();
+                var txtplaceofmrg = $('#txtplaceofmrg').val();
+                var txtissuedto = $('#txtissuedto').val();
+                var txtofficername = $('#txtofficername').val();
+                var txtofficertitle = $('#txtofficertitle').val();
+                var txtverifiername = $('#txtverifiername').val();
+                var txtverifiertitle = $('#txtverifiertitle').val();
+                var txtpayment = $('#txtpayment').val();
+                var txtorno = $('#txtorno').val();
+                var txtdatepaid = $('#txtdatepaid').val();
+
+                if (txtlcrno == "") {
+                    alert("Field Empty!");
+                    return false;
+                }
+
+                $.ajax({
+                    url: '/Home/SaveEntry',
+                    type: 'get',
+                    data: { lcrno: txtlcrno },
+                    success: function (data) {
+                        alert(data);
+                    }
+
+                });
+            });
+
+        </script>*@
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Form_1AModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Form_1A">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="lcr_reg_no" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="date_of_reg" Type="DateTime" Precision="0" />
+    <Property Name="name_child" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="sex" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="date_of_birth" Type="DateTime" Precision="0" />
+    <Property Name="place_of_birth" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="name_of_mother" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="citizenship_of_mother" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="name_of_father" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="citizenship_of_father" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="date_of_marriage_of_parents" Type="DateTime" Precision="0" />
+    <Property Name="place_of_marriage_of_parents" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="issued_to" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="officer_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="officer_title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="verifier_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="verifier_title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="payment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="or_no" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="date_paid" Type="DateTime" Precision="0" />
+    <Property Name="page" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="book" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="entry" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityContainer Name="Form_1AEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Form_1A" EntityType="Self.Form_1A" />
+  </EntityContainer>
+</Schema>

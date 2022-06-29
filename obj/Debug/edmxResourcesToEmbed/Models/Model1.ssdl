@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Form_1AModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Form_1A">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="page" Type="varchar" MaxLength="50" />
+    <Property Name="book" Type="varchar" MaxLength="50" />
+    <Property Name="entry" Type="date" />
+    <Property Name="lcr_reg_no" Type="varchar" MaxLength="50" />
+    <Property Name="date_of_reg" Type="date" />
+    <Property Name="name_child" Type="varchar" MaxLength="50" />
+    <Property Name="sex" Type="varchar" MaxLength="50" />
+    <Property Name="date_of_birth" Type="date" />
+    <Property Name="place_of_birth" Type="varchar" MaxLength="50" />
+    <Property Name="name_of_mother" Type="varchar" MaxLength="50" />
+    <Property Name="citizenship_of_mother" Type="varchar" MaxLength="50" />
+    <Property Name="name_of_father" Type="varchar" MaxLength="50" />
+    <Property Name="citizenship_of_father" Type="varchar" MaxLength="50" />
+    <Property Name="date_of_marriage_of_parents" Type="date" />
+    <Property Name="place_of_marriage_of_parents" Type="varchar" MaxLength="50" />
+    <Property Name="issued_to" Type="varchar" MaxLength="50" />
+    <Property Name="officer_name" Type="varchar" MaxLength="50" />
+    <Property Name="officer_title" Type="varchar" MaxLength="50" />
+    <Property Name="verifier_name" Type="varchar" MaxLength="50" />
+    <Property Name="verifier_title" Type="varchar" MaxLength="50" />
+    <Property Name="payment" Type="varchar" MaxLength="50" />
+    <Property Name="or_no" Type="varchar" MaxLength="50" />
+    <Property Name="date_paid" Type="date" />
+  </EntityType>
+  <EntityContainer Name="Form_1AModelStoreContainer">
+    <EntitySet Name="Form_1A" EntityType="Self.Form_1A" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

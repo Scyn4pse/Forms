@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Form_1AModelStoreContainer" CdmEntityContainer="Form_1AEntities1">
+    <EntitySetMapping Name="Form_1A">
+      <EntityTypeMapping TypeName="Form_1AModel.Form_1A">
+        <MappingFragment StoreEntitySet="Form_1A">
+          <ScalarProperty Name="entry" ColumnName="entry" />
+          <ScalarProperty Name="book" ColumnName="book" />
+          <ScalarProperty Name="page" ColumnName="page" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="lcr_reg_no" ColumnName="lcr_reg_no" />
+          <ScalarProperty Name="date_of_reg" ColumnName="date_of_reg" />
+          <ScalarProperty Name="name_child" ColumnName="name_child" />
+          <ScalarProperty Name="sex" ColumnName="sex" />
+          <ScalarProperty Name="date_of_birth" ColumnName="date_of_birth" />
+          <ScalarProperty Name="place_of_birth" ColumnName="place_of_birth" />
+          <ScalarProperty Name="name_of_mother" ColumnName="name_of_mother" />
+          <ScalarProperty Name="citizenship_of_mother" ColumnName="citizenship_of_mother" />
+          <ScalarProperty Name="name_of_father" ColumnName="name_of_father" />
+          <ScalarProperty Name="citizenship_of_father" ColumnName="citizenship_of_father" />
+          <ScalarProperty Name="date_of_marriage_of_parents" ColumnName="date_of_marriage_of_parents" />
+          <ScalarProperty Name="place_of_marriage_of_parents" ColumnName="place_of_marriage_of_parents" />
+          <ScalarProperty Name="issued_to" ColumnName="issued_to" />
+          <ScalarProperty Name="officer_name" ColumnName="officer_name" />
+          <ScalarProperty Name="officer_title" ColumnName="officer_title" />
+          <ScalarProperty Name="verifier_name" ColumnName="verifier_name" />
+          <ScalarProperty Name="verifier_title" ColumnName="verifier_title" />
+          <ScalarProperty Name="payment" ColumnName="payment" />
+          <ScalarProperty Name="or_no" ColumnName="or_no" />
+          <ScalarProperty Name="date_paid" ColumnName="date_paid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
