@@ -6,6 +6,13 @@
     <edmx:Diagrams>
       <Diagram DiagramId="973c61a26361448cb1b87ebc7492780c" Name="Diagram1">
         <EntityTypeShape EntityType="Form_1AModel.Form_1A" Width="2.25" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Form_1AModel.form_1C" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Form_1AModel.Form_2A" Width="1.5" PointX="6.375" PointY="0.75" />
+        <EntityTypeShape EntityType="Form_1AModel.form_2B" Width="1.5" PointX="8" PointY="0.75" />
+        <EntityTypeShape EntityType="Form_1AModel.Form_3A" Width="1.5" PointX="9.625" PointY="0.75" />
+        <EntityTypeShape EntityType="Form_1AModel.form_3B" Width="1.5" PointX="11.25" PointY="0.75" />
+        <EntityTypeShape EntityType="Form_1AModel.form_3C" Width="1.5" PointX="12.875" PointY="0.75" />
+        <EntityTypeShape EntityType="Form_1AModel.Form_1B" Width="1.5" PointX="3.125" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

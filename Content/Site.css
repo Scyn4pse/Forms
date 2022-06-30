@@ -33,7 +33,7 @@ textarea {
 .fa {
     text-align: center;
     padding: 20px;
-    font-size: 60px;
+    font-size: 50px;
 }
 
 .form-1 {
@@ -49,8 +49,8 @@ textarea {
 }
 
 .card {
-    padding: 15px;
-    margin: 30px;
+    padding: 5px;
+    margin: 0px;
     box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.01);
     transition: box-shadow 0.3s ease-in-out;
     cursor: pointer;
@@ -71,7 +71,7 @@ textarea {
 }
 
 .main-description {
-    font-size: 22px;
+    font-size: 15px;
     font-weight: 400;
     text-align: center;
 }

@@ -26,5 +26,12 @@ namespace form_1a.Models
         }
     
         public virtual DbSet<Form_1A> Form_1A { get; set; }
+        public virtual DbSet<form_1C> form_1C { get; set; }
+        public virtual DbSet<Form_2A> Form_2A { get; set; }
+        public virtual DbSet<form_2B> form_2B { get; set; }
+        public virtual DbSet<Form_3A> Form_3A { get; set; }
+        public virtual DbSet<form_3B> form_3B { get; set; }
+        public virtual DbSet<form_3C> form_3C { get; set; }
+        public virtual DbSet<Form_1B> Form_1B { get; set; }
     }
 }

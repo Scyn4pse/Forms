@@ -34,8 +34,177 @@
           <Property Name="or_no" Type="varchar" MaxLength="50" />
           <Property Name="date_paid" Type="date" />
         </EntityType>
+        <EntityType Name="Form_1B">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="entry" Type="date" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
+          <Property Name="date_of_birth" Type="date" />
+          <Property Name="father" Type="varchar" MaxLength="50" />
+          <Property Name="mother" Type="varchar" MaxLength="50" />
+          <Property Name="year" Type="varchar" MaxLength="50" />
+          <Property Name="issued_to" Type="varchar" MaxLength="50" />
+          <Property Name="officer_name" Type="varchar" MaxLength="50" />
+          <Property Name="officer_title" Type="varchar" MaxLength="50" />
+          <Property Name="verifier_name" Type="varchar" MaxLength="50" />
+          <Property Name="verifier_title" Type="varchar" MaxLength="50" />
+          <Property Name="payment" Type="varchar" MaxLength="50" />
+          <Property Name="or_no" Type="varchar" MaxLength="50" />
+          <Property Name="date_paid" Type="date" />
+        </EntityType>
+        <EntityType Name="form_1C">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="entry" Type="date" />
+          <Property Name="year" Type="varchar" MaxLength="50" />
+          <Property Name="month_year1" Type="varchar" MaxLength="50" />
+          <Property Name="month_year2" Type="varchar" MaxLength="50" />
+          <Property Name="reason" Type="varchar" MaxLength="50" />
+          <Property Name="name_of_person" Type="varchar" MaxLength="50" />
+          <Property Name="date_of_birth" Type="date" />
+          <Property Name="father_name" Type="varchar" MaxLength="50" />
+          <Property Name="mother_name" Type="varchar" MaxLength="50" />
+          <Property Name="issued_name" Type="varchar" MaxLength="50" />
+          <Property Name="officer_name" Type="varchar" MaxLength="50" />
+          <Property Name="officer_title" Type="varchar" MaxLength="50" />
+          <Property Name="verifier_name" Type="varchar" MaxLength="50" />
+          <Property Name="verifier_title" Type="varchar" MaxLength="50" />
+          <Property Name="payment" Type="varchar" MaxLength="50" />
+          <Property Name="or_no" Type="varchar" MaxLength="50" />
+          <Property Name="date_paid" Type="date" />
+        </EntityType>
+        <EntityType Name="Form_2A">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="entry" Type="date" />
+          <Property Name="page" Type="varchar" MaxLength="50" />
+          <Property Name="book" Type="varchar" MaxLength="50" />
+          <Property Name="lcr_reg_no" Type="varchar" MaxLength="50" />
+          <Property Name="date_of_reg" Type="date" />
+          <Property Name="death_name" Type="varchar" MaxLength="50" />
+          <Property Name="sex" Type="varchar" MaxLength="50" />
+          <Property Name="age" Type="varchar" MaxLength="50" />
+          <Property Name="civil_status" Type="varchar" MaxLength="50" />
+          <Property Name="citizenship" Type="varchar" MaxLength="50" />
+          <Property Name="date_of_death" Type="date" />
+          <Property Name="place_of_death" Type="varchar" MaxLength="50" />
+          <Property Name="cause_of_death" Type="varchar" MaxLength="50" />
+          <Property Name="issued_to" Type="varchar" MaxLength="50" />
+          <Property Name="officer_name" Type="varchar" MaxLength="50" />
+          <Property Name="officer_title" Type="varchar" MaxLength="50" />
+          <Property Name="verifier_name" Type="varchar" MaxLength="50" />
+          <Property Name="verifier_title" Type="varchar" MaxLength="50" />
+          <Property Name="payment" Type="varchar" MaxLength="50" />
+          <Property Name="or_no" Type="varchar" MaxLength="50" />
+          <Property Name="date_paid" Type="date" />
+        </EntityType>
+        <EntityType Name="form_2B">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="entry" Type="date" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
+          <Property Name="date_of_death" Type="date" />
+          <Property Name="year" Type="varchar" MaxLength="50" />
+          <Property Name="issued_name" Type="varchar" MaxLength="50" />
+          <Property Name="officer_name" Type="varchar" MaxLength="50" />
+          <Property Name="officer_title" Type="varchar" MaxLength="50" />
+          <Property Name="verifier_name" Type="varchar" MaxLength="50" />
+          <Property Name="verifier_title" Type="varchar" MaxLength="50" />
+          <Property Name="payment" Type="varchar" MaxLength="50" />
+          <Property Name="or_no" Type="varchar" MaxLength="50" />
+          <Property Name="date_paid" Type="date" />
+        </EntityType>
+        <EntityType Name="Form_3A">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="entry" Type="date" />
+          <Property Name="page" Type="varchar" MaxLength="50" />
+          <Property Name="book" Type="varchar" MaxLength="50" />
+          <Property Name="husband_name" Type="varchar" MaxLength="50" />
+          <Property Name="wife_name" Type="varchar" MaxLength="50" />
+          <Property Name="husband_age" Type="varchar" MaxLength="50" />
+          <Property Name="wife_age" Type="varchar" MaxLength="50" />
+          <Property Name="husband_citizenship" Type="varchar" MaxLength="50" />
+          <Property Name="wife_citizenship" Type="varchar" MaxLength="50" />
+          <Property Name="husband_civil_status" Type="varchar" MaxLength="50" />
+          <Property Name="wife_civil_status" Type="varchar" MaxLength="50" />
+          <Property Name="husband_father" Type="varchar" MaxLength="50" />
+          <Property Name="wife_father" Type="varchar" MaxLength="50" />
+          <Property Name="husband_mother" Type="varchar" MaxLength="50" />
+          <Property Name="wife_mother" Type="varchar" MaxLength="50" />
+          <Property Name="reg_no" Type="varchar" MaxLength="50" />
+          <Property Name="date_of_reg" Type="date" />
+          <Property Name="date_of_marriage" Type="date" />
+          <Property Name="place_of_marriage" Type="varchar" MaxLength="50" />
+          <Property Name="issued_to" Type="varchar" MaxLength="50" />
+          <Property Name="officer_name" Type="varchar" MaxLength="50" />
+          <Property Name="officer_title" Type="varchar" MaxLength="50" />
+          <Property Name="verifier_name" Type="varchar" MaxLength="50" />
+          <Property Name="verifier_title" Type="varchar" MaxLength="50" />
+          <Property Name="payment" Type="varchar" MaxLength="50" />
+          <Property Name="or_no" Type="varchar" MaxLength="50" />
+          <Property Name="date_paid" Type="date" />
+        </EntityType>
+        <EntityType Name="form_3B">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="entry" Type="date" />
+          <Property Name="husband_name" Type="varchar" MaxLength="50" />
+          <Property Name="wife_name" Type="varchar" MaxLength="50" />
+          <Property Name="date_of_marriage" Type="date" />
+          <Property Name="year" Type="varchar" MaxLength="50" />
+          <Property Name="issued_name" Type="varchar" MaxLength="50" />
+          <Property Name="officer_name" Type="varchar" MaxLength="50" />
+          <Property Name="officer_title" Type="varchar" MaxLength="50" />
+          <Property Name="verifier_name" Type="varchar" MaxLength="50" />
+          <Property Name="verifier_title" Type="varchar" MaxLength="50" />
+          <Property Name="payment" Type="varchar" MaxLength="50" />
+          <Property Name="or_no" Type="varchar" MaxLength="50" />
+          <Property Name="date_paid" Type="date" />
+        </EntityType>
+        <EntityType Name="form_3C">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="entry" Type="date" />
+          <Property Name="year" Type="varchar" MaxLength="50" />
+          <Property Name="month_year1" Type="varchar" MaxLength="50" />
+          <Property Name="month_year2" Type="varchar" MaxLength="50" />
+          <Property Name="reason" Type="varchar" MaxLength="50" />
+          <Property Name="husband_name" Type="varchar" MaxLength="50" />
+          <Property Name="wifre_name" Type="varchar" MaxLength="50" />
+          <Property Name="place_of_marriage" Type="varchar" MaxLength="50" />
+          <Property Name="issued_name" Type="varchar" MaxLength="50" />
+          <Property Name="officer_name" Type="varchar" MaxLength="50" />
+          <Property Name="officer_title" Type="varchar" MaxLength="50" />
+          <Property Name="verifier_name" Type="varchar" MaxLength="50" />
+          <Property Name="verifier_title" Type="varchar" MaxLength="50" />
+          <Property Name="payment" Type="varchar" MaxLength="50" />
+          <Property Name="or_no" Type="varchar" MaxLength="50" />
+          <Property Name="date_paid" Type="date" />
+        </EntityType>
         <EntityContainer Name="Form_1AModelStoreContainer">
           <EntitySet Name="Form_1A" EntityType="Self.Form_1A" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Form_1B" EntityType="Self.Form_1B" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="form_1C" EntityType="Self.form_1C" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Form_2A" EntityType="Self.Form_2A" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="form_2B" EntityType="Self.form_2B" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Form_3A" EntityType="Self.Form_3A" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="form_3B" EntityType="Self.form_3B" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="form_3C" EntityType="Self.form_3C" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -72,7 +241,176 @@
         </EntityType>
         <EntityContainer Name="Form_1AEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Form_1A" EntityType="Self.Form_1A" />
+          <EntitySet Name="form_1C" EntityType="Form_1AModel.form_1C" />
+          <EntitySet Name="Form_2A" EntityType="Form_1AModel.Form_2A" />
+          <EntitySet Name="form_2B" EntityType="Form_1AModel.form_2B" />
+          <EntitySet Name="Form_3A" EntityType="Form_1AModel.Form_3A" />
+          <EntitySet Name="form_3B" EntityType="Form_1AModel.form_3B" />
+          <EntitySet Name="form_3C" EntityType="Form_1AModel.form_3C" />
+          <EntitySet Name="Form_1B" EntityType="Form_1AModel.Form_1B" />
         </EntityContainer>
+        <EntityType Name="form_1C">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" />
+          <Property Name="entry" Type="DateTime" Precision="0" />
+          <Property Name="year" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="month_year1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="month_year2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="reason" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="name_of_person" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="date_of_birth" Type="DateTime" Precision="0" />
+          <Property Name="father_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="mother_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="issued_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="officer_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="officer_title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="verifier_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="verifier_title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="payment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="or_no" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="date_paid" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="Form_2A">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="entry" Type="DateTime" Precision="0" />
+          <Property Name="page" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="book" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="lcr_reg_no" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="date_of_reg" Type="DateTime" Precision="0" />
+          <Property Name="death_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="sex" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="age" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="civil_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="citizenship" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="date_of_death" Type="DateTime" Precision="0" />
+          <Property Name="place_of_death" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cause_of_death" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="issued_to" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="officer_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="officer_title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="verifier_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="verifier_title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="payment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="or_no" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="date_paid" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="form_2B">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" />
+          <Property Name="entry" Type="DateTime" Precision="0" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="date_of_death" Type="DateTime" Precision="0" />
+          <Property Name="year" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="issued_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="officer_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="officer_title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="verifier_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="verifier_title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="payment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="or_no" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="date_paid" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="Form_3A">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="entry" Type="DateTime" Precision="0" />
+          <Property Name="page" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="book" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="husband_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="wife_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="husband_age" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="wife_age" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="husband_citizenship" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="wife_citizenship" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="husband_civil_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="wife_civil_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="husband_father" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="wife_father" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="husband_mother" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="wife_mother" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="reg_no" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="date_of_reg" Type="DateTime" Precision="0" />
+          <Property Name="date_of_marriage" Type="DateTime" Precision="0" />
+          <Property Name="place_of_marriage" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="issued_to" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="officer_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="officer_title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="verifier_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="verifier_title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="payment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="or_no" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="date_paid" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="form_3B">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" />
+          <Property Name="entry" Type="DateTime" Precision="0" />
+          <Property Name="husband_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="wife_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="date_of_marriage" Type="DateTime" Precision="0" />
+          <Property Name="year" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="issued_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="officer_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="officer_title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="verifier_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="verifier_title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="payment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="or_no" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="date_paid" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="form_3C">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" />
+          <Property Name="entry" Type="DateTime" Precision="0" />
+          <Property Name="year" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="month_year1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="month_year2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="reason" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="husband_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="wifre_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="place_of_marriage" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="issued_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="officer_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="officer_title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="verifier_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="verifier_title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="payment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="or_no" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="date_paid" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="Form_1B">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="entry" Type="DateTime" Precision="0" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="date_of_birth" Type="DateTime" Precision="0" />
+          <Property Name="father" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="mother" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="year" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="issued_to" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="officer_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="officer_title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="verifier_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="verifier_title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="payment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="or_no" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="date_paid" Type="DateTime" Precision="0" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -106,6 +444,175 @@
                 <ScalarProperty Name="payment" ColumnName="payment" />
                 <ScalarProperty Name="or_no" ColumnName="or_no" />
                 <ScalarProperty Name="date_paid" ColumnName="date_paid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="form_1C">
+            <EntityTypeMapping TypeName="Form_1AModel.form_1C">
+              <MappingFragment StoreEntitySet="form_1C">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="date_paid" ColumnName="date_paid" />
+                <ScalarProperty Name="or_no" ColumnName="or_no" />
+                <ScalarProperty Name="payment" ColumnName="payment" />
+                <ScalarProperty Name="verifier_title" ColumnName="verifier_title" />
+                <ScalarProperty Name="verifier_name" ColumnName="verifier_name" />
+                <ScalarProperty Name="officer_title" ColumnName="officer_title" />
+                <ScalarProperty Name="officer_name" ColumnName="officer_name" />
+                <ScalarProperty Name="issued_name" ColumnName="issued_name" />
+                <ScalarProperty Name="mother_name" ColumnName="mother_name" />
+                <ScalarProperty Name="father_name" ColumnName="father_name" />
+                <ScalarProperty Name="date_of_birth" ColumnName="date_of_birth" />
+                <ScalarProperty Name="name_of_person" ColumnName="name_of_person" />
+                <ScalarProperty Name="reason" ColumnName="reason" />
+                <ScalarProperty Name="month_year2" ColumnName="month_year2" />
+                <ScalarProperty Name="month_year1" ColumnName="month_year1" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="entry" ColumnName="entry" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Form_2A">
+            <EntityTypeMapping TypeName="Form_1AModel.Form_2A">
+              <MappingFragment StoreEntitySet="Form_2A">
+                <ScalarProperty Name="date_paid" ColumnName="date_paid" />
+                <ScalarProperty Name="or_no" ColumnName="or_no" />
+                <ScalarProperty Name="payment" ColumnName="payment" />
+                <ScalarProperty Name="verifier_title" ColumnName="verifier_title" />
+                <ScalarProperty Name="verifier_name" ColumnName="verifier_name" />
+                <ScalarProperty Name="officer_title" ColumnName="officer_title" />
+                <ScalarProperty Name="officer_name" ColumnName="officer_name" />
+                <ScalarProperty Name="issued_to" ColumnName="issued_to" />
+                <ScalarProperty Name="cause_of_death" ColumnName="cause_of_death" />
+                <ScalarProperty Name="place_of_death" ColumnName="place_of_death" />
+                <ScalarProperty Name="date_of_death" ColumnName="date_of_death" />
+                <ScalarProperty Name="citizenship" ColumnName="citizenship" />
+                <ScalarProperty Name="civil_status" ColumnName="civil_status" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="sex" ColumnName="sex" />
+                <ScalarProperty Name="death_name" ColumnName="death_name" />
+                <ScalarProperty Name="date_of_reg" ColumnName="date_of_reg" />
+                <ScalarProperty Name="lcr_reg_no" ColumnName="lcr_reg_no" />
+                <ScalarProperty Name="book" ColumnName="book" />
+                <ScalarProperty Name="page" ColumnName="page" />
+                <ScalarProperty Name="entry" ColumnName="entry" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="form_2B">
+            <EntityTypeMapping TypeName="Form_1AModel.form_2B">
+              <MappingFragment StoreEntitySet="form_2B">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="date_paid" ColumnName="date_paid" />
+                <ScalarProperty Name="or_no" ColumnName="or_no" />
+                <ScalarProperty Name="payment" ColumnName="payment" />
+                <ScalarProperty Name="verifier_title" ColumnName="verifier_title" />
+                <ScalarProperty Name="verifier_name" ColumnName="verifier_name" />
+                <ScalarProperty Name="officer_title" ColumnName="officer_title" />
+                <ScalarProperty Name="officer_name" ColumnName="officer_name" />
+                <ScalarProperty Name="issued_name" ColumnName="issued_name" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="date_of_death" ColumnName="date_of_death" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="entry" ColumnName="entry" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Form_3A">
+            <EntityTypeMapping TypeName="Form_1AModel.Form_3A">
+              <MappingFragment StoreEntitySet="Form_3A">
+                <ScalarProperty Name="date_paid" ColumnName="date_paid" />
+                <ScalarProperty Name="or_no" ColumnName="or_no" />
+                <ScalarProperty Name="payment" ColumnName="payment" />
+                <ScalarProperty Name="verifier_title" ColumnName="verifier_title" />
+                <ScalarProperty Name="verifier_name" ColumnName="verifier_name" />
+                <ScalarProperty Name="officer_title" ColumnName="officer_title" />
+                <ScalarProperty Name="officer_name" ColumnName="officer_name" />
+                <ScalarProperty Name="issued_to" ColumnName="issued_to" />
+                <ScalarProperty Name="place_of_marriage" ColumnName="place_of_marriage" />
+                <ScalarProperty Name="date_of_marriage" ColumnName="date_of_marriage" />
+                <ScalarProperty Name="date_of_reg" ColumnName="date_of_reg" />
+                <ScalarProperty Name="reg_no" ColumnName="reg_no" />
+                <ScalarProperty Name="wife_mother" ColumnName="wife_mother" />
+                <ScalarProperty Name="husband_mother" ColumnName="husband_mother" />
+                <ScalarProperty Name="wife_father" ColumnName="wife_father" />
+                <ScalarProperty Name="husband_father" ColumnName="husband_father" />
+                <ScalarProperty Name="wife_civil_status" ColumnName="wife_civil_status" />
+                <ScalarProperty Name="husband_civil_status" ColumnName="husband_civil_status" />
+                <ScalarProperty Name="wife_citizenship" ColumnName="wife_citizenship" />
+                <ScalarProperty Name="husband_citizenship" ColumnName="husband_citizenship" />
+                <ScalarProperty Name="wife_age" ColumnName="wife_age" />
+                <ScalarProperty Name="husband_age" ColumnName="husband_age" />
+                <ScalarProperty Name="wife_name" ColumnName="wife_name" />
+                <ScalarProperty Name="husband_name" ColumnName="husband_name" />
+                <ScalarProperty Name="book" ColumnName="book" />
+                <ScalarProperty Name="page" ColumnName="page" />
+                <ScalarProperty Name="entry" ColumnName="entry" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="form_3B">
+            <EntityTypeMapping TypeName="Form_1AModel.form_3B">
+              <MappingFragment StoreEntitySet="form_3B">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="date_paid" ColumnName="date_paid" />
+                <ScalarProperty Name="or_no" ColumnName="or_no" />
+                <ScalarProperty Name="payment" ColumnName="payment" />
+                <ScalarProperty Name="verifier_title" ColumnName="verifier_title" />
+                <ScalarProperty Name="verifier_name" ColumnName="verifier_name" />
+                <ScalarProperty Name="officer_title" ColumnName="officer_title" />
+                <ScalarProperty Name="officer_name" ColumnName="officer_name" />
+                <ScalarProperty Name="issued_name" ColumnName="issued_name" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="date_of_marriage" ColumnName="date_of_marriage" />
+                <ScalarProperty Name="wife_name" ColumnName="wife_name" />
+                <ScalarProperty Name="husband_name" ColumnName="husband_name" />
+                <ScalarProperty Name="entry" ColumnName="entry" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="form_3C">
+            <EntityTypeMapping TypeName="Form_1AModel.form_3C">
+              <MappingFragment StoreEntitySet="form_3C">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="date_paid" ColumnName="date_paid" />
+                <ScalarProperty Name="or_no" ColumnName="or_no" />
+                <ScalarProperty Name="payment" ColumnName="payment" />
+                <ScalarProperty Name="verifier_title" ColumnName="verifier_title" />
+                <ScalarProperty Name="verifier_name" ColumnName="verifier_name" />
+                <ScalarProperty Name="officer_title" ColumnName="officer_title" />
+                <ScalarProperty Name="officer_name" ColumnName="officer_name" />
+                <ScalarProperty Name="issued_name" ColumnName="issued_name" />
+                <ScalarProperty Name="place_of_marriage" ColumnName="place_of_marriage" />
+                <ScalarProperty Name="wifre_name" ColumnName="wifre_name" />
+                <ScalarProperty Name="husband_name" ColumnName="husband_name" />
+                <ScalarProperty Name="reason" ColumnName="reason" />
+                <ScalarProperty Name="month_year2" ColumnName="month_year2" />
+                <ScalarProperty Name="month_year1" ColumnName="month_year1" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="entry" ColumnName="entry" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Form_1B">
+            <EntityTypeMapping TypeName="Form_1AModel.Form_1B">
+              <MappingFragment StoreEntitySet="Form_1B">
+                <ScalarProperty Name="date_paid" ColumnName="date_paid" />
+                <ScalarProperty Name="or_no" ColumnName="or_no" />
+                <ScalarProperty Name="payment" ColumnName="payment" />
+                <ScalarProperty Name="verifier_title" ColumnName="verifier_title" />
+                <ScalarProperty Name="verifier_name" ColumnName="verifier_name" />
+                <ScalarProperty Name="officer_title" ColumnName="officer_title" />
+                <ScalarProperty Name="officer_name" ColumnName="officer_name" />
+                <ScalarProperty Name="issued_to" ColumnName="issued_to" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="mother" ColumnName="mother" />
+                <ScalarProperty Name="father" ColumnName="father" />
+                <ScalarProperty Name="date_of_birth" ColumnName="date_of_birth" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="entry" ColumnName="entry" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
