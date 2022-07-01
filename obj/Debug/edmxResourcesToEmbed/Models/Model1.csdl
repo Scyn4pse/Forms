@@ -31,5 +31,174 @@
   </EntityType>
   <EntityContainer Name="Form_1AEntities1" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Form_1A" EntityType="Self.Form_1A" />
+    <EntitySet Name="form_1C" EntityType="Form_1AModel.form_1C" />
+    <EntitySet Name="Form_2A" EntityType="Form_1AModel.Form_2A" />
+    <EntitySet Name="form_2B" EntityType="Form_1AModel.form_2B" />
+    <EntitySet Name="Form_3A" EntityType="Form_1AModel.Form_3A" />
+    <EntitySet Name="form_3B" EntityType="Form_1AModel.form_3B" />
+    <EntitySet Name="form_3C" EntityType="Form_1AModel.form_3C" />
+    <EntitySet Name="Form_1B" EntityType="Form_1AModel.Form_1B" />
   </EntityContainer>
+  <EntityType Name="form_1C">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" />
+    <Property Name="entry" Type="DateTime" Precision="0" />
+    <Property Name="year" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="month_year1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="month_year2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="reason" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="name_of_person" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="date_of_birth" Type="DateTime" Precision="0" />
+    <Property Name="father_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="mother_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="issued_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="officer_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="officer_title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="verifier_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="verifier_title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="payment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="or_no" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="date_paid" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="Form_2A">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="entry" Type="DateTime" Precision="0" />
+    <Property Name="page" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="book" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="lcr_reg_no" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="date_of_reg" Type="DateTime" Precision="0" />
+    <Property Name="death_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="sex" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="age" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="civil_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="citizenship" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="date_of_death" Type="DateTime" Precision="0" />
+    <Property Name="place_of_death" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="cause_of_death" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="issued_to" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="officer_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="officer_title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="verifier_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="verifier_title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="payment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="or_no" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="date_paid" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="form_2B">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" />
+    <Property Name="entry" Type="DateTime" Precision="0" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="date_of_death" Type="DateTime" Precision="0" />
+    <Property Name="year" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="issued_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="officer_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="officer_title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="verifier_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="verifier_title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="payment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="or_no" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="date_paid" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="Form_3A">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="entry" Type="DateTime" Precision="0" />
+    <Property Name="page" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="book" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="husband_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="wife_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="husband_age" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="wife_age" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="husband_citizenship" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="wife_citizenship" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="husband_civil_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="wife_civil_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="husband_father" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="wife_father" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="husband_mother" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="wife_mother" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="reg_no" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="date_of_reg" Type="DateTime" Precision="0" />
+    <Property Name="date_of_marriage" Type="DateTime" Precision="0" />
+    <Property Name="place_of_marriage" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="issued_to" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="officer_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="officer_title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="verifier_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="verifier_title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="payment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="or_no" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="date_paid" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="form_3B">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" />
+    <Property Name="entry" Type="DateTime" Precision="0" />
+    <Property Name="husband_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="wife_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="date_of_marriage" Type="DateTime" Precision="0" />
+    <Property Name="year" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="issued_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="officer_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="officer_title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="verifier_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="verifier_title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="payment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="or_no" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="date_paid" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="form_3C">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" />
+    <Property Name="entry" Type="DateTime" Precision="0" />
+    <Property Name="year" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="month_year1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="month_year2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="reason" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="husband_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="wifre_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="place_of_marriage" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="issued_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="officer_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="officer_title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="verifier_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="verifier_title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="payment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="or_no" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="date_paid" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="Form_1B">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="entry" Type="DateTime" Precision="0" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="date_of_birth" Type="DateTime" Precision="0" />
+    <Property Name="father" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="mother" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="year" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="issued_to" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="officer_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="officer_title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="verifier_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="verifier_title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="payment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="or_no" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="date_paid" Type="DateTime" Precision="0" />
+  </EntityType>
 </Schema>

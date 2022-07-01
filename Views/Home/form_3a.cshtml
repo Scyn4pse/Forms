@@ -1,6 +1,5 @@
-﻿@model form_1a.Models.Form_1A
-@{
-    ViewBag.Title = "form_1a";
+﻿@{
+    ViewBag.Title = "form_3a";
     Layout = null;
 }
 
@@ -16,7 +15,8 @@
     <link href="~/Content/Site.css" rel="stylesheet" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
+    @*<meta name="viewport" content="width=device-width" />
+        <link href="~/Content/bootstrap.min.css" rel="stylesheet" />*@
 </head>
 
 <body>
@@ -36,8 +36,8 @@
 
                 <div class="col-md-12">
                     <br />
-                    <p class="h3"><strong>Civil Registry Form No. 1A</strong></p>
-                    <p class="h4">(Birth Available)</p>
+                    <p class="h3"><strong>Civil Registry Form No. 3A</strong></p>
+                    <p class="h4">(Marriage Available)</p>
                     <br />
                 </div>
 
@@ -48,35 +48,35 @@
                             <p class="h4"><strong>Transaction Details</strong></p><br />
                             <div class="form-group">
                                 <label>Issued To</label>
-                                @Html.TextBoxFor(model => model.issued_to, new { @class = "form-control", @placeholder = "Issued To" })
+                                <input type="text" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label>Officer Name</label>
-                                @Html.TextBoxFor(model => model.officer_name, new { @class = "form-control", @placeholder = "Officer Name" })
+                                <input type="text" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label>Officer Title</label>
-                                @Html.TextBoxFor(model => model.officer_title, new { @class = "form-control", @placeholder = "Officer Title" })
+                                <input type="text" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label>Verifier Name</label>
-                                @Html.TextBoxFor(model => model.verifier_name, new { @class = "form-control", @placeholder = "Verifier Name" })
+                                <input type="text" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label>Verifier Title</label>
-                                @Html.TextBoxFor(model => model.verifier_title, new { @class = "form-control", @placeholder = "Verifier Title" })
+                                <input type="text" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label>Amount Paid</label>
-                                @Html.TextBoxFor(model => model.payment, new { @class = "form-control", @placeholder = "Payment" })
+                                <input type="text" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label>O.R. Number</label>
-                                @Html.TextBoxFor(model => model.or_no, new { @class = "form-control", @placeholder = "OR Number" })
+                                <input type="text" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label>Date Paid</label>
-                                @Html.TextBoxFor(model => model.date_paid, new { @class = "datepicker form-control", @placeholder = "Date Paid", @id = "date_paid" })
+                                <input type="text" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -86,63 +86,75 @@
                             <p class="h4"><strong>Form Details</strong></p><br />
                             <div class="col-md-12 form-group">
                                 <label>Date</label>
-                                @Html.TextBoxFor(model => model.entry, new { @class = "form-control datepicker", @id = "entry" })
+                                <input type="text" class="form-control">
                             </div>
                             <div class="col-md-6 form-group">
                                 <label>Page</label>
-                                @Html.TextBoxFor(model => model.page, new { @class = "form-control", @placeholder = "Page Number" })
+                                <input type="text" class="form-control">
                             </div>
                             <div class="col-md-6 form-group">
                                 <label>Book Number</label>
-                                @Html.TextBoxFor(model => model.book, new { @class = "form-control", @placeholder = "Book Number" })
+                                <input type="text" class="form-control">
                             </div>
                             <div class="col-md-6 form-group">
-                                <label>LCR Registry Number</label>
-                                @Html.TextBoxFor(model => model.lcr_reg_no, new { @class = "form-control", @placeholder = "LCR Registration Number" })
+                                <label>Name of Husband</label>
+                                <input type="text" class="form-control">
                             </div>
                             <div class="col-md-6 form-group">
+                                <label>Name of Wife</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Age of Husband</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Age of Wife</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Citizenship of Husband</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Citizenship of Wife</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Civil Status of Husband</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Civil Status of Wife</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Father of Husband</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Father of Wife</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Mother of Husband</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Mother of Wife</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-md-12 form-group">
                                 <label>Date of Registration</label>
-                                @Html.TextBoxFor(model => model.date_of_reg, new { @class = "datepicker form-control", @placeholder = "Date of Registration", @id = "date_of_reg" })
+                                <input type="text" class="form-control">
                             </div>
                             <div class="col-md-6 form-group">
-                                <label>Name of Child</label>
-                                @Html.TextBoxFor(model => model.name_child, new { @class = "form-control", @placeholder = "Name of Child" })
+                                <label>Date of Marriage</label>
+                                <input type="text" class="form-control">
                             </div>
                             <div class="col-md-6 form-group">
-                                <label>Sex</label>
-                                @Html.TextBoxFor(model => model.sex, new { @class = "form-control", @placeholder = "Sex" })
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label>Date of Birth</label>
-                                @Html.TextBoxFor(model => model.date_of_birth, new { @class = "datepicker form-control", @placeholder = "Date of Birth", @id = "date_of_birth" })
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label>Place of Birth</label>
-                                @Html.TextBoxFor(model => model.place_of_birth, new { @class = "form-control", @placeholder = "Place of Birth" })
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label>Name of Mother</label>
-                                @Html.TextBoxFor(model => model.name_of_mother, new { @class = "form-control", @placeholder = "Name of Mother" })
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label>Citizenship of Mother</label>
-                                @Html.TextBoxFor(model => model.citizenship_of_mother, new { @class = "form-control", @placeholder = "Citizenship of Mother" })
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label>Name of Father</label>
-                                @Html.TextBoxFor(model => model.name_of_father, new { @class = "form-control", @placeholder = "Name of Father" })
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label>Citizenship of Father</label>
-                                @Html.TextBoxFor(model => model.citizenship_of_father, new { @class = "form-control", @placeholder = "Citizenship of Father" })
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label>Date of Marriage of Parents</label>
-                                @Html.TextBoxFor(model => model.date_of_marriage_of_parents, new { @class = "datepicker form-control", @placeholder = "Date of Marriage of Parents", @id = "date_of_marriage_of_parents" })
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label>Place of Marriage of Father</label>
-                                @Html.TextBoxFor(model => model.place_of_marriage_of_parents, new { @class = "form-control", @placeholder = "Place of Marriage of Parents" })
+                                <label>Place of Marriage</label>
+                                <input type="text" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -179,7 +191,7 @@
             inline: true,
         };
 
-        $('.datepicker').datepicker(optSimple);
+        $('#entry').datepicker(optSimple);
         $('#entry').datepicker('setDate', today);
 
         $(document).ready(function () {

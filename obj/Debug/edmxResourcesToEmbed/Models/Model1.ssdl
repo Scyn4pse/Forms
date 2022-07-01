@@ -29,7 +29,176 @@
     <Property Name="or_no" Type="varchar" MaxLength="50" />
     <Property Name="date_paid" Type="date" />
   </EntityType>
+  <EntityType Name="Form_1B">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="entry" Type="date" />
+    <Property Name="name" Type="varchar" MaxLength="50" />
+    <Property Name="date_of_birth" Type="date" />
+    <Property Name="father" Type="varchar" MaxLength="50" />
+    <Property Name="mother" Type="varchar" MaxLength="50" />
+    <Property Name="year" Type="varchar" MaxLength="50" />
+    <Property Name="issued_to" Type="varchar" MaxLength="50" />
+    <Property Name="officer_name" Type="varchar" MaxLength="50" />
+    <Property Name="officer_title" Type="varchar" MaxLength="50" />
+    <Property Name="verifier_name" Type="varchar" MaxLength="50" />
+    <Property Name="verifier_title" Type="varchar" MaxLength="50" />
+    <Property Name="payment" Type="varchar" MaxLength="50" />
+    <Property Name="or_no" Type="varchar" MaxLength="50" />
+    <Property Name="date_paid" Type="date" />
+  </EntityType>
+  <EntityType Name="form_1C">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="entry" Type="date" />
+    <Property Name="year" Type="varchar" MaxLength="50" />
+    <Property Name="month_year1" Type="varchar" MaxLength="50" />
+    <Property Name="month_year2" Type="varchar" MaxLength="50" />
+    <Property Name="reason" Type="varchar" MaxLength="50" />
+    <Property Name="name_of_person" Type="varchar" MaxLength="50" />
+    <Property Name="date_of_birth" Type="date" />
+    <Property Name="father_name" Type="varchar" MaxLength="50" />
+    <Property Name="mother_name" Type="varchar" MaxLength="50" />
+    <Property Name="issued_name" Type="varchar" MaxLength="50" />
+    <Property Name="officer_name" Type="varchar" MaxLength="50" />
+    <Property Name="officer_title" Type="varchar" MaxLength="50" />
+    <Property Name="verifier_name" Type="varchar" MaxLength="50" />
+    <Property Name="verifier_title" Type="varchar" MaxLength="50" />
+    <Property Name="payment" Type="varchar" MaxLength="50" />
+    <Property Name="or_no" Type="varchar" MaxLength="50" />
+    <Property Name="date_paid" Type="date" />
+  </EntityType>
+  <EntityType Name="Form_2A">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="entry" Type="date" />
+    <Property Name="page" Type="varchar" MaxLength="50" />
+    <Property Name="book" Type="varchar" MaxLength="50" />
+    <Property Name="lcr_reg_no" Type="varchar" MaxLength="50" />
+    <Property Name="date_of_reg" Type="date" />
+    <Property Name="death_name" Type="varchar" MaxLength="50" />
+    <Property Name="sex" Type="varchar" MaxLength="50" />
+    <Property Name="age" Type="varchar" MaxLength="50" />
+    <Property Name="civil_status" Type="varchar" MaxLength="50" />
+    <Property Name="citizenship" Type="varchar" MaxLength="50" />
+    <Property Name="date_of_death" Type="date" />
+    <Property Name="place_of_death" Type="varchar" MaxLength="50" />
+    <Property Name="cause_of_death" Type="varchar" MaxLength="50" />
+    <Property Name="issued_to" Type="varchar" MaxLength="50" />
+    <Property Name="officer_name" Type="varchar" MaxLength="50" />
+    <Property Name="officer_title" Type="varchar" MaxLength="50" />
+    <Property Name="verifier_name" Type="varchar" MaxLength="50" />
+    <Property Name="verifier_title" Type="varchar" MaxLength="50" />
+    <Property Name="payment" Type="varchar" MaxLength="50" />
+    <Property Name="or_no" Type="varchar" MaxLength="50" />
+    <Property Name="date_paid" Type="date" />
+  </EntityType>
+  <EntityType Name="form_2B">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="entry" Type="date" />
+    <Property Name="name" Type="varchar" MaxLength="50" />
+    <Property Name="date_of_death" Type="date" />
+    <Property Name="year" Type="varchar" MaxLength="50" />
+    <Property Name="issued_name" Type="varchar" MaxLength="50" />
+    <Property Name="officer_name" Type="varchar" MaxLength="50" />
+    <Property Name="officer_title" Type="varchar" MaxLength="50" />
+    <Property Name="verifier_name" Type="varchar" MaxLength="50" />
+    <Property Name="verifier_title" Type="varchar" MaxLength="50" />
+    <Property Name="payment" Type="varchar" MaxLength="50" />
+    <Property Name="or_no" Type="varchar" MaxLength="50" />
+    <Property Name="date_paid" Type="date" />
+  </EntityType>
+  <EntityType Name="Form_3A">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="entry" Type="date" />
+    <Property Name="page" Type="varchar" MaxLength="50" />
+    <Property Name="book" Type="varchar" MaxLength="50" />
+    <Property Name="husband_name" Type="varchar" MaxLength="50" />
+    <Property Name="wife_name" Type="varchar" MaxLength="50" />
+    <Property Name="husband_age" Type="varchar" MaxLength="50" />
+    <Property Name="wife_age" Type="varchar" MaxLength="50" />
+    <Property Name="husband_citizenship" Type="varchar" MaxLength="50" />
+    <Property Name="wife_citizenship" Type="varchar" MaxLength="50" />
+    <Property Name="husband_civil_status" Type="varchar" MaxLength="50" />
+    <Property Name="wife_civil_status" Type="varchar" MaxLength="50" />
+    <Property Name="husband_father" Type="varchar" MaxLength="50" />
+    <Property Name="wife_father" Type="varchar" MaxLength="50" />
+    <Property Name="husband_mother" Type="varchar" MaxLength="50" />
+    <Property Name="wife_mother" Type="varchar" MaxLength="50" />
+    <Property Name="reg_no" Type="varchar" MaxLength="50" />
+    <Property Name="date_of_reg" Type="date" />
+    <Property Name="date_of_marriage" Type="date" />
+    <Property Name="place_of_marriage" Type="varchar" MaxLength="50" />
+    <Property Name="issued_to" Type="varchar" MaxLength="50" />
+    <Property Name="officer_name" Type="varchar" MaxLength="50" />
+    <Property Name="officer_title" Type="varchar" MaxLength="50" />
+    <Property Name="verifier_name" Type="varchar" MaxLength="50" />
+    <Property Name="verifier_title" Type="varchar" MaxLength="50" />
+    <Property Name="payment" Type="varchar" MaxLength="50" />
+    <Property Name="or_no" Type="varchar" MaxLength="50" />
+    <Property Name="date_paid" Type="date" />
+  </EntityType>
+  <EntityType Name="form_3B">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="entry" Type="date" />
+    <Property Name="husband_name" Type="varchar" MaxLength="50" />
+    <Property Name="wife_name" Type="varchar" MaxLength="50" />
+    <Property Name="date_of_marriage" Type="date" />
+    <Property Name="year" Type="varchar" MaxLength="50" />
+    <Property Name="issued_name" Type="varchar" MaxLength="50" />
+    <Property Name="officer_name" Type="varchar" MaxLength="50" />
+    <Property Name="officer_title" Type="varchar" MaxLength="50" />
+    <Property Name="verifier_name" Type="varchar" MaxLength="50" />
+    <Property Name="verifier_title" Type="varchar" MaxLength="50" />
+    <Property Name="payment" Type="varchar" MaxLength="50" />
+    <Property Name="or_no" Type="varchar" MaxLength="50" />
+    <Property Name="date_paid" Type="date" />
+  </EntityType>
+  <EntityType Name="form_3C">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="entry" Type="date" />
+    <Property Name="year" Type="varchar" MaxLength="50" />
+    <Property Name="month_year1" Type="varchar" MaxLength="50" />
+    <Property Name="month_year2" Type="varchar" MaxLength="50" />
+    <Property Name="reason" Type="varchar" MaxLength="50" />
+    <Property Name="husband_name" Type="varchar" MaxLength="50" />
+    <Property Name="wifre_name" Type="varchar" MaxLength="50" />
+    <Property Name="place_of_marriage" Type="varchar" MaxLength="50" />
+    <Property Name="issued_name" Type="varchar" MaxLength="50" />
+    <Property Name="officer_name" Type="varchar" MaxLength="50" />
+    <Property Name="officer_title" Type="varchar" MaxLength="50" />
+    <Property Name="verifier_name" Type="varchar" MaxLength="50" />
+    <Property Name="verifier_title" Type="varchar" MaxLength="50" />
+    <Property Name="payment" Type="varchar" MaxLength="50" />
+    <Property Name="or_no" Type="varchar" MaxLength="50" />
+    <Property Name="date_paid" Type="date" />
+  </EntityType>
   <EntityContainer Name="Form_1AModelStoreContainer">
     <EntitySet Name="Form_1A" EntityType="Self.Form_1A" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Form_1B" EntityType="Self.Form_1B" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="form_1C" EntityType="Self.form_1C" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Form_2A" EntityType="Self.Form_2A" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="form_2B" EntityType="Self.form_2B" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Form_3A" EntityType="Self.Form_3A" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="form_3B" EntityType="Self.form_3B" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="form_3C" EntityType="Self.form_3C" Schema="dbo" store:Type="Tables" />
   </EntityContainer>
 </Schema>

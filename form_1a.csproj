@@ -129,6 +129,27 @@
     <Compile Include="Models\Form_1A.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Form_1B.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\form_1C.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Form_2A.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\form_2B.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Form_3A.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\form_3B.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\form_3C.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -203,6 +224,13 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\form_1a.cshtml" />
+    <Content Include="Views\Home\Form_1b.cshtml" />
+    <Content Include="Views\Home\Form_1c.cshtml" />
+    <Content Include="Views\Home\Form_2a.cshtml" />
+    <Content Include="Views\Home\Form_2b.cshtml" />
+    <Content Include="Views\Home\form_3a.cshtml" />
+    <Content Include="Views\Home\form_3b.cshtml" />
+    <Content Include="Views\Home\form_3c.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

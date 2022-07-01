@@ -17,19 +17,6 @@ namespace form_1a.Controllers
             return View();
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
         public ActionResult Form_1a()
         {
             return View();
@@ -84,6 +71,74 @@ namespace form_1a.Controllers
             return View(model);
         }
 
+        public ActionResult Form_1b()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Form_1b(Form_1B model)
+        {
+            try
+            {
+                //Form_1BEntities1 db = new Form_1BEntities1();
+
+                Form_1B form = new Form_1B
+                {
+                    entry = model.entry,
+                    name = model.name,
+                    date_of_birth = model.date_of_birth,
+                    father = model.father,
+                    mother = model.mother,
+                    year = model.year,
+                    issued_to = model.issued_to,
+                    officer_name = model.officer_name,
+                    officer_title = model.officer_title,
+                    verifier_name = model.verifier_name,
+                    verifier_title = model.verifier_title,
+                    payment = model.payment,
+                    or_no = model.or_no,
+                    date_paid = model.date_paid
+                };
+
+                //db.Form_1B.Add(form);
+                //db.SaveChanges();
+
+                int latestId = form.Id;
+
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return View(model);
+        }
+
+        public ActionResult Form_1c()
+        {
+            return View();
+        }
+        public ActionResult Form_2a()
+        {
+            return View();
+        }
+        public ActionResult Form_2b()
+        {
+            return View();
+        }
+        public ActionResult Form_3a()
+        {
+            return View();
+        }
+        public ActionResult Form_3b()
+        {
+            return View();
+        }
+        public ActionResult Form_3c()
+        {
+            return View();
+        }
         //
         //public ActionResult SaveEntry(string lcrno, string regdate, string childname,string sex, string dateofbirth, string placeofbirth, string mothername, string mothercship, string fathername, string fathercship, string dateofmrg, string placeofmrg, string issuedto, string officername, string officertitle, string verifiername, string verifiertitle, string payment, string orno, string datepaid)
         //{
@@ -109,11 +164,11 @@ namespace form_1a.Controllers
 
 
         //}
-        
+
         //public ActionResult SaveRecord(Form_1A model)
         //{
-            
-            
+
+
         //}
 
 
