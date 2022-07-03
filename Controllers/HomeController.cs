@@ -11,7 +11,8 @@ namespace form_1a.Controllers
 {
     public class HomeController : Controller
     {
-       
+        Form_1AEntities1 db = new Form_1AEntities1();
+
         public ActionResult Index()
         {
             return View();
@@ -28,8 +29,6 @@ namespace form_1a.Controllers
         {
             try
             {
-                Form_1AEntities1 db = new Form_1AEntities1();
-
                 Form_1A form = new Form_1A
                 {
                     page = model.page,
@@ -80,9 +79,7 @@ namespace form_1a.Controllers
         public ActionResult Form_1b(Form_1B model)
         {
             try
-            {
-                //Form_1BEntities1 db = new Form_1BEntities1();
-
+            { 
                 Form_1B form = new Form_1B
                 {
                     entry = model.entry,
@@ -101,8 +98,8 @@ namespace form_1a.Controllers
                     date_paid = model.date_paid
                 };
 
-                //db.Form_1B.Add(form);
-                //db.SaveChanges();
+                db.Form_1B.Add(form);
+                db.SaveChanges();
 
                 int latestId = form.Id;
 
