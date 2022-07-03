@@ -1,0 +1,89 @@
+<html>
+<head>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <h3>Search Item</h3>
+    <div class="container-fluid">
+        <div class="col-sm-2">
+            <label>Select Search By</label>
+            <select class="form-control" id="selType">
+                <option value="lcrno" selected>LCR No.</option>
+                <option value="chname">Child's Name</option>
+                <option value="mothname">Mother's Name</option>
+                <option value="fathname">Father's Name</option>
+
+            </select>
+        </div>
+        <div class="col-sm-8">
+            <label>Enter Search Item</label>
+            <input type="text" class="form-control" placeholder="search item" id="searchItem" />
+        </div>
+        <div class="col-sm-2">
+            <label>&nbsp;</label>
+            <input type="button" class="form-control btn btn-primary" value="Search" id="btnSearch" />
+        </div>
+    </div>
+    <br/>
+    <div id="divResult" class="col-lg-12">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>LCR No.</th>
+                    <th>Child's Name</th>
+                    <th>Mother's Name</th>
+                    <th>Father's Name</th>
+                    <th>Date Reg</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="bodyContents">
+
+            </tbody>
+        </table>
+    </div>
+</body>
+
+
+</html>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+    $('#btnSearch').click(function () {
+        var selType = $('#selType').val();
+        var searchItem = $('#searchItem').val();
+        var htmls = "";
+        $('#bodyContents').html('');
+
+        if (searchItem != "") {
+            $.ajax({
+                url: '/Home/SearchThis',
+                type: 'get',
+                data: { selType: selType, searchItem: searchItem },
+                success: function (data) {
+                    if (data != "0") {
+                        $.each(data, function (a, b) {
+                            htmls = '<tr><td>' + b.lcr_reg_no + '</td><td>' + b.name_child + '</td><td>' + b.name_of_mother + '</td><td>' + b.name_of_father + '</td><td>' + b.date_of_reg + '</td><td><input class="btn btn-primary" onclick="ViewPDF(\'' + b.lcr_reg_no + '\')" id="btnViewPDF" type="button" value="View PDF" />&nbsp;<input class="btn btn-primary" type="button" value="Edit"  onclick="EditItem(\'' + b.lcr_reg_no + '\')"  /></td></tr>';
+                            $('#bodyContents').append(htmls);
+                        });
+                        
+                    } else {
+                        alert("No Record Found!");
+                    }
+
+                }
+            })
+        } else {
+            alert("Field Empty!");
+        }
+    });
+
+    function ViewPDF(lcrno) {
+        window.open("/OUTPUT_PDF/" + lcrno + ".pdf");
+    }
+
+    function EditItem(lcrno) {
+        window.open("/Home/EditItem?lcr_no=" + lcrno);
+    }
+   
+</script>

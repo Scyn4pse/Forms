@@ -1,0 +1,56 @@
+<div>
+    @{
+        if (Model != null)
+        {
+
+            <div>
+                <label>LCR REG NO</label>
+                <input type="text" value="@Model.lcr_reg_no" id="lcr_reg_no" />
+            </div>
+            <div>
+                <label>Child Name</label>
+                <input type="text" value="@Model.name_child" id="name_child" />
+            </div>
+            <div>
+                <label>Mother's Name</label>
+                <input type="text" value="@Model.name_of_mother" id="name_of_mother" />
+            </div>
+            <div>
+                <label>Father's Name</label>
+                <input type="text" value="@Model.name_of_father" id="name_of_father" />
+            </div>
+
+            <div>
+                <label>Father's Name</label>
+                <input type="button" value="Update" id="btnUpdate" />
+            </div>
+        }
+        else
+        {
+            @*<div>TEST2</div>*@
+        }
+    }
+</div>
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+
+
+
+    $('#btnUpdate').click(function () {
+
+        var book = "4321";
+        var lcr_reg_no = $('#lcr_reg_no').val();
+        var name_child = $('#name_child').val(); 
+
+        $.ajax({
+            url: '/Home/UpdateItem',
+            type: 'get',
+            data: { lcr_reg_no: lcr_reg_no, name_child: name_child, book: book },
+            success: function (data) {
+                alert(data);
+            }
+        });
+    });
+    
+</script>

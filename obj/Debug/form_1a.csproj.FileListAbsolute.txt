@@ -160,3 +160,6 @@ L:\mvc\forms\form_1a\form_1a\bin\EntityFramework.dll
 L:\mvc\forms\form_1a\form_1a\bin\EntityFramework.SqlServer.dll
 L:\mvc\forms\form_1a\form_1a\bin\EntityFramework.xml
 L:\mvc\forms\form_1a\form_1a\bin\EntityFramework.SqlServer.xml
+L:\mvc\forms\form_1a\form_1a\bin\BouncyCastle.Crypto.dll
+L:\mvc\forms\form_1a\form_1a\bin\itextsharp.dll
+L:\mvc\forms\form_1a\form_1a\bin\itextsharp.xml

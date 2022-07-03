@@ -39,7 +39,7 @@
                 <br />
             </div>
 
-            
+
 
             <form id="myForm" class="col-form">
             <div class="row add-border">
@@ -98,7 +98,8 @@
                         </div>
                         <div class="col-md-6 form-group">
                             <label>LCR Registry Number</label>
-                            @Html.TextBoxFor(model => model.lcr_reg_no, new { @class = "form-control", @placeholder = "LCR Registration Number" })
+                            @Html.TextBoxFor(model => model.lcr_reg_no, new { @class = "form-control", @placeholder = "LCR Registration Number",@id="lcr_no" })
+                            @*<input type="text" value="@Model.lcr_reg_no" />*@
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Date of Registration</label>
@@ -155,8 +156,12 @@
                     <div class="col-md-12">
                         <input type="Submit" value="Submit" class="btn btn-block btn-primary" id="btnSubmit" />
                     </div>
+                    <div class="col-md-12">
+                        <input type="button" value="View PDF" class="btn btn-block btn-primary" id="btnViewPDF" style="display: none;" />
+                    </div>
                 </div>
             </div>
+
 
         </form>
         </div>
@@ -170,6 +175,7 @@
     <script type="text/javascript">
         var date = new Date();
         var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+        var lcr = "";
 
         var optSimple = {
             format: 'mm-dd-yyyy',
@@ -183,20 +189,49 @@
         $('#entry').datepicker('setDate', today);
 
         $(document).ready(function () {
+            lcr = '@Request.Params["lcr_reg_no"]' || "";
 
+            if (lcr != "") {
+                
+                $('#btnViewPDF').css('display', 'block');
+            }
+             
+            
             $("#btnSubmit").click(function () {
-                debugger
+                //debugger
                 var data = $("#myForm").serialize();
                 $.ajax({
                     type: "POST",
                     url: "/Home/form_1a",
                     data: data,
                     success: function (response) {
+                        
                         alert("Successful");
+                        
+
+                        
                     }
                 })
             })
         })
+
+
+        $('#btnViewPDF').click(function () {
+            var new_date = new Date();
+            var nd = pad((new_date.getMonth() + 1), 2) + "-" + pad(new_date.getDate(),2) + "-" + new_date.getFullYear();  
+
+            //alert(nd);
+            var lcr_no = lcr + "_" + nd;
+            window.open("/OUTPUT_PDF/" + lcr_no + ".pdf");
+
+            //alert(lcr_no);
+        });
+
+        function pad(str, max) {
+            str = str.toString();
+            return str.length < max ? pad("0" + str, max) : str;
+        }
+        
     </script>
 </body>
 </html>

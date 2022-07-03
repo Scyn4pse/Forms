@@ -5,6 +5,10 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data;
 using form_1a.Models;
+using iTextSharp;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System.IO;
 
 
 namespace form_1a.Controllers
@@ -22,11 +26,14 @@ namespace form_1a.Controllers
         {
             return View();
         }
-
-
+        
         [HttpPost]
         public ActionResult Form_1a(Form_1A model)
         {
+            string lcr_no = "";
+            DateTime newdate = DateTime.Now;
+            string nd = newdate.ToString("MM-dd-yyyy");
+
             try
             {
                 Form_1A form = new Form_1A
@@ -34,7 +41,7 @@ namespace form_1a.Controllers
                     page = model.page,
                     book = model.book,
                     entry = model.entry,
-                    lcr_reg_no = model.lcr_reg_no,
+                    lcr_reg_no = model.lcr_reg_no + "_" + nd,
                     date_of_reg = model.date_of_reg,
                     name_child = model.name_child,
                     sex = model.sex,
@@ -56,11 +63,14 @@ namespace form_1a.Controllers
                     date_paid = model.date_paid
                 };
 
+                lcr_no = form.lcr_reg_no.ToString();
+
                 db.Form_1A.Add(form);
                 db.SaveChanges();
 
                 int latestId = form.Id;
-                
+
+                FillAcroFieldsForm1A(lcr_no);
 
             }
             catch (Exception ex)
@@ -168,6 +178,135 @@ namespace form_1a.Controllers
 
         //}
 
+        public string FillAcroFieldsForm1A(string lcr_no)
+        {
+            DateTime newdate = DateTime.Now;
+            string nd = newdate.ToString("MM-dd-yyyy");
+
+            string filename = lcr_no;
+          
+            var form_template = Server.MapPath("/FORM_TEMPLATE/FORM NO. 1A.pdf");
+            var output_pdf = Server.MapPath("/OUTPUT_PDF/" + filename + ".pdf");
+
+
+
+
+
+           
+
+            var q_string = "Select * from FORM_1A where lcr_reg_no='" + filename + "'";
+            var r_data = db.Database.SqlQuery<Form_1A>(q_string).FirstOrDefault();
+
+            if (r_data != null)
+            {
+                PdfReader pdfReader = new PdfReader(form_template);
+                PdfStamper pdfStamper = new PdfStamper(pdfReader, new FileStream(output_pdf, FileMode.Create));
+
+
+                AcroFields pdfFormFields = pdfStamper.AcroFields;
+
+                pdfFormFields.SetField("txtLCRNo", r_data.lcr_reg_no);
+                pdfFormFields.SetField("txtRegDate", r_data.date_of_reg.ToString());
+                pdfFormFields.SetField("txtChildName", r_data.name_child);
+
+                pdfStamper.FormFlattening = true;
+                pdfStamper.Close();
+                pdfReader.Close();
+
+                //return "Success";
+                return "Success";
+            }
+            else
+            {
+                return "Failed/Not Exist";
+            }
+
+
+
+
+            
+        }
+
+    
+       public ActionResult SearchItem()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult SearchThis(string selType, string searchItem)
+        {
+
+            /* <option value="lcrno" selected>LCR No.</option>
+                <option value="chname">Child's Name</option>
+                <option value="mothname">Mother's Name</option>
+                <option value="fathname">Father's Name</option>
+            */
+            var q_item = "";
+
+            switch (selType)
+            {
+                case "lcrno":
+                    q_item = "Select * from FORM_1A where lcr_reg_no like '%" + searchItem + "%'";
+                    break;
+                case "chname":
+                    q_item = "Select * from FORM_1A where name_child like '%" + searchItem + "%'";
+                    break;
+                case "mothname":
+                    q_item = "Select * from FORM_1A where name_of_mother like '%" + searchItem + "%'";
+
+                    break;
+                case "fathname":
+                    q_item = "Select * from FORM_1A where name_of_father like '%" + searchItem + "%'";
+                    break;
+                default:
+                    break;
+
+            }
+
+            var r_itemdata = db.Database.SqlQuery<Form_1A>(q_item);
+
+            if(r_itemdata.Count() > 0)
+            {
+                return Json(r_itemdata.ToList(), JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("0", JsonRequestBehavior.AllowGet);
+            }
+
+            
+        }
+
+        [HttpGet]
+        public ActionResult EditItem(string lcr_no)
+        {
+            var q_item = "Select * from FORM_1A where lcr_reg_no = '" + lcr_no + "'";
+            var r_data = db.Database.SqlQuery<Form_1A>(q_item).FirstOrDefault();
+
+            if(r_data != null)
+            {
+                return View(r_data);
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        public ActionResult EditItemForm()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult UpdateItem(string lcr_reg_no, string name_child, string book)
+        {
+            string q_update = "Update Form_1A Set name_child='" + name_child + "', book='" + book + "' where lcr_reg_no='" + lcr_reg_no + "'";
+            db.Database.ExecuteSqlCommand(q_update);
+
+            return Json("Success", JsonRequestBehavior.AllowGet);
+        }
 
 
     }
