@@ -30,9 +30,9 @@ namespace form_1a.Controllers
         [HttpPost]
         public ActionResult Form_1a(Form_1A model)
         {
-            string lcr_no = "";
-            DateTime newdate = DateTime.Now;
-            string nd = newdate.ToString("MM-dd-yyyy");
+            //string lcr_no = "";
+            //DateTime newdate = DateTime.Now;
+            //string nd = newdate.ToString("MM-dd-yyyy");
 
             try
             {
@@ -41,7 +41,7 @@ namespace form_1a.Controllers
                     page = model.page,
                     book = model.book,
                     entry = model.entry,
-                    lcr_reg_no = model.lcr_reg_no + "_" + nd,
+                    lcr_reg_no = model.lcr_reg_no/* + "_" + nd*/,
                     date_of_reg = model.date_of_reg,
                     name_child = model.name_child,
                     sex = model.sex,
@@ -63,14 +63,14 @@ namespace form_1a.Controllers
                     date_paid = model.date_paid
                 };
 
-                lcr_no = form.lcr_reg_no.ToString();
+                //lcr_no = form.lcr_reg_no.ToString();
 
                 db.Form_1A.Add(form);
                 db.SaveChanges();
 
                 int latestId = form.Id;
 
-                FillAcroFieldsForm1A(lcr_no);
+                FillAcroFieldsForm1A(form.lcr_reg_no);
 
             }
             catch (Exception ex)
@@ -146,55 +146,18 @@ namespace form_1a.Controllers
         {
             return View();
         }
-        //
-        //public ActionResult SaveEntry(string lcrno, string regdate, string childname,string sex, string dateofbirth, string placeofbirth, string mothername, string mothercship, string fathername, string fathercship, string dateofmrg, string placeofmrg, string issuedto, string officername, string officertitle, string verifiername, string verifiertitle, string payment, string orno, string datepaid)
-        //{
-        //    Form_1AEntities1 db = new Form_1AEntities1();
-
-        //    DateTime today = DateTime.Now;
-        //    string datenow = today.ToString("yyyy-M-dd hh:mm:ss");
-
-        //    string q_exist = "Select * from Form_1A where lcr_reg_no = '" + lcrno + "'";
-        //    var d_return = db.Database.SqlQuery<Form_1A>(q_exist).FirstOrDefault();
-
-        //    if(d_return != null)
-        //    {
-        //        return Json("Exist", JsonRequestBehavior.AllowGet);
-        //    }
-        //    else
-        //    {
-        //        string q_insert = "Insert into Form_1A (date_entry,lcr_reg_no,date_of_reg,name_child,sex,date_of_birth,place_of_birth,name_of_mother,citizenship_of_mother,name_of_father,citizenship_of_father,date_of_marriage,place_of_marriage,issued_to,officer_name,officer_title,verifier_name,verifier_title,payment,or_no,date_paid) VALUES('" + datenow + "','" + lcrno + "','" + regdate + "','" + childname + "','" + sex + "','" + dateofbirth + "','" + placeofbirth + "','" + mothername + "','" + mothercship + "','" + fathername + "','" + fathercship + "','" + dateofmrg + "','" + placeofmrg + "','" + issuedto + "','" + officername + "','" + officertitle + "','" + verifiername + "','" + verifiertitle + "','" + payment + "','" + orno + "','" + datepaid + "')";
-        //        var d_return2 = db.Database.ExecuteSqlCommand(q_insert);
-
-        //        return Json("Success", JsonRequestBehavior.AllowGet);
-        //    }
-
-
-        //}
-
-        //public ActionResult SaveRecord(Form_1A model)
-        //{
-
-
-        //}
-
+        
         public string FillAcroFieldsForm1A(string lcr_no)
         {
             DateTime newdate = DateTime.Now;
             string nd = newdate.ToString("MM-dd-yyyy");
 
-            string filename = lcr_no;
+            string filename = lcr_no + "_" + nd;
           
             var form_template = Server.MapPath("/FORM_TEMPLATE/FORM NO. 1A.pdf");
-            var output_pdf = Server.MapPath("/OUTPUT_PDF/" + filename + ".pdf");
+            var output_pdf = Server.MapPath("/OUTPUT_PDF/FORM_1A/" + filename + ".pdf");
 
-
-
-
-
-           
-
-            var q_string = "Select * from FORM_1A where lcr_reg_no='" + filename + "'";
+            var q_string = "Select * from FORM_1A where lcr_reg_no='" + lcr_no + "'";
             var r_data = db.Database.SqlQuery<Form_1A>(q_string).FirstOrDefault();
 
             if (r_data != null)
@@ -205,43 +168,54 @@ namespace form_1a.Controllers
 
                 AcroFields pdfFormFields = pdfStamper.AcroFields;
 
+                pdfFormFields.SetField("txtDate", r_data.entry.ToString());
+                pdfFormFields.SetField("txtPage", r_data.page);
+                pdfFormFields.SetField("txtBookNo", r_data.book);
                 pdfFormFields.SetField("txtLCRNo", r_data.lcr_reg_no);
                 pdfFormFields.SetField("txtRegDate", r_data.date_of_reg.ToString());
                 pdfFormFields.SetField("txtChildName", r_data.name_child);
+                pdfFormFields.SetField("txtSex", r_data.sex);
+                pdfFormFields.SetField("txtDateOfBirth", r_data.date_of_birth.ToString());
+                pdfFormFields.SetField("txtPlaceOfBirth", r_data.place_of_birth);
+                pdfFormFields.SetField("txtMotherName", r_data.name_of_mother);
+                pdfFormFields.SetField("txtMotherCship", r_data.citizenship_of_mother);
+                pdfFormFields.SetField("txtFatherName", r_data.name_of_father);
+                pdfFormFields.SetField("txtFatherCship", r_data.citizenship_of_father);
+                pdfFormFields.SetField("txtDateOfMrg", r_data.date_of_marriage_of_parents.ToString());
+                pdfFormFields.SetField("txtPlaceofMrg", r_data.place_of_marriage_of_parents);
+                pdfFormFields.SetField("txtIssuedTo", r_data.issued_to);
+                pdfFormFields.SetField("txtOfficerName", r_data.officer_name);
+                pdfFormFields.SetField("txtOfficerTitle", r_data.officer_title);
+                pdfFormFields.SetField("txtVerifierName", r_data.verifier_name);
+                pdfFormFields.SetField("txtVerifierTitle", r_data.verifier_title);
+                pdfFormFields.SetField("txtPayment", r_data.payment);
+                pdfFormFields.SetField("txtORNo", r_data.or_no);
+                pdfFormFields.SetField("txtDatePaid", r_data.date_paid.ToString());
+
 
                 pdfStamper.FormFlattening = true;
                 pdfStamper.Close();
                 pdfReader.Close();
 
-                //return "Success";
                 return "Success";
             }
             else
             {
                 return "Failed/Not Exist";
             }
-
-
-
-
             
         }
 
     
        public ActionResult SearchItem()
         {
-            return View();
+            List<Form_1A> form_1a = db.Form_1A.ToList();
+            return View(form_1a);
         }
 
         [HttpGet]
         public ActionResult SearchThis(string selType, string searchItem)
         {
-
-            /* <option value="lcrno" selected>LCR No.</option>
-                <option value="chname">Child's Name</option>
-                <option value="mothname">Mother's Name</option>
-                <option value="fathname">Father's Name</option>
-            */
             var q_item = "";
 
             switch (selType)

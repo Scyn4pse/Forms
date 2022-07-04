@@ -1,3 +1,4 @@
+@model IEnumerable<form_1a.Models.Form_1A>
 <html>
 <head>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
@@ -38,7 +39,18 @@
                 </tr>
             </thead>
             <tbody id="bodyContents">
-
+                @foreach (var item in Model)
+            {
+                    <tr>
+                        <td>@item.lcr_reg_no</td>
+                        <td>@item.name_child</td>
+                        <td>@item.name_of_mother</td>
+                        <td>@item.name_of_father</td>
+                        <td>@item.date_of_reg</td>
+                        <td><input class="btn btn-primary" onclick="ViewPDF( @item.lcr_reg_no)" id="btnViewPDF" type="button" value="View PDF" />&nbsp;
+                        <input class="btn btn-primary" type="button" value="Edit" onclick="EditItem( @item.lcr_reg_no )" /></td>
+                    </tr>
+            }
             </tbody>
         </table>
     </div>
@@ -50,16 +62,16 @@
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
     $('#btnSearch').click(function () {
-        var selType = $('#selType').val();
-        var searchItem = $('#searchItem').val();
+        var selType = $('#selType').val();          /*Search By:*/
+        var searchItem = $('#searchItem').val();    /*Input from textbox*/
         var htmls = "";
-        $('#bodyContents').html('');
+        $('#bodyContents').html('');                /*List of records displayed*/
 
         if (searchItem != "") {
             $.ajax({
-                url: '/Home/SearchThis',
+                url: '/Home/SearchThis',            /*Search this function in controller*/
                 type: 'get',
-                data: { selType: selType, searchItem: searchItem },
+                data: { selType: selType, searchItem: searchItem }, /* Pass the data to the function*/
                 success: function (data) {
                     if (data != "0") {
                         $.each(data, function (a, b) {
@@ -68,7 +80,7 @@
                         });
                         
                     } else {
-                        alert("No Record Found!");
+                        alert("No Record Found!"); 
                     }
 
                 }
@@ -79,7 +91,8 @@
     });
 
     function ViewPDF(lcrno) {
-        window.open("/OUTPUT_PDF/" + lcrno + ".pdf");
+        
+        window.open("/OUTPUT_PDF/FORM_1A/" + lcrno + ".pdf");
     }
 
     function EditItem(lcrno) {
