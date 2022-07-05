@@ -274,9 +274,9 @@ namespace form_1a.Controllers
         }
 
         [HttpGet]
-        public ActionResult UpdateItem(string lcr_reg_no, string name_child, string book)
+        public ActionResult UpdateItem(string issued_to, string officer_name, string officer_title, string verifier_name, string verifier_title, string payment, string or_no, string date_paid, string page, string book, string lcr_reg_no, string date_of_reg, string name_child, string sex, string date_of_birth, string place_of_birth, string name_of_mother, string citizenship_of_mother, string name_of_father, string citizenship_of_father, string date_of_marriage_of_parents, string place_of_marriage_of_parents)
         {
-            string q_update = "Update Form_1A Set name_child='" + name_child + "', book='" + book + "' where lcr_reg_no='" + lcr_reg_no + "'";
+            string q_update = "Update Form_1A Set issued_to='" + issued_to + "', officer_name='" + officer_name + "',officer_title='" + officer_title + "', verifier_name='" + verifier_name + "', verifier_title='" + verifier_title + "',payment='" + payment + "', or_no='" + or_no + "',date_paid='" + date_paid + "', page='" + page + "',book='" + book + "', date_of_reg='" + date_of_reg + "',name_child='" + name_child + "', sex='" + sex + "',date_of_birth='" + date_of_birth + "', place_of_birth='" + place_of_birth + "',name_of_mother='" + name_of_mother + "', citizenship_of_mother='" + citizenship_of_mother + "',name_of_father='" + name_of_father + "', citizenship_of_father='" + citizenship_of_father + "',date_of_marriage_of_parents='" + date_of_marriage_of_parents + "', place_of_marriage_of_parents='" + place_of_marriage_of_parents + "' where lcr_reg_no='" + lcr_reg_no + "'";
             db.Database.ExecuteSqlCommand(q_update);
 
             return Json("Success", JsonRequestBehavior.AllowGet);

@@ -2,28 +2,149 @@
     @{
         if (Model != null)
         {
+            <div class="container">
+                <div class="row">
+                    <div class="row remove-padding">
+                        <a href="@Url.Action("SearchItem", null, new { area = string.Empty, controller = "Home" }, Request.Url.Scheme)">
+                            <div class="col-md-2 add-border return-button">
+                                <i class="fa fa-angle-double-left"></i>
+                                <i>Return to Records</i>
+                            </div>
+                        </a>
+                    </div>
+                    <br />
 
-            <div>
-                <label>LCR REG NO</label>
-                <input type="text" value="@Model.lcr_reg_no" id="lcr_reg_no" />
-            </div>
-            <div>
-                <label>Child Name</label>
-                <input type="text" value="@Model.name_child" id="name_child" />
-            </div>
-            <div>
-                <label>Mother's Name</label>
-                <input type="text" value="@Model.name_of_mother" id="name_of_mother" />
-            </div>
-            <div>
-                <label>Father's Name</label>
-                <input type="text" value="@Model.name_of_father" id="name_of_father" />
+                    <div class="col-md-12">
+                        <br />
+                        <p class="h3"><strong>Civil Registry Form No. 1A</strong></p>
+                        <p class="h4">(Birth Available)</p>
+                        <br />
+                    </div>
+
+
+
+                    <form id="myForm" class="col-form">
+                        <div class="row add-border">
+                            <div class="col-md-4">
+                                <div class="col-md-12 add-border">
+                                    <p class="h4"><strong>Transaction Details</strong></p><br />
+                                    <div class="form-group">
+                                        <label>Issued To</label>
+                                        <input type="text" value="@Model.issued_to" id="issued_to" class="form-control"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Officer Name</label>
+                                        <input type="text" value="@Model.officer_name" id="officer_name" class="form-control"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Officer Title</label>
+                                        <input type="text" value="@Model.officer_title" id="officer_title" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Verifier Name</label>
+                                        <input type="text" value="@Model.verifier_name" id="verifier_name" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Verifier Title</label>
+                                        <input type="text" value="@Model.verifier_title" id="verifier_title" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Amount Paid</label>
+                                        <input type="text" value="@Model.payment" id="payment" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>O.R. Number</label>
+                                        <input type="text" value="@Model.or_no" id="or_no" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Date Paid</label>
+                                        <input type="text" value="@Model.date_paid" id="date_paid" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-8">
+                                <div class="col-md-12 add-border">
+                                    <p class="h4"><strong>Form Details</strong></p><br />
+                                    <div class="col-md-12 form-group">
+                                        <label>Date</label>
+                                        
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label>Page</label>
+                                        <input type="text" value="@Model.page" id="page" class="form-control" />
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label>Book Number</label>
+                                        <input type="text" value="@Model.book" id="book" class="form-control"/>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label>LCR Registry Number</label>
+                                        <input type="text" value="@Model.lcr_reg_no" id="lcr_reg_no" class="form-control"/>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label>Date of Registration</label>
+                                        <input type="text" value="@Model.date_of_reg" id="date_of_reg" class="form-control" />
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label>Name of Child</label>
+                                        <input type="text" value="@Model.name_child" id="name_child" class="form-control"/>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label>Sex</label>
+                                        <input type="text" value="@Model.sex" id="sex" class="form-control" />
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label>Date of Birth</label>
+                                        <input type="text" value="@Model.date_of_birth" id="date_of_birth" class="form-control" />
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label>Place of Birth</label>
+                                        <input type="text" value="@Model.place_of_birth" id="place_of_birth" class="form-control" />
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label>Name of Mother</label>
+                                        <input type="text" value="@Model.name_of_mother" id="name_of_mother" class="form-control" />
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label>Citizenship of Mother</label>
+                                        <input type="text" value="@Model.citizenship_of_mother" id="citizenship_of_mother" class="form-control" />
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label>Name of Father</label>
+                                        <input type="text" value="@Model.name_of_father" id="name_of_father" class="form-control" />
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label>Citizenship of Father</label>
+                                        <input type="text" value="@Model.citizenship_of_father" id="citizenship_of_father" class="form-control" />
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label>Date of Marriage of Parents</label>
+                                        <input type="text" value="@Model.date_of_marriage_of_parents" id="date_of_marriage_of_parents" class="form-control" />
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label>Place of Marriage of Father</label>
+                                        <input type="text" value="@Model.place_of_marriage_of_parents" id="place_of_marriage_of_parents" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <br /><br />
+                        <div class="row">
+                            <div class="col-md-3 " style="float:right;">
+                                <div class="col-md-12">
+                                    <input type="button" value="Update" class="btn btn-block btn-primary" id="btnUpdate" />
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </form>
+                </div>
             </div>
 
-            <div>
-                <label>Father's Name</label>
-                <input type="button" value="Update" id="btnUpdate" />
-            </div>
         }
         else
         {
@@ -39,14 +160,57 @@
 
     $('#btnUpdate').click(function () {
 
-        var book = "4321";
+        var issued_to = $('#issued_to').val();
+        var officer_name = $('#officer_name').val();
+        var officer_title = $('#officer_title').val();
+        var verifier_name = $('#verifier_name').val();
+        var verifier_title = $('#verifier_title').val(); 
+        var payment = $('#payment').val();
+        var or_no = $('#or_no').val();
+        var date_paid = $('#date_paid').val();
+        var page = $('#page').val();
+        var book = $('#book').val();
         var lcr_reg_no = $('#lcr_reg_no').val();
-        var name_child = $('#name_child').val(); 
+        var date_of_reg = $('#date_of_reg').val();
+        var name_child = $('#name_child').val();
+        var sex = $('#sex').val();
+        var date_of_birth = $('#date_of_birth').val();
+        var place_of_birth = $('#place_of_birth').val();
+        var name_of_mother = $('#name_of_mother').val();
+        var citizenship_of_mother = $('#citizenship_of_mother').val();
+        var name_of_father = $('#name_of_father').val();
+        var citizenship_of_father = $('#citizenship_of_father').val();
+        var date_of_marriage_of_parents = $('#date_of_marriage_of_parents').val();
+        var place_of_marriage_of_parents = $('#place_of_marriage_of_parents').val();
+
 
         $.ajax({
             url: '/Home/UpdateItem',
             type: 'get',
-            data: { lcr_reg_no: lcr_reg_no, name_child: name_child, book: book },
+            data: {
+                issued_to: issued_to,
+                officer_name: officer_name,
+                officer_title: officer_title,
+                verifier_name: verifier_name,
+                verifier_title: verifier_title,
+                payment: payment,
+                or_no: or_no,
+                date_paid: date_paid,
+                page: page,
+                book: book,
+                lcr_reg_no: lcr_reg_no,
+                date_of_reg: date_of_reg,
+                name_child: name_child,
+                sex: sex,
+                date_of_birth: date_of_birth,
+                place_of_birth: place_of_birth,
+                name_of_mother: name_of_mother,
+                citizenship_of_mother: citizenship_of_mother,
+                name_of_father: name_of_father,
+                citizenship_of_father: citizenship_of_father,
+                date_of_marriage_of_parents: date_of_marriage_of_parents,
+                place_of_marriage_of_parents: place_of_marriage_of_parents,
+            },
             success: function (data) {
                 alert(data);
             }

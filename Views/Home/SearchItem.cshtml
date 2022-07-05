@@ -34,7 +34,7 @@
                     <th>Child's Name</th>
                     <th>Mother's Name</th>
                     <th>Father's Name</th>
-                    <th>Date Reg</th>
+                    <th>Date of Entry</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -46,7 +46,7 @@
                         <td>@item.name_child</td>
                         <td>@item.name_of_mother</td>
                         <td>@item.name_of_father</td>
-                        <td>@item.date_of_reg</td>
+                        <td>@item.entry</td>
                         <td><input class="btn btn-primary" onclick="ViewPDF( @item.lcr_reg_no)" id="btnViewPDF" type="button" value="View PDF" />&nbsp;
                         <input class="btn btn-primary" type="button" value="Edit" onclick="EditItem( @item.lcr_reg_no )" /></td>
                     </tr>
@@ -75,28 +75,33 @@
                 success: function (data) {
                     if (data != "0") {
                         $.each(data, function (a, b) {
-                            htmls = '<tr><td>' + b.lcr_reg_no + '</td><td>' + b.name_child + '</td><td>' + b.name_of_mother + '</td><td>' + b.name_of_father + '</td><td>' + b.date_of_reg + '</td><td><input class="btn btn-primary" onclick="ViewPDF(\'' + b.lcr_reg_no + '\')" id="btnViewPDF" type="button" value="View PDF" />&nbsp;<input class="btn btn-primary" type="button" value="Edit"  onclick="EditItem(\'' + b.lcr_reg_no + '\')"  /></td></tr>';
+                            htmls = '<tr><td>' + b.lcr_reg_no + '</td><td>' + b.name_child + '</td><td>' + b.name_of_mother + '</td><td>' + b.name_of_father + '</td><td>' + b.entry + '</td><td><input class="btn btn-primary" onclick="ViewPDF(\'' + b.lcr_reg_no + '\')" id="btnViewPDF" type="button" onclick="ViewPDF(\'' + b.lcr_reg_no + '\')" value="View PDF" />&nbsp;<input class="btn btn-primary" type="button" value="Edit"  onclick="EditItem(\'' + b.lcr_reg_no + '\')"  /></td></tr>';
                             $('#bodyContents').append(htmls);
                         });
                         
                     } else {
-                        alert("No Record Found!"); 
+                        alert("No Records Found");
                     }
 
                 }
             })
         } else {
-            alert("Field Empty!");
+            htmls = 'Field is Empty! <input class="btn btn-primary" onclick="Refresh()" id="btnRefresh" type="button" value="OK" />';
+
+            $('#bodyContents').append(htmls);
+            
         }
     });
 
     function ViewPDF(lcrno) {
         
-        window.open("/OUTPUT_PDF/FORM_1A/" + lcrno + ".pdf");
+        window.open("/OUTPUT_PDF/FORM_1A/" + lcrno + ".pdf"); //figure out date to work
     }
 
     function EditItem(lcrno) {
         window.open("/Home/EditItem?lcr_no=" + lcrno);
     }
-   
+    function Refresh() {
+        location.replace("/Home/SearchItem");
+    }
 </script>

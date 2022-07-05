@@ -6,9 +6,7 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+
 namespace form_1a.Models
 {
     using System;
@@ -18,18 +16,15 @@ namespace form_1a.Models
     {
         public int Id { get; set; }
         public string lcr_reg_no { get; set; }
-        [DataType(DataType.Date)]
         public Nullable<System.DateTime> date_of_reg { get; set; }
         public string name_child { get; set; }
         public string sex { get; set; }
-        [DataType(DataType.Date)]
         public Nullable<System.DateTime> date_of_birth { get; set; }
         public string place_of_birth { get; set; }
         public string name_of_mother { get; set; }
         public string citizenship_of_mother { get; set; }
         public string name_of_father { get; set; }
         public string citizenship_of_father { get; set; }
-        [DataType(DataType.Date)]
         public Nullable<System.DateTime> date_of_marriage_of_parents { get; set; }
         public string place_of_marriage_of_parents { get; set; }
         public string issued_to { get; set; }
@@ -39,11 +34,9 @@ namespace form_1a.Models
         public string verifier_title { get; set; }
         public string payment { get; set; }
         public string or_no { get; set; }
-        [DataType(DataType.Date)]
         public Nullable<System.DateTime> date_paid { get; set; }
         public string page { get; set; }
         public string book { get; set; }
-        [DataType(DataType.Date)]
         public Nullable<System.DateTime> entry { get; set; }
     }
 }
