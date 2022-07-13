@@ -32,5 +32,6 @@ namespace form_1a.Models
         public string payment { get; set; }
         public string or_no { get; set; }
         public Nullable<System.DateTime> date_paid { get; set; }
+        public string filename { get; set; }
     }
 }

@@ -1,47 +1,29 @@
 ﻿@model form_1a.Models.Form_1A
 @{
     ViewBag.Title = "form_1a";
-    Layout = null;
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
-    <link href="~/Content/Site.css" rel="stylesheet" />
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-
-</head>
-
-<body>
-    <div class="container">
+<div class="container">
+    <div class="row">
         <div class="row">
-            <div class="row remove-padding">
-                <a href="@Url.Action("Index", null, new { area = string.Empty, controller = "Home" }, Request.Url.Scheme)">
-                    <div class="col-md-2 add-border return-button">
-                        <i class="fa fa-angle-double-left"></i>
-                        <i>Return to Menu</i>
-                    </div>
-                </a>
-            </div>
+            <a href="@Url.Action("Index", null, new { area = string.Empty, controller = "Home" }, Request.Url.Scheme)">
+                <div class="col-md-2 add-border return-button">
+                    <i class="fa fa-angle-double-left"></i>
+                    <i>Return to Menu</i>
+                </div>
+            </a>
+        </div>
+        <br />
+
+        <div class="col-md-12">
             <br />
-
-            <div class="col-md-12">
-                <br />
-                <p class="h3"><strong>Civil Registry Form No. 1A</strong></p>
-                <p class="h4">(Birth Available)</p>
-                <br />
-            </div>
+            <p class="h3"><strong>Civil Registry Form No. 1A</strong></p>
+            <p class="h4">(Birth Available)</p>
+            <br />
+        </div>
 
 
-
-            <form id="myForm" class="col-form">
+        <form id="myForm">
             <div class="row add-border">
                 <div class="col-md-4">
                     <div class="col-md-12 add-border">
@@ -89,16 +71,8 @@
                             @Html.TextBoxFor(model => model.entry, new { @class = "form-control datepicker", @id = "entry" })
                         </div>
                         <div class="col-md-6 form-group">
-                            <label>Page</label>
-                            @Html.TextBoxFor(model => model.page, new { @class = "form-control", @placeholder = "Page Number" })
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>Book Number</label>
-                            @Html.TextBoxFor(model => model.book, new { @class = "form-control", @placeholder = "Book Number" })
-                        </div>
-                        <div class="col-md-6 form-group">
                             <label>LCR Registry Number</label>
-                            @Html.TextBoxFor(model => model.lcr_reg_no, new { @class = "form-control", @placeholder = "LCR Registration Number",@id="lcr_no" })
+                            @Html.TextBoxFor(model => model.lcr_reg_no, new { @class = "form-control", @placeholder = "LCR Registration Number", @id = "lcr_no" })
                             @*<input type="text" value="@Model.lcr_reg_no" />*@
                         </div>
                         <div class="col-md-6 form-group">
@@ -114,6 +88,25 @@
                             @Html.TextBoxFor(model => model.sex, new { @class = "form-control", @placeholder = "Sex" })
                         </div>
                         <div class="col-md-6 form-group">
+                            <label>Name of Mother</label>
+                            @Html.TextBoxFor(model => model.name_of_mother, new { @class = "form-control", @placeholder = "Name of Mother" })
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Name of Father</label>
+                            @Html.TextBoxFor(model => model.name_of_father, new { @class = "form-control", @placeholder = "Name of Father" })
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <hr class="solid" />
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Page</label>
+                            @Html.TextBoxFor(model => model.page, new { @class = "form-control", @placeholder = "Page Number" })
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Book Number</label>
+                            @Html.TextBoxFor(model => model.book, new { @class = "form-control", @placeholder = "Book Number" })
+                        </div>
+                        <div class="col-md-6 form-group">
                             <label>Date of Birth</label>
                             @Html.TextBoxFor(model => model.date_of_birth, new { @class = "datepicker form-control", @placeholder = "Date of Birth", @id = "date_of_birth" })
                         </div>
@@ -122,16 +115,8 @@
                             @Html.TextBoxFor(model => model.place_of_birth, new { @class = "form-control", @placeholder = "Place of Birth" })
                         </div>
                         <div class="col-md-6 form-group">
-                            <label>Name of Mother</label>
-                            @Html.TextBoxFor(model => model.name_of_mother, new { @class = "form-control", @placeholder = "Name of Mother" })
-                        </div>
-                        <div class="col-md-6 form-group">
                             <label>Citizenship of Mother</label>
                             @Html.TextBoxFor(model => model.citizenship_of_mother, new { @class = "form-control", @placeholder = "Citizenship of Mother" })
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>Name of Father</label>
-                            @Html.TextBoxFor(model => model.name_of_father, new { @class = "form-control", @placeholder = "Name of Father" })
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Citizenship of Father</label>
@@ -142,7 +127,7 @@
                             @Html.TextBoxFor(model => model.date_of_marriage_of_parents, new { @class = "datepicker form-control", @placeholder = "Date of Marriage of Parents", @id = "date_of_marriage_of_parents" })
                         </div>
                         <div class="col-md-6 form-group">
-                            <label>Place of Marriage of Father</label>
+                            <label>Place of Marriage of Parents</label>
                             @Html.TextBoxFor(model => model.place_of_marriage_of_parents, new { @class = "form-control", @placeholder = "Place of Marriage of Parents" })
                         </div>
                     </div>
@@ -150,9 +135,8 @@
 
             </div>
 
-            <br /><br />
             <div class="row">
-                <div class="col-md-3 " style="float:right;">
+                <div class="col-md-3 pull-right button-margin">
                     <div class="col-md-12">
                         <input type="Submit" value="Submit" class="btn btn-block btn-primary" id="btnSubmit" />
                     </div>
@@ -164,74 +148,70 @@
 
 
         </form>
-        </div>
     </div>
+</div>
 
 
-    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
-    <script src="~/Scripts/jquery-ui.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
 
-    <script type="text/javascript">
-        var date = new Date();
-        var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-        var lcr = "";
+<script type="text/javascript">
+    var date = new Date();
+    var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    var lcr = "";
 
-        var optSimple = {
-            format: 'mm-dd-yyyy',
-            todayHighlight: true,
-            orientation: 'bottom right',
-            autoclose: true,
-            inline: true,
-        };
+    var optSimple = {
+        format: 'mm-dd-yyyy',
+        todayHighlight: true,
+        orientation: 'bottom right',
+        autoclose: true,
+        inline: true,
+    };
 
-        $('.datepicker').datepicker(optSimple);
-        $('#entry').datepicker('setDate', today);
+    $('.datepicker').datepicker(optSimple);
+    $('#entry').datepicker('setDate', today);
 
-        $(document).ready(function () {
-            lcr = '@Request.Params["lcr_reg_no"]' || "";
+    $(document).ready(function () {
+        lcr = '@Request.Params["lcr_reg_no"]' || "";
 
-            if (lcr != "") {
+        if (lcr != "") {
                 
-                $('#btnViewPDF').css('display', 'block');
-            }
+            $('#btnViewPDF').css('display', 'block');
+        }
              
             
-            $("#btnSubmit").click(function () {
-                //debugger
-                var data = $("#myForm").serialize();
-                $.ajax({
-                    type: "POST",
-                    url: "/Home/form_1a",
-                    data: data,
-                    success: function (response) {
-                        
-                        alert("Successful");
-                        
-
-                        
-                    }
-                })
+        $("#btnSubmit").click(function () {
+            //debugger
+            var data = $("#myForm").serialize();
+            $.ajax({
+                type: "POST",
+                url: "/Home/form_1a",
+                data: data,
+                success: function (response) {
+   
+                }
             })
         })
+    })
 
 
-        $('#btnViewPDF').click(function () {
-            var new_date = new Date();
-            var nd = pad((new_date.getMonth() + 1), 2) + "-" + pad(new_date.getDate(),2) + "-" + new_date.getFullYear();  
+    $('#btnViewPDF').click(function () {
 
-            //alert(nd);
-            var lcr_no = lcr + "_" + nd;
-            window.open("/OUTPUT_PDF/FORM_1A/" + lcr_no + ".pdf");
-
-            //alert(lcr_no);
+        $.ajax({
+            url: '/Home/GetLastPDFFilename',
+            type: 'get',
+            success: function (data) {
+                window.open("/OUTPUT_PDF/FORM_1A/" + data + ".pdf");
+            }
         });
-
-        function pad(str, max) {
-            str = str.toString();
-            return str.length < max ? pad("0" + str, max) : str;
-        }
         
-    </script>
-</body>
-</html>
+
+    });
+
+    function pad(str, max) {
+        str = str.toString();
+        return str.length < max ? pad("0" + str, max) : str;
+    }
+        
+</script>

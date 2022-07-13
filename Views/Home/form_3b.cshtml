@@ -1,160 +1,173 @@
-﻿@{
+﻿@model form_1a.Models.form_3B
+@{
     ViewBag.Title = "form_3b";
-    Layout = null;
 }
 
-<!DOCTYPE html>
+<div class="container">
+    <div class="row">
+        <form id="myForm">
 
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
-    <link href="~/Content/Site.css" rel="stylesheet" />
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-    @*<meta name="viewport" content="width=device-width" />
-        <link href="~/Content/bootstrap.min.css" rel="stylesheet" />*@
-</head>
+            <div class="row">
+                <a href="@Url.Action("Index", null, new { area = string.Empty, controller = "Home" }, Request.Url.Scheme)">
+                    <div class="col-md-2 add-border return-button">
+                        <i class="fa fa-angle-double-left"></i>
+                        <i>Return to Menu</i>
+                    </div>
+                </a>
+            </div>
+            <br />
 
-<body>
-    <div class="container">
-        <div class="row">
-            <form id="myForm">
-
-                <div class="row remove-padding">
-                    <a href="@Url.Action("Index", null, new { area = string.Empty, controller = "Home" }, Request.Url.Scheme)">
-                        <div class="col-md-2 add-border return-button">
-                            <i class="fa fa-angle-double-left"></i>
-                            <i>Return to Menu</i>
-                        </div>
-                    </a>
-                </div>
+            <div class="col-md-12">
                 <br />
+                <p class="h3"><strong>Civil Registry Form No. 3B</strong></p>
+                <p class="h4">(Marriage-not Available)</p>
+                <br />
+            </div>
 
-                <div class="col-md-12">
-                    <br />
-                    <p class="h3"><strong>Civil Registry Form No. 3B</strong></p>
-                    <p class="h4">(Marriage-not Available)</p>
-                    <br />
-                </div>
+            <div class="row add-border">
 
-                <div class="row add-border">
-
-                    <div class="col-md-4">
-                        <div class="col-md-12 add-border">
-                            <p class="h4"><strong>Transaction Details</strong></p><br />
-                            <div class="form-group">
-                                <label>Issued To</label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label>Officer Name</label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label>Officer Title</label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label>Verifier Name</label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label>Verifier Title</label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label>Amount Paid</label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label>O.R. Number</label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label>Date Paid</label>
-                                <input type="text" class="form-control">
-                            </div>
+                <div class="col-md-4">
+                    <div class="col-md-12 add-border">
+                        <p class="h4"><strong>Transaction Details</strong></p><br />
+                        <div class="form-group">
+                            <label>Issued To</label>
+                            @Html.TextBoxFor(model => model.issued_name, new { @class = "form-control", @placeholder = "Issued To" })
                         </div>
-                    </div>
-
-                    <div class="col-md-8">
-                        <div class="col-md-12 add-border">
-                            <p class="h4"><strong>Form Details</strong></p><br />
-                            <div class="col-md-12 form-group">
-                                <label>Date</label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="col-md-12 form-group">
-                                <label>Name of Husband</label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="col-md-12 form-group">
-                                <label>Name of Wife</label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="col-md-12 form-group">
-                                <label>Date of Marriage</label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="col-md-12 form-group">
-                                <label>Records of Marriages for Year</label>
-                                <input type="text" class="form-control">
-                            </div>
+                        <div class="form-group">
+                            <label>Officer Name</label>
+                            @Html.TextBoxFor(model => model.officer_name, new { @class = "form-control", @placeholder = "Officer Name" })
+                        </div>
+                        <div class="form-group">
+                            <label>Officer Title</label>
+                            @Html.TextBoxFor(model => model.officer_title, new { @class = "form-control", @placeholder = "Officer Title" })
+                        </div>
+                        <div class="form-group">
+                            <label>Verifier Name</label>
+                            @Html.TextBoxFor(model => model.verifier_name, new { @class = "form-control", @placeholder = "Verifier Name" })
+                        </div>
+                        <div class="form-group">
+                            <label>Verifier Title</label>
+                            @Html.TextBoxFor(model => model.verifier_title, new { @class = "form-control", @placeholder = "Verifier Title" })
+                        </div>
+                        <div class="form-group">
+                            <label>Amount Paid</label>
+                            @Html.TextBoxFor(model => model.payment, new { @class = "form-control", @placeholder = "Payment" })
+                        </div>
+                        <div class="form-group">
+                            <label>O.R. Number</label>
+                            @Html.TextBoxFor(model => model.or_no, new { @class = "form-control", @placeholder = "OR Number" })
+                        </div>
+                        <div class="form-group">
+                            <label>Date Paid</label>
+                            @Html.TextBoxFor(model => model.date_paid, new { @class = "datepicker form-control", @placeholder = "Date Paid", @id = "date_paid" })
                         </div>
                     </div>
                 </div>
 
-                <br /><br />
-                <div class="row">
-                    <div class="col-md-3 " style="float:right;">
-                        <div class="col-md-12">
-                            <input type="Submit" value="Submit" class="btn btn-block btn-primary" id="btnSubmit" />
+                <div class="col-md-8">
+                    <div class="col-md-12 add-border">
+                        <p class="h4"><strong>Form Details</strong></p><br />
+                        <div class="col-md-12 form-group">
+                            <label>Date</label>
+                            @Html.TextBoxFor(model => model.entry, new { @class = "form-control datepicker", @id = "entry" })
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <label>Name of Husband</label>
+                            @Html.TextBoxFor(model => model.husband_name, new { @class = "form-control", @placeholder = "Name of Husband" })
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <label>Name of Wife</label>
+                            @Html.TextBoxFor(model => model.wife_name, new { @class = "form-control", @placeholder = "Name of Wife" })
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <label>Date of Marriage</label>
+                            @Html.TextBoxFor(model => model.date_of_marriage, new { @class = "datepicker form-control", @placeholder = "Date of Marriage", @id = "date_of_marriage" })
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <label>Records of Marriages for Year</label>
+                            @Html.TextBoxFor(model => model.year, new { @class = "form-control", @placeholder = "Records of Marriages for Year" })
                         </div>
                     </div>
                 </div>
+            </div>
 
-            </form>
-        </div>
+            <div class="row">
+                <div class="col-md-3 pull-right button-margin">
+                    <div class="col-md-12">
+                        <input type="Submit" value="Submit" class="btn btn-block btn-primary" id="btnSubmit" />
+                    </div>
+                    <div class="col-md-12">
+                        <input type="button" value="View PDF" class="btn btn-block btn-primary" id="btnViewPDF" style="display: none;" />
+                    </div>
+                </div>
+            </div>
+
+        </form>
     </div>
+</div>
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
+
+<script type="text/javascript">
+    var date = new Date();
+    var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    var lcr = "";
+
+    var optSimple = {
+        format: 'mm-dd-yyyy',
+        todayHighlight: true,
+        orientation: 'bottom right',
+        autoclose: true,
+        inline: true,
+    };
+
+    $('.datepicker').datepicker(optSimple);
+    $('#entry').datepicker('setDate', today);
+
+    $(document).ready(function () {
+        lcr = '@Request.Params["lcr_reg_no"]' || "";
+
+        if (lcr != "") {
+
+            $('#btnViewPDF').css('display', 'block');
+        }
 
 
-    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
-    <script src="~/Scripts/jquery-ui.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
+        $("#btnSubmit").click(function () {
+            //debugger
+            var data = $("#myForm").serialize();
+            $.ajax({
+                type: "POST",
+                url: "/Home/form_3b",
+                data: data,
+                success: function (response) {
 
-    <script type="text/javascript">
-        var date = new Date();
-        var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+                    alert("Successful");
 
-        var optSimple = {
-            format: 'mm-dd-yyyy',
-            todayHighlight: true,
-            orientation: 'bottom right',
-            autoclose: true,
-            inline: true,
-        };
 
-        $('#entry').datepicker(optSimple);
-        $('#entry').datepicker('setDate', today);
 
-        $(document).ready(function () {
-            $("#btnSubmit").click(function () {
-                debugger
-                var data = $("#myForm").serialize();
-                $.ajax({
-                    type: "POST",
-                    url: "/Home/form_1a",
-                    data: data,
-                    success: function (response) {
-                        alert("Successful");
-                    }
-                })
+                }
             })
         })
-    </script>
-</body>
-</html>
+    })
+
+
+    $('#btnViewPDF').click(function () {
+        var new_date = new Date();
+        var nd = pad((new_date.getMonth() + 1), 2) + "-" + pad(new_date.getDate(),2) + "-" + new_date.getFullYear();
+
+        //alert(nd);
+        var lcr_no = lcr + "_" + nd;
+        window.open("/OUTPUT_PDF/FORM_3B/" + lcr_no + ".pdf");
+
+        //alert(lcr_no);
+    });
+
+    function pad(str, max) {
+        str = str.toString();
+        return str.length < max ? pad("0" + str, max) : str;
+    }
+
+</script>

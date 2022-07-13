@@ -21,7 +21,6 @@ namespace form_1a.Models
         public string month_year2 { get; set; }
         public string reason { get; set; }
         public string husband_name { get; set; }
-        public string wifre_name { get; set; }
         public string place_of_marriage { get; set; }
         public string issued_name { get; set; }
         public string officer_name { get; set; }
@@ -31,5 +30,7 @@ namespace form_1a.Models
         public string payment { get; set; }
         public string or_no { get; set; }
         public Nullable<System.DateTime> date_paid { get; set; }
+        public string wife_name { get; set; }
+        public string filename { get; set; }
     }
 }

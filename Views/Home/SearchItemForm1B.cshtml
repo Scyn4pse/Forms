@@ -1,0 +1,113 @@
+﻿@model IEnumerable<form_1a.Models.Form_1B>
+@{
+    ViewBag.Title = "Search Item";
+}
+
+<h3>Search Item</h3>
+<div class="container-fluid">
+    <div class="col-sm-2">
+        <label>Select Search By</label>
+        <select class="form-control" id="selType">
+            <option value="name">Child's Name</option>
+            <option value="mothname">Mother's Name</option>
+            <option value="fathname">Father's Name</option>
+
+        </select>
+    </div>
+    <div class="col-sm-8">
+        <label>Enter Search Item</label>
+        <input type="text" class="form-control" placeholder="search item" id="searchItem" />
+    </div>
+    <div class="col-sm-2">
+        <label>&nbsp;</label>
+        <input type="button" class="form-control btn btn-primary" value="Search" id="btnSearch" />
+    </div>
+</div>
+<br />
+<div id="divResult" class="col-lg-12">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Child's Name</th>
+                <th>Mother's Name</th>
+                <th>Father's Name</th>
+                <th>Date of Entry</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="bodyContents">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.name</td>
+                    <td>@item.mother</td>
+                    <td>@item.father</td>
+                    <td>@Html.DisplayFor(modelItem => item.entry)</td>
+                    <td>
+                        <input class="btn btn-primary" onclick="ViewPDF('@item.filename')" id="btnViewPDF" type="button" value="View PDF" />&nbsp;
+                        <input class="btn btn-primary" type="button" value="Edit" onclick="EditItem('@item.filename' )" />&nbsp;
+                        <input class="btn btn-primary" type="button" value="Copy" onclick="CopyRecordsForm1B('@item.filename' )" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript" src="http://www.datejs.com/build/date.js"></script>
+<script type="text/javascript">
+    $('#btnSearch').click(function () {
+
+        var selType = $('#selType').val();          
+        var searchItem = $('#searchItem').val();    
+        var htmls = "";
+        $('#bodyContents').html('');                
+
+        if (searchItem != "") {
+            $.ajax({
+                url: '/Home/SearchThisForm1B',            
+                type: 'get',
+                data: { selType: selType, searchItem: searchItem }, 
+                success: function (data) {
+                    if (data != "0") {
+                        $.each(data, function (a, b) {
+                            htmls = '<tr><td>' + b.name + '</td><td>' + b.mother + '</td><td>' + b.father + '</td><td>' + b.entry + '</td><td><input class="btn btn-primary" onclick="ViewPDF(\'' + b.filename + '\')" id="btnViewPDF" type="button" value="View PDF" />&nbsp;<input class="btn btn-primary" type="button" value="Edit"  onclick="EditItem(\'' + b.filename + '\')"  />&nbsp;<input class="btn btn-primary" type="button" value="Copy"  onclick="CopyRecordsForm1B(\'' + b.filename + '\')"  /></td></tr>';
+                            $('#bodyContents').append(htmls);
+                        });
+
+                    } else {
+                        alert("No Records Found");
+                    }
+
+                }
+            })
+        } else {
+            htmls = 'Field is Empty! <input class="btn btn-primary" onclick="Refresh()" id="btnRefresh" type="button" value="OK" />';
+
+            $('#bodyContents').append(htmls);
+
+        }
+    });
+
+    function ViewPDF(filename) {
+        var fname = pad(filename, 5);
+        window.open("/OUTPUT_PDF/FORM_1B/" + fname + ".pdf"); 
+    }
+
+    function EditItem(filename) {
+        window.open("/Home/EditItemForm1B?filename=" + filename);
+    }
+    function CopyRecordsForm1B(filename) {
+        window.open("/Home/CopyRecordsForm1B?filename=" + filename);
+    }
+    function Refresh() {
+        location.replace("/Home/SearchItemForm1B");
+    }
+    function pad(str, max) {
+        str = str.toString();
+        return str.length < max ? pad("0" + str, max) : str;
+    }
+</script>

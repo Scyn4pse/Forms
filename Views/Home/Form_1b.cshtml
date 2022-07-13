@@ -1,164 +1,176 @@
-﻿@{
+﻿@model form_1a.Models.Form_1B
+@{
     ViewBag.Title = "form_1b";
-    Layout = null;
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
-    <link href="~/Content/Site.css" rel="stylesheet" />
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-    @*<meta name="viewport" content="width=device-width" />
-        <link href="~/Content/bootstrap.min.css" rel="stylesheet" />*@
-</head>
-
-<body>
-    <div class="container">
+<div class="container">
+    <div class="row">
         <div class="row">
-            <form id="myForm">
-
-                <div class="row remove-padding">
-                    <a href="@Url.Action("Index", null, new { area = string.Empty, controller = "Home" }, Request.Url.Scheme)">
-                        <div class="col-md-2 add-border return-button">
-                            <i class="fa fa-angle-double-left"></i>
-                            <i>Return to Menu</i>
-                        </div>
-                    </a>
+            <a href="@Url.Action("Index", null, new { area = string.Empty, controller = "Home" }, Request.Url.Scheme)">
+                <div class="col-md-2 add-border return-button">
+                    <i class="fa fa-angle-double-left"></i>
+                    <i>Return to Menu</i>
                 </div>
-                <br />
-
-                <div class="col-md-12">
-                    <br />
-                    <p class="h3"><strong>Civil Registry Form No. 1B</strong></p>
-                    <p class="h4">(Birth-not Available)</p>
-                    <br />
-                </div>
-
-                <div class="row add-border">
-
-                    <div class="col-md-4">
-                        <div class="col-md-12 add-border">
-                            <p class="h4"><strong>Transaction Details</strong></p><br />
-                            <div class="form-group">
-                                <label>Issued To</label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label>Officer Name</label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label>Officer Title</label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label>Verifier Name</label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label>Verifier Title</label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label>Amount Paid</label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label>O.R. Number</label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label>Date Paid</label>
-                                <input type="text" class="form-control">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-8">
-                        <div class="col-md-12 add-border">
-                            <p class="h4"><strong>Form Details</strong></p><br />
-                            <div class="col-md-12 form-group">
-                                <label>Date</label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="col-md-12 form-group">
-                                <label>Name of Child</label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="col-md-12 form-group">
-                                <label>Date of Birth</label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label>Name of Father</label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label>Name of Mother</label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="col-md-12 form-group">
-                                <label>Records of Birth for Year</label>
-                                <input type="text" class="form-control">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <br /><br />
-                <div class="row">
-                    <div class="col-md-3 " style="float:right;">
-                        <div class="col-md-12">
-                            <input type="Submit" value="Submit" class="btn btn-block btn-primary" id="btnSubmit" />
-                        </div>
-                    </div>
-                </div>
-
-            </form>
+            </a>
         </div>
+        <br />
+
+        <div class="col-md-12">
+            <br />
+            <p class="h3"><strong>Civil Registry Form No. 1B</strong></p>
+            <p class="h4">(Birth-not Available)</p>
+            <br />
+        </div>
+
+
+        <form id="myForm">
+            <div class="row add-border">
+                <div class="col-md-4">
+                    <div class="col-md-12 add-border">
+                        <p class="h4"><strong>Transaction Details</strong></p><br />
+                        <div class="form-group">
+                            <label>Issued To</label>
+                            @Html.TextBoxFor(model => model.issued_to, new { @class = "form-control", @placeholder = "Issued To" })
+                        </div>
+                        <div class="form-group">
+                            <label>Officer Name</label>
+                            @Html.TextBoxFor(model => model.officer_name, new { @class = "form-control", @placeholder = "Officer Name" })
+                        </div>
+                        <div class="form-group">
+                            <label>Officer Title</label>
+                            @Html.TextBoxFor(model => model.officer_title, new { @class = "form-control", @placeholder = "Officer Title" })
+                        </div>
+                        <div class="form-group">
+                            <label>Verifier Name</label>
+                            @Html.TextBoxFor(model => model.verifier_name, new { @class = "form-control", @placeholder = "Verifier Name" })
+                        </div>
+                        <div class="form-group">
+                            <label>Verifier Title</label>
+                            @Html.TextBoxFor(model => model.verifier_title, new { @class = "form-control", @placeholder = "Verifier Title" })
+                        </div>
+                        <div class="form-group">
+                            <label>Amount Paid</label>
+                            @Html.TextBoxFor(model => model.payment, new { @class = "form-control", @placeholder = "Payment" })
+                        </div>
+                        <div class="form-group">
+                            <label>O.R. Number</label>
+                            @Html.TextBoxFor(model => model.or_no, new { @class = "form-control", @placeholder = "OR Number" })
+                        </div>
+                        <div class="form-group">
+                            <label>Date Paid</label>
+                            @Html.TextBoxFor(model => model.date_paid, new { @class = "datepicker form-control", @placeholder = "Date Paid", @id = "date_paid" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    <div class="col-md-12 add-border">
+                        <p class="h4"><strong>Form Details</strong></p><br />
+                        <div class="col-md-12 form-group">
+                            <label>Date</label>
+                            @Html.TextBoxFor(model => model.entry, new { @class = "form-control datepicker", @id = "entry" })
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Name of Child</label>
+                            @Html.TextBoxFor(model => model.name, new { @class = "form-control", @placeholder = "Name of Child" })
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Date of Birth</label>
+                            @Html.TextBoxFor(model => model.date_of_birth, new { @class = "datepicker form-control", @placeholder = "Date of Birth", @id = "date_of_birth" })
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Name of Father</label>
+                            @Html.TextBoxFor(model => model.father, new { @class = "form-control", @placeholder = "Name of Father" })
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Name of Mother</label>
+                            @Html.TextBoxFor(model => model.mother, new { @class = "form-control", @placeholder = "Name of Mother" })
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <label>Records of Birth for Year</label>
+                            @Html.TextBoxFor(model => model.year, new { @class = "form-control", @placeholder = "Year" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3 pull-right button-margin">
+                    <div class="col-md-12">
+                        <input type="Submit" value="Submit" class="btn btn-block btn-primary" id="btnSubmit" />
+                    </div>
+                    <div class="col-md-12">
+                        <input type="button" value="View PDF" class="btn btn-block btn-primary" id="btnViewPDF" style="display: none;" />
+                    </div>
+                </div>
+            </div>
+
+
+        </form>
     </div>
+</div>
 
 
-    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
-    <script src="~/Scripts/jquery-ui.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
 
-    <script type="text/javascript">
-        var date = new Date();
-        var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+<script type="text/javascript">
+    var date = new Date();
+    var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    var entryy = "";
 
-        var optSimple = {
-            format: 'mm-dd-yyyy',
-            todayHighlight: true,
-            orientation: 'bottom right',
-            autoclose: true,
-            inline: true,
-        };
+    var optSimple = {
+        format: 'mm-dd-yyyy',
+        todayHighlight: true,
+        orientation: 'bottom right',
+        autoclose: true,
+        inline: true,
+    };
 
-        $('#entry').datepicker(optSimple);
-        $('#entry').datepicker('setDate', today);
+    $('.datepicker').datepicker(optSimple);
+    $('#entry').datepicker('setDate', today);
 
-        $(document).ready(function () {
-            $("#btnSubmit").click(function () {
-                debugger
-                var data = $("#myForm").serialize();
-                $.ajax({
-                    type: "POST",
-                    url: "/Home/form_1a",
-                    data: data,
-                    success: function (response) {
-                        alert("Successful");
-                    }
-                })
+    $(document).ready(function () {
+        entryy = '@Request.Params["entry"]' || "";
+
+        if (entryy != "") {
+
+            $('#btnViewPDF').css('display', 'block');
+        }
+
+
+        $("#btnSubmit").click(function () {
+            //debugger
+            var data = $("#myForm").serialize();
+            $.ajax({
+                type: "POST",
+                url: "/Home/Form_1b",
+                data: data,
+                success: function (response) {
+                    alert("Successful");
+                }
             })
         })
-    </script>
-</body>
-</html>
+    })
+
+
+    $('#btnViewPDF').click(function () {
+
+        $.ajax({
+            url: '/Home/GetLastPDFFilenameForm1B',
+            type: 'get',
+            success: function (data) {
+                window.open("/OUTPUT_PDF/FORM_1B/" + data + ".pdf");
+            }
+        });
+
+
+    });
+
+    function pad(str, max) {
+        str = str.toString();
+        return str.length < max ? pad("0" + str, max) : str;
+    }
+
+</script>

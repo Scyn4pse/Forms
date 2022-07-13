@@ -1,84 +1,88 @@
 @model IEnumerable<form_1a.Models.Form_1A>
-<html>
-<head>
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-</head>
-<body>
-    <h3>Search Item</h3>
-    <div class="container-fluid">
-        <div class="col-sm-2">
-            <label>Select Search By</label>
-            <select class="form-control" id="selType">
-                <option value="lcrno" selected>LCR No.</option>
-                <option value="chname">Child's Name</option>
-                <option value="mothname">Mother's Name</option>
-                <option value="fathname">Father's Name</option>
+@{
+    ViewBag.Title = "Search Item";
+}
 
-            </select>
-        </div>
-        <div class="col-sm-8">
-            <label>Enter Search Item</label>
-            <input type="text" class="form-control" placeholder="search item" id="searchItem" />
-        </div>
-        <div class="col-sm-2">
-            <label>&nbsp;</label>
-            <input type="button" class="form-control btn btn-primary" value="Search" id="btnSearch" />
-        </div>
+<h3>Search Item</h3>
+<div class="container-fluid">
+    <div class="col-sm-2">
+        <label>Select Search By</label>
+        <select class="form-control" id="selType">
+            <option value="lcrno" selected>LCR No.</option>
+            <option value="chname">Child's Name</option>
+            <option value="mothname">Mother's Name</option>
+            <option value="fathname">Father's Name</option>
+
+        </select>
     </div>
-    <br/>
-    <div id="divResult" class="col-lg-12">
-        <table class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>LCR No.</th>
-                    <th>Child's Name</th>
-                    <th>Mother's Name</th>
-                    <th>Father's Name</th>
-                    <th>Date of Entry</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody id="bodyContents">
-                @foreach (var item in Model)
+    <div class="col-sm-8">
+        <label>Enter Search Item</label>
+        <input type="text" class="form-control" placeholder="search item" id="searchItem" />
+    </div>
+    <div class="col-sm-2">
+        <label>&nbsp;</label>
+        <input type="button" class="form-control btn btn-primary" value="Search" id="btnSearch" />
+    </div>
+</div>
+<br />
+<div id="divResult" class="col-lg-12">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>LCR No.</th>
+                <th>Child's Name</th>
+                <th>Mother's Name</th>
+                <th>Father's Name</th>
+                <th>Date of Entry</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="bodyContents">
+            @foreach (var item in Model)
             {
-                    <tr>
-                        <td>@item.lcr_reg_no</td>
-                        <td>@item.name_child</td>
-                        <td>@item.name_of_mother</td>
-                        <td>@item.name_of_father</td>
-                        <td>@item.entry</td>
-                        <td><input class="btn btn-primary" onclick="ViewPDF( @item.lcr_reg_no)" id="btnViewPDF" type="button" value="View PDF" />&nbsp;
-                        <input class="btn btn-primary" type="button" value="Edit" onclick="EditItem( @item.lcr_reg_no )" /></td>
-                    </tr>
+                <tr>
+                    <td>@item.lcr_reg_no</td>
+                    <td>@item.name_child</td>
+                    <td>@item.name_of_mother</td>
+                    <td>@item.name_of_father</td>
+                    <td>@Html.DisplayFor(modelItem => item.entry)</td>
+                    <td>
+                        <input class="btn btn-primary" onclick="ViewPDF('@item.filename')" id="btnViewPDF" type="button" value="View PDF" />&nbsp;
+                        <input class="btn btn-primary" type="button" value="Edit" onclick="EditItem( @item.lcr_reg_no, '@item.filename' )" />&nbsp;
+                        <input class="btn btn-primary" type="button" value="Copy" onclick="CopyRecords( @item.lcr_reg_no, '@item.filename' )" />
+                    </td>
+                </tr>
             }
-            </tbody>
-        </table>
-    </div>
-</body>
+        </tbody>
+    </table>
+</div>
 
-
-</html>
 <script src="~/Scripts/bootstrap.min.js"></script>
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript" src="http://www.datejs.com/build/date.js"></script>
+
 <script type="text/javascript">
     $('#btnSearch').click(function () {
-        var selType = $('#selType').val();          /*Search By:*/
-        var searchItem = $('#searchItem').val();    /*Input from textbox*/
+
+        var selType = $('#selType').val();          
+        var searchItem = $('#searchItem').val();    
         var htmls = "";
-        $('#bodyContents').html('');                /*List of records displayed*/
+        $('#bodyContents').html('');                
 
         if (searchItem != "") {
             $.ajax({
-                url: '/Home/SearchThis',            /*Search this function in controller*/
+                url: '/Home/SearchThis',           
                 type: 'get',
-                data: { selType: selType, searchItem: searchItem }, /* Pass the data to the function*/
+                data: { selType: selType, searchItem: searchItem }, 
                 success: function (data) {
                     if (data != "0") {
                         $.each(data, function (a, b) {
-                            htmls = '<tr><td>' + b.lcr_reg_no + '</td><td>' + b.name_child + '</td><td>' + b.name_of_mother + '</td><td>' + b.name_of_father + '</td><td>' + b.entry + '</td><td><input class="btn btn-primary" onclick="ViewPDF(\'' + b.lcr_reg_no + '\')" id="btnViewPDF" type="button" onclick="ViewPDF(\'' + b.lcr_reg_no + '\')" value="View PDF" />&nbsp;<input class="btn btn-primary" type="button" value="Edit"  onclick="EditItem(\'' + b.lcr_reg_no + '\')"  /></td></tr>';
+
+                            htmls = '<tr><td>' + b.lcr_reg_no + '</td><td>' + b.name_child + '</td><td>' + b.name_of_mother + '</td><td>' + b.name_of_father + '</td><td>' + b.entry + '</td><td><input class="btn btn-primary" onclick="ViewPDF(\'' + b.filename + '\')" id="btnViewPDF" type="button" value="View PDF" />&nbsp;<input class="btn btn-primary" type="button" value="Edit"  onclick="EditItem(\'' + b.lcr_reg_no + '\')"  />&nbsp;<input class="btn btn-primary" type="button" value="Copy"  onclick="CopyRecords(\'' + b.lcr_reg_no +'\')"  /></td></tr>'; 
                             $('#bodyContents').append(htmls);
                         });
-                        
+
                     } else {
                         alert("No Records Found");
                     }
@@ -89,19 +93,26 @@
             htmls = 'Field is Empty! <input class="btn btn-primary" onclick="Refresh()" id="btnRefresh" type="button" value="OK" />';
 
             $('#bodyContents').append(htmls);
-            
+
         }
     });
 
-    function ViewPDF(lcrno) {
-        
-        window.open("/OUTPUT_PDF/FORM_1A/" + lcrno + ".pdf"); //figure out date to work
+    function ViewPDF(filename) {
+        var fname = pad(filename, 5);
+        window.open("/OUTPUT_PDF/FORM_1A/" + fname + ".pdf"); 
     }
 
-    function EditItem(lcrno) {
-        window.open("/Home/EditItem?lcr_no=" + lcrno);
+    function EditItem(lcrno,filename) {
+        window.open("/Home/EditItem?lcr_no=" + lcrno + "&filename=" + filename);
+    }
+    function CopyRecords(lcrno, filename) {
+        window.open("/Home/CopyRecords?lcr_no=" + lcrno + "&filename=" + filename);
     }
     function Refresh() {
         location.replace("/Home/SearchItem");
+    }
+    function pad(str, max) {
+        str = str.toString();
+        return str.length < max ? pad("0" + str, max) : str;
     }
 </script>

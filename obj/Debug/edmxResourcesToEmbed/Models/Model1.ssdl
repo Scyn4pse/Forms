@@ -28,6 +28,7 @@
     <Property Name="payment" Type="varchar" MaxLength="50" />
     <Property Name="or_no" Type="varchar" MaxLength="50" />
     <Property Name="date_paid" Type="date" />
+    <Property Name="filename" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Form_1B">
     <Key>
@@ -48,6 +49,7 @@
     <Property Name="payment" Type="varchar" MaxLength="50" />
     <Property Name="or_no" Type="varchar" MaxLength="50" />
     <Property Name="date_paid" Type="date" />
+    <Property Name="filename" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="form_1C">
     <Key>
@@ -71,6 +73,7 @@
     <Property Name="payment" Type="varchar" MaxLength="50" />
     <Property Name="or_no" Type="varchar" MaxLength="50" />
     <Property Name="date_paid" Type="date" />
+    <Property Name="filename" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Form_2A">
     <Key>
@@ -98,6 +101,7 @@
     <Property Name="payment" Type="varchar" MaxLength="50" />
     <Property Name="or_no" Type="varchar" MaxLength="50" />
     <Property Name="date_paid" Type="date" />
+    <Property Name="filename" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="form_2B">
     <Key>
@@ -116,6 +120,7 @@
     <Property Name="payment" Type="varchar" MaxLength="50" />
     <Property Name="or_no" Type="varchar" MaxLength="50" />
     <Property Name="date_paid" Type="date" />
+    <Property Name="filename" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Form_3A">
     <Key>
@@ -149,6 +154,7 @@
     <Property Name="payment" Type="varchar" MaxLength="50" />
     <Property Name="or_no" Type="varchar" MaxLength="50" />
     <Property Name="date_paid" Type="date" />
+    <Property Name="filename" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="form_3B">
     <Key>
@@ -168,6 +174,7 @@
     <Property Name="payment" Type="varchar" MaxLength="50" />
     <Property Name="or_no" Type="varchar" MaxLength="50" />
     <Property Name="date_paid" Type="date" />
+    <Property Name="filename" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="form_3C">
     <Key>
@@ -180,7 +187,7 @@
     <Property Name="month_year2" Type="varchar" MaxLength="50" />
     <Property Name="reason" Type="varchar" MaxLength="50" />
     <Property Name="husband_name" Type="varchar" MaxLength="50" />
-    <Property Name="wifre_name" Type="varchar" MaxLength="50" />
+    <Property Name="wife_name" Type="varchar" MaxLength="50" />
     <Property Name="place_of_marriage" Type="varchar" MaxLength="50" />
     <Property Name="issued_name" Type="varchar" MaxLength="50" />
     <Property Name="officer_name" Type="varchar" MaxLength="50" />
@@ -190,6 +197,7 @@
     <Property Name="payment" Type="varchar" MaxLength="50" />
     <Property Name="or_no" Type="varchar" MaxLength="50" />
     <Property Name="date_paid" Type="date" />
+    <Property Name="filename" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityContainer Name="Form_1AModelStoreContainer">
     <EntitySet Name="Form_1A" EntityType="Self.Form_1A" Schema="dbo" store:Type="Tables" />

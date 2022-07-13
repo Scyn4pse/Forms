@@ -28,6 +28,7 @@
     <Property Name="page" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="book" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="entry" Type="DateTime" Precision="0" />
+    <Property Name="filename" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityContainer Name="Form_1AEntities1" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Form_1A" EntityType="Self.Form_1A" />
@@ -61,6 +62,7 @@
     <Property Name="payment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="or_no" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="date_paid" Type="DateTime" Precision="0" />
+    <Property Name="filename" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="Form_2A">
     <Key>
@@ -88,6 +90,7 @@
     <Property Name="payment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="or_no" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="date_paid" Type="DateTime" Precision="0" />
+    <Property Name="filename" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="form_2B">
     <Key>
@@ -106,6 +109,7 @@
     <Property Name="payment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="or_no" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="date_paid" Type="DateTime" Precision="0" />
+    <Property Name="filename" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="Form_3A">
     <Key>
@@ -139,6 +143,7 @@
     <Property Name="payment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="or_no" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="date_paid" Type="DateTime" Precision="0" />
+    <Property Name="filename" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="form_3B">
     <Key>
@@ -158,6 +163,7 @@
     <Property Name="payment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="or_no" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="date_paid" Type="DateTime" Precision="0" />
+    <Property Name="filename" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="form_3C">
     <Key>
@@ -170,7 +176,6 @@
     <Property Name="month_year2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="reason" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="husband_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="wifre_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="place_of_marriage" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="issued_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="officer_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -180,6 +185,8 @@
     <Property Name="payment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="or_no" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="date_paid" Type="DateTime" Precision="0" />
+    <Property Name="wife_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="filename" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="Form_1B">
     <Key>
@@ -200,5 +207,6 @@
     <Property Name="payment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="or_no" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="date_paid" Type="DateTime" Precision="0" />
+    <Property Name="filename" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
 </Schema>
