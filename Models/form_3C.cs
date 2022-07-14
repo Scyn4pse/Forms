@@ -6,7 +6,9 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
 namespace form_1a.Models
 {
     using System;
@@ -15,6 +17,8 @@ namespace form_1a.Models
     public partial class form_3C
     {
         public int Id { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public Nullable<System.DateTime> entry { get; set; }
         public string year { get; set; }
         public string month_year1 { get; set; }

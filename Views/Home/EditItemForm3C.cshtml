@@ -7,7 +7,7 @@
                     <form id="myForm">
 
                         <div class="row">
-                            <a href="@Url.Action("SearchItemForm3B", null, new { area = string.Empty, controller = "Home" }, Request.Url.Scheme)">
+                            <a href="@Url.Action("SearchItemForm3C", null, new { area = string.Empty, controller = "Home" }, Request.Url.Scheme)">
                                 <div class="col-md-2 add-border return-button">
                                     <i class="fa fa-angle-double-left"></i>
                                     <i>Return to Records</i>
@@ -18,13 +18,12 @@
 
                         <div class="col-md-12">
                             <br />
-                            <p class="h3"><strong>Civil Registry Form No. 3B</strong></p>
-                            <p class="h4">(Marriage-not Available)</p>
+                            <p class="h3"><strong>Civil Registry Form No. 3C</strong></p>
+                            <p class="h4">(Marriage Destroyed)</p>
                             <br />
                         </div>
 
                         <div class="row add-border">
-
                             <div class="col-md-4">
                                 <div class="col-md-12 add-border">
                                     <p class="h4"><strong>Transaction Details</strong></p><br />
@@ -71,20 +70,32 @@
                                         <input type="text" value="@Model.entry" id="entry" class="form-control" readonly />
                                     </div>
                                     <div class="col-md-12 form-group">
+                                        <label>Records of Marriages for Year</label>
+                                        <input type="text" value="@Model.year" id="year" class="form-control" />
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label>Initial Period</label>
+                                        <input type="text" value="@Model.month_year1" id="month_year1" class="form-control" />
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label>Latest Period</label>
+                                        <input type="text" value="@Model.month_year2" id="month_year2" class="form-control" />
+                                    </div>
+                                    <div class="col-md-12 form-group">
+                                        <label>Reason of Destruction</label>
+                                        <input type="text" value="@Model.reason" id="reason" class="form-control" />
+                                    </div>
+                                    <div class="col-md-12 form-group">
                                         <label>Name of Husband</label>
                                         <input type="text" value="@Model.husband_name" id="husband_name" class="form-control" />
-                                     </div>
+                                    </div>
                                     <div class="col-md-12 form-group">
                                         <label>Name of Wife</label>
                                         <input type="text" value="@Model.wife_name" id="wife_name" class="form-control" />
                                     </div>
                                     <div class="col-md-12 form-group">
-                                        <label>Date of Marriage</label>
-                                        <input type="text" value="@Model.date_of_marriage" id="date_of_marriage" class="form-control datepicker" />
-                                    </div>
-                                    <div class="col-md-12 form-group">
-                                        <label>Records of Marriages for Year</label>
-                                        <input type="text" value="@Model.year" id="year" class="form-control" />
+                                        <label>Place of Marriage</label>
+                                        <input type="text" value="@Model.place_of_marriage" id="place_of_marriage" class="form-control" />
                                     </div>
                                 </div>
                             </div>
@@ -99,8 +110,6 @@
                                 </div>
                             </div>
                         </div>
-
-
                     </form>
                 </div>
             </div>
@@ -117,7 +126,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
 
 <script type="text/javascript">
-
     var optSimple = {
         format: 'mm-dd-yyyy',
         todayHighlight: true,
@@ -126,6 +134,7 @@
         inline: true,
     };
     $('.datepicker').datepicker(optSimple);
+
     $('#btnUpdate').click(function () {
 
         var issued_name = $('#issued_name').val();
@@ -136,15 +145,18 @@
         var payment = $('#payment').val();
         var or_no = $('#or_no').val();
         var date_paid = $('#date_paid').val();
+        var year = $('#year').val();
+        var month_year1 = $('#month_year1').val();
+        var month_year2 = $('#month_year2').val();
+        var reason = $('#reason').val();
         var husband_name = $('#husband_name').val();
         var wife_name = $('#wife_name').val();
-        var date_of_marriage = $('#date_of_marriage').val();
-        var year = $('#year').val();
+        var place_of_marriage = $('#place_of_marriage').val();
         var filename = $('#filename').text();
 
 
         $.ajax({
-            url: '/Home/UpdateItemForm3B',
+            url: '/Home/UpdateItemForm3C',
             type: 'get',
             data: {
                 issued_name: issued_name,
@@ -155,14 +167,17 @@
                 payment: payment,
                 or_no: or_no,
                 date_paid: date_paid,
+                year: year,
+                month_year1: month_year1,
+                month_year2: month_year2,
+                reason: reason,
                 husband_name: husband_name,
                 wife_name: wife_name,
-                date_of_marriage: date_of_marriage,
-                year: year,
+                place_of_marriage, place_of_marriage,
                 filename: filename
             },
             success: function (data) {
-                location.replace("/Home/SearchItemForm3B");
+                location.replace("/Home/SearchItemForm3C");
             }
         });
     });
