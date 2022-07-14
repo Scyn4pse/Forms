@@ -1423,56 +1423,231 @@ namespace form_1a.Controllers
         }
         //==========================================================  F O R M  3 B  ==========================================================
 
-        //public ActionResult Form_3b()
-        //{
-        //    return View();
-        //}
+        public ActionResult Form_3b()
+        {
+            return View();
+        }
 
-        //[HttpPost]
-        //public ActionResult Form_3b(form_3B model)
-        //{
+        [HttpPost]
+        public ActionResult Form_3b(form_3B model)
+        {
+            string newfilename = "";
+            var q_lastfilename = "select  TOP 1 id, filename from form_3B order by id desc";
+            var res_filename = db.Database.SqlQuery<FilenameInfo>(q_lastfilename).FirstOrDefault();
 
-        //    try
-        //    {
-        //        form_3B form = new form_3B
-        //        {
-        //            Id = model.Id,
-        //            entry = model.entry,
-        //            husband_name = model.husband_name,
-        //            wife_name = model.wife_name/* + "_" + nd*/,
-        //            date_of_marriage = model.date_of_marriage,
-        //            year = model.year,
-        //            issued_name = model.issued_name,
-        //            officer_name = model.officer_name,
-        //            officer_title = model.officer_title,
-        //            verifier_name = model.verifier_name,
-        //            verifier_title = model.verifier_title,
-        //            payment = model.payment,
-        //            or_no = model.or_no,
-        //            date_paid = model.date_paid
-        //        };
+            if (res_filename == null)
+            {
+                newfilename = "00001";
+            }
+            else
+            {
+                if (res_filename.filename == null)
+                {
+                    newfilename = "00001";
+                }
+                else
+                {
+                    int decValue = Convert.ToInt32(res_filename.filename, 16) + 1;
+                    newfilename = decValue.ToString("X").PadLeft(5, '0').ToUpper();
+                }
+            }
+            form_3B form = new form_3B
+                {
+                    entry = model.entry,
+                    husband_name = model.husband_name,
+                    wife_name = model.wife_name,
+                    date_of_marriage = model.date_of_marriage,
+                    year = model.year,
+                    issued_name = model.issued_name,
+                    officer_name = model.officer_name,
+                    officer_title = model.officer_title,
+                    verifier_name = model.verifier_name,
+                    verifier_title = model.verifier_title,
+                    payment = model.payment,
+                    or_no = model.or_no,
+                    date_paid = model.date_paid,
+                    filename = newfilename
+            };
+
+                db.form_3B.Add(form);
+                db.SaveChanges();
+
+                int latestId = form.Id;
+            FillAcroFieldsForm3B(newfilename);
+            return View(model);
+        }
+
+        public string FillAcroFieldsForm3B(string newFilename)
+        {
+            string entry = "";
+            string datepaid = "";
+            string datemarr = "";
+
+            var form_template = Server.MapPath("/FORM_TEMPLATE/FORM NO. 3B.pdf");
+            var output_pdf = Server.MapPath("/OUTPUT_PDF/FORM_3B/" + newFilename + ".pdf");
+
+            var q_string = "Select * from form_3B where filename='" + newFilename + "'";
+            var r_data = db.Database.SqlQuery<form_3B>(q_string).FirstOrDefault();
+            DateTime date1 = (DateTime)r_data.entry;
+            entry = date1.ToString("MM-dd-yyyy");
+
+            try
+            {
+                DateTime date3 = (DateTime)r_data.date_of_marriage;
+                DateTime date5 = (DateTime)r_data.date_paid;
+                datepaid = date5.ToString("MM-dd-yyyy");
+                datemarr = date3.ToString("MM-dd-yyyy");
+            }
+            catch
+            {
+
+            }
+
+            if (r_data != null)
+            {
+                PdfReader pdfReader = new PdfReader(form_template);
+                PdfStamper pdfStamper = new PdfStamper(pdfReader, new FileStream(output_pdf, FileMode.Create));
+
+
+                AcroFields pdfFormFields = pdfStamper.AcroFields;
+
+                pdfFormFields.SetField("txtDate", entry);
+                pdfFormFields.SetField("txtHusband", r_data.husband_name);
+                pdfFormFields.SetField("txtWife", r_data.wife_name);
+                pdfFormFields.SetField("txtDateofMarriage", datemarr);
+                pdfFormFields.SetField("txtYear", r_data.year);
+                pdfFormFields.SetField("txtIssueName", r_data.issued_name);
+                pdfFormFields.SetField("txtOfficerName", r_data.officer_name);
+                pdfFormFields.SetField("txtOfficerTitle", r_data.officer_title);
+                pdfFormFields.SetField("txtVerifierName", r_data.verifier_name);
+                pdfFormFields.SetField("txtVerifierTitle", r_data.verifier_title);
+                pdfFormFields.SetField("txtPayment", r_data.payment);
+                pdfFormFields.SetField("txtORno", r_data.or_no);
+                pdfFormFields.SetField("txtDatePaid", datepaid);
+
+                pdfStamper.FormFlattening = true;
+                pdfStamper.Close();
+                pdfReader.Close();
+
+                return "Success";
+            }
+            else
+            {
+                return "Failed/Not Exist";
+            }
+
+        }
+
+        public ActionResult SearchItemForm3B()
+        {
+            List<form_3B> form_3b = db.form_3B.ToList();
+
+            return View(form_3b);
+        }
+
+        [HttpGet]
+        public ActionResult SearchThisForm3B(string selType, string searchItem)
+        {
+            var q_item = "";
+
+            switch (selType)
+            {
+                case "husname":
+                    q_item = "Select * from form_3B where husband_name like '%" + searchItem + "%'";
+                    break;
+                case "wifename":
+                    q_item = "Select * from form_3B where wife_name like '%" + searchItem + "%'";
+                    break;
+                case "year":
+                    q_item = "Select * from form_3B where year like '%" + searchItem + "%'";
+                    break;
+                default:
+                    break;
+
+            }
+
+            var r_itemdata = db.Database.SqlQuery<form_3B>(q_item);
+            if (r_itemdata.Count() > 0)
+            {
+                List<SearchResultForm3B> SR = new List<SearchResultForm3B>();
+
+                foreach (var d in r_itemdata)
+                {
+                    DateTime date_entry = Convert.ToDateTime(d.entry);
+                    DateTime date_marr = Convert.ToDateTime(d.date_of_marriage);
+
+                    SR.Add(new SearchResultForm3B
+                    {
+                        husband_name = d.husband_name,
+                        wife_name = d.wife_name,
+                        year = d.year,
+                        date_of_marriage = date_marr.ToString("MM/dd/yyyy"),
+                        entry = date_entry.ToString("MM/dd/yyyy"),
+                        filename = d.filename
+                    });
+                }
+
+                return Json(SR.ToList(), JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("0", JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult EditItemForm3B(string filename)
+        {
+            var q_item = "Select * from form_3B where filename = '" + filename + "'";
+            var r_data = db.Database.SqlQuery<form_3B>(q_item).FirstOrDefault();
+
+            if (r_data != null)
+            {
+                return View(r_data);
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        [HttpGet]
+        public ActionResult UpdateItemForm3B(string issued_name, string officer_name, string officer_title, string verifier_name, string verifier_title, string payment, string or_no, string date_paid, string husband_name, string wife_name, string date_of_marriage, string year, string filename)
+        {
+            string q_update = "Update form_3B Set issued_name='" + issued_name + "', officer_name='" + officer_name + "',officer_title='" + officer_title + "', verifier_name='" + verifier_name + "', verifier_title='" + verifier_title + "',payment='" + payment + "', or_no='" + or_no + "',date_paid='" + date_paid + "',husband_name='" + husband_name + "',wife_name='" + wife_name + "',date_of_marriage='" + date_of_marriage + "',year='" + year + "' where filename='" + filename + "'";
+            db.Database.ExecuteSqlCommand(q_update);
+
+            FillAcroFieldsForm3B(filename);
+
+            return Json("Success", JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult CopyRecordsForm3B(string filename)
+        {
+            var q_item = "Select * from form_3B where filename = '" + filename + "'";
+            var r_data = db.Database.SqlQuery<form_3B>(q_item).FirstOrDefault();
+
+            if (r_data != null)
+            {
+                return View(r_data);
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        //==========================================================  F O R M  3 C  ==========================================================
 
 
 
-        //        db.form_3B.Add(form);
-        //        db.SaveChanges();
-
-        //        int latestId = form.Id;
-
-
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //    return View(model);
-        //}
 
         //public ActionResult Form_3c()
         //{
         //    return View();
         //}
+
 
         //[HttpPost]
         //public ActionResult Form_3c(form_3C model)
@@ -1519,54 +1694,6 @@ namespace form_1a.Controllers
         //}
 
 
-
-        ////public string FillAcroFieldsForm3B(string lcr_no)
-        ////{
-        ////    DateTime newdate = DateTime.Now;
-        ////    string nd = newdate.ToString("MM-dd-yyyy");
-
-        ////    string filename = lcr_no + "_" + nd;
-
-        ////    var form_template = Server.MapPath("/FORM_TEMPLATE/FORM NO. 3B.pdf");
-        ////    var output_pdf = Server.MapPath("/OUTPUT_PDF/FORM_3B/" + filename + ".pdf");
-
-        ////    var q_string = "Select * from FORM_3B where lcr_reg_no='" + lcr_no + "'";
-        ////    var r_data = db.Database.SqlQuery<form_3B>(q_string).FirstOrDefault();
-
-        ////    if (r_data != null)
-        ////    {
-        ////        PdfReader pdfReader = new PdfReader(form_template);
-        ////        PdfStamper pdfStamper = new PdfStamper(pdfReader, new FileStream(output_pdf, FileMode.Create));
-
-
-        ////        AcroFields pdfFormFields = pdfStamper.AcroFields;
-
-        ////        pdfFormFields.SetField("txtDate", r_data.entry.ToString());
-        ////        pdfFormFields.SetField("txtHusband", r_data.husband_name);
-        ////        pdfFormFields.SetField("txtWife", r_data.wife_name);
-        ////        pdfFormFields.SetField("txtDateofMarriage", r_data.date_of_marriage.ToString());
-        ////        pdfFormFields.SetField("txtYear", r_data.year);
-        ////        pdfFormFields.SetField("txtIssueName", r_data.issued_name);
-        ////        pdfFormFields.SetField("txtOfficerName", r_data.officer_name);
-        ////        pdfFormFields.SetField("txtOfficerTitle", r_data.officer_title);
-        ////        pdfFormFields.SetField("txtVerifierName", r_data.verifier_name);
-        ////        pdfFormFields.SetField("txtVerifierTitle", r_data.verifier_title);
-        ////        pdfFormFields.SetField("txtPayment", r_data.payment);
-        ////        pdfFormFields.SetField("txtORno", r_data.or_no);
-        ////        pdfFormFields.SetField("txtDatePaid", r_data.date_paid.ToString());
-
-        ////        pdfStamper.FormFlattening = true;
-        ////        pdfStamper.Close();
-        ////        pdfReader.Close();
-
-        ////        return "Success";
-        ////    }
-        ////    else
-        ////    {
-        ////        return "Failed/Not Exist";
-        ////    }
-
-        ////}
 
         ////public string FillAcroFieldsForm3C(string lcr_no)
         ////{
@@ -1618,7 +1745,7 @@ namespace form_1a.Controllers
         ////    }
 
         ////}
-
+        //==========================================================  G E T L A S T P D F F I L E N A M E  ==========================================================
         [HttpGet]
         public ActionResult GetLastPDFFilename()
         {
@@ -1670,10 +1797,19 @@ namespace form_1a.Controllers
             return Json(res_filename.filename, JsonRequestBehavior.AllowGet);
 
         }
+        [HttpGet]
+        public ActionResult GetLastPDFFilenameForm3B()
+        {
+            var q_lastfilename = "select TOP 1 id, filename from form_3B order by id desc";
+            var res_filename = db.Database.SqlQuery<FilenameInfo>(q_lastfilename).FirstOrDefault();
+
+            return Json(res_filename.filename, JsonRequestBehavior.AllowGet);
+
+        }
     }
 }
 
-
+//=========================================================================  C L A S S   =========================================================================
 public class FilenameInfo{
     public int id { get; set; }
     public string filename { get; set; }
@@ -1733,6 +1869,16 @@ public class SearchResultForm3A
     public string reg_no { get; set; }
     public string husband_name { get; set; }
     public string wife_name { get; set; }
+    public string entry { get; set; }
+    public string filename { get; set; }
+
+}
+public class SearchResultForm3B
+{
+    public string husband_name { get; set; }
+    public string wife_name { get; set; }
+    public string date_of_marriage { get; set; }
+    public string year { get; set; }
     public string entry { get; set; }
     public string filename { get; set; }
 

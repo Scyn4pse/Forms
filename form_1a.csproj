@@ -255,6 +255,9 @@
     <Content Include="Views\Home\SearchItemForm3A.cshtml" />
     <Content Include="Views\Home\EditItemForm3A.cshtml" />
     <Content Include="Views\Home\CopyRecordsForm3A.cshtml" />
+    <Content Include="Views\Home\SearchItemForm3B.cshtml" />
+    <Content Include="Views\Home\EditItemForm3B.cshtml" />
+    <Content Include="Views\Home\CopyRecordsForm3B.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
