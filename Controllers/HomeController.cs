@@ -448,7 +448,7 @@ namespace form_1a.Controllers
         }
 
         [HttpGet]
-        public ActionResult EditItemForm1B(string lcr_no, string filename)
+        public ActionResult EditItemForm1B(string filename)
         {
             var q_item = "Select * from FORM_1B where filename = '" + filename + "'";
             var r_data = db.Database.SqlQuery<Form_1B>(q_item).FirstOrDefault();
@@ -494,56 +494,234 @@ namespace form_1a.Controllers
 
         //==========================================================  F O R M  1 C  ==========================================================
 
-        //public ActionResult Form_1c()
-        //{
-        //    return View();
-        //}
+        public ActionResult Form_1c()
+        {
+            return View();
+        }
 
-        //[HttpPost]
-        //public ActionResult Form_1c(form_1C model)
-        //{
+        [HttpPost]
+        public ActionResult Form_1c(form_1C model)
+        {
+            string newfilename = "";
+            var q_lastfilename = "select  TOP 1 id, filename from form_1C order by id desc";
+            var res_filename = db.Database.SqlQuery<FilenameInfo>(q_lastfilename).FirstOrDefault();
 
-        //    try
-        //    {
-        //        form_1C form = new form_1C
-        //        {
-        //            Id = model.Id,
-        //            entry = model.entry,
-        //            year = model.year,
-        //            month_year1 = model.month_year1/* + "_" + nd*/,
-        //            month_year2 = model.month_year2,
-        //            reason = model.reason,
-        //            name_of_person = model.name_of_person,
-        //            date_of_birth = model.date_of_birth,
-        //            father_name = model.father_name,
-        //            mother_name = model.mother_name,
-        //            issued_name = model.issued_name,
-        //            officer_name = model.officer_name,
-        //            officer_title = model.officer_title,
-        //            verifier_name = model.verifier_name,
-        //            verifier_title = model.verifier_title,
-        //            payment = model.payment,
-        //            or_no = model.or_no,
-        //            date_paid = model.date_paid,
+            if (res_filename.filename == null)
+            {
+                newfilename = "00001";
+            }
+            else
+            {
+                int decValue = Convert.ToInt32(res_filename.filename, 16) + 1;
+                newfilename = decValue.ToString("X").PadLeft(5, '0').ToUpper();
+            }
+            form_1C form = new form_1C
+                {
+                    entry = model.entry,
+                    year = model.year,
+                    month_year1 = model.month_year1,
+                    month_year2 = model.month_year2,
+                    reason = model.reason,
+                    name_of_person = model.name_of_person,
+                    date_of_birth = model.date_of_birth,
+                    father_name = model.father_name,
+                    mother_name = model.mother_name,
+                    issued_name = model.issued_name,
+                    officer_name = model.officer_name,
+                    officer_title = model.officer_title,
+                    verifier_name = model.verifier_name,
+                    verifier_title = model.verifier_title,
+                    payment = model.payment,
+                    or_no = model.or_no,
+                    date_paid = model.date_paid,
+                    filename = newfilename,
+                };
 
-        //        };
+                db.form_1C.Add(form);
+                db.SaveChanges();
 
-        //        //lcr_no = form.lcr_reg_no.ToString();
+                int latestId = form.Id;
 
-        //        db.form_1C.Add(form);
-        //        db.SaveChanges();
+            FillAcroFieldsForm1C(newfilename);
 
-        //        int latestId = form.Id;
+            return View(model);
+        }
+
+        public string FillAcroFieldsForm1C(string newFilename)
+        {
+            string entry = "";
+            string datebirth = "";
+            string datepaid = "";
+
+            var form_template = Server.MapPath("/FORM_TEMPLATE/FORM NO. 1C.pdf");
+            var output_pdf = Server.MapPath("/OUTPUT_PDF/FORM_1C/" + newFilename + ".pdf");
+
+            var q_string = "Select * from form_1C where filename='" + newFilename + "'";
+            var r_data = db.Database.SqlQuery<form_1C>(q_string).FirstOrDefault();
+            DateTime date1 = (DateTime)r_data.entry;
+            entry = date1.ToString("MM-dd-yyyy");
+
+            try
+            {
+                DateTime date3 = (DateTime)r_data.date_of_birth;
+                DateTime date5 = (DateTime)r_data.date_paid;
+
+                datebirth = date3.ToString("MM-dd-yyyy");
+                datepaid = date5.ToString("MM-dd-yyyy");
+            }
+            catch
+            {
+
+            }
+
+            if (r_data != null)
+            {
+                PdfReader pdfReader = new PdfReader(form_template);
+                PdfStamper pdfStamper = new PdfStamper(pdfReader, new FileStream(output_pdf, FileMode.Create));
+
+
+                AcroFields pdfFormFields = pdfStamper.AcroFields;
+
+                pdfFormFields.SetField("txtDate", entry);
+                pdfFormFields.SetField("txtYear", r_data.year);
+                pdfFormFields.SetField("txtMonthYear1", r_data.month_year1);
+                pdfFormFields.SetField("txtMonthYear2", r_data.month_year2);
+                pdfFormFields.SetField("txtReason", r_data.reason);
+                pdfFormFields.SetField("txtNameofPerson", r_data.name_of_person);
+                pdfFormFields.SetField("txtDateofBirth", datebirth);
+                pdfFormFields.SetField("txtFather", r_data.father_name);
+                pdfFormFields.SetField("txtMother", r_data.mother_name);
+                pdfFormFields.SetField("txtIssueName", r_data.issued_name);
+                pdfFormFields.SetField("txtOfficerName", r_data.officer_name);
+                pdfFormFields.SetField("txtOfficerTitle", r_data.officer_title);
+                pdfFormFields.SetField("txtVerifierName", r_data.verifier_name);
+                pdfFormFields.SetField("txtVerifierTitle", r_data.verifier_title);
+                pdfFormFields.SetField("txtPayment", r_data.payment);
+                pdfFormFields.SetField("txtORno", r_data.or_no);
+                pdfFormFields.SetField("txtDatePaid", datepaid);
+
+                pdfStamper.FormFlattening = true;
+                pdfStamper.Close();
+                pdfReader.Close();
+
+                return "Success";
+            }
+            else
+            {
+                return "Failed/Not Exist";
+            }
+
+        }
+
+        public ActionResult SearchItemForm1C()
+        {
+            List<form_1C> form_1C = db.form_1C.ToList();
+
+            return View(form_1C);
+        }
+
+        [HttpGet]
+        public ActionResult SearchThisForm1C(string selType, string searchItem)
+        {
+            var q_item = "";
+
+            switch (selType)
+            {
+                case "name":
+                    q_item = "Select * from form_1C where name_of_person like '%" + searchItem + "%'";
+                    break;
+                case "mothname":
+                    q_item = "Select * from form_1C where mother_name like '%" + searchItem + "%'";
+
+                    break;
+                case "fathname":
+                    q_item = "Select * from form_1C where father_name like '%" + searchItem + "%'";
+                    break;
+                default:
+                    break;
+
+            }
+
+            var r_itemdata = db.Database.SqlQuery<form_1C>(q_item);
+            if (r_itemdata.Count() > 0)
+            {
+                List<SearchResultForm1C> SR = new List<SearchResultForm1C>();
+
+                foreach (var d in r_itemdata)
+                {
+                    DateTime date_entry = Convert.ToDateTime(d.entry);
+
+                    SR.Add(new SearchResultForm1C
+                    {
+                        name_of_person = d.name_of_person,
+                        mother_name = d.mother_name,
+                        father_name = d.father_name,
+                        entry = date_entry.ToString("MM-dd-yyyy"),
+                        filename = d.filename
+                    });
+                }
+
+                return Json(SR.ToList(), JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("0", JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
+        [HttpGet]
+        public ActionResult EditItemForm1C(string filename)
+        {
+            var q_item = "Select * from form_1C where filename = '" + filename + "'";
+            var r_data = db.Database.SqlQuery<form_1C>(q_item).FirstOrDefault();
+
+            if (r_data != null)
+            {
+                return View(r_data);
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        [HttpGet]
+        public ActionResult UpdateItemForm1C(string issued_name, string officer_name, string officer_title, string verifier_name, string verifier_title, string payment, string or_no, string date_paid, string year, string name_of_person, string father_name, string mother_name, string month_year1, string month_year2, string reason, string date_of_birth, string filename)
+        {
+            string q_update = "Update form_1C Set issued_name='" + issued_name + "', officer_name='" + officer_name + "',officer_title='" + officer_title + "', verifier_name='" + verifier_name + "', verifier_title='" + verifier_title + "',payment='" + payment + "', or_no='" + or_no + "',date_paid='" + date_paid + "',year='" + year + "',name_of_person='" + name_of_person + "',father_name='" + father_name + "',mother_name='" + mother_name + "',month_year1='" + month_year1 + "',month_year2='" + month_year2 + "',reason='" + reason + "',date_of_birth='" + date_of_birth + "' where filename='" + filename + "'";
+            db.Database.ExecuteSqlCommand(q_update);
+
+            FillAcroFieldsForm1C(filename);
+
+            return Json("Success", JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult CopyRecordsForm1C(string filename)
+        {
+            var q_item = "Select * from form_1C where filename = '" + filename + "'";
+            var r_data = db.Database.SqlQuery<form_1C>(q_item).FirstOrDefault();
+
+            if (r_data != null)
+            {
+                return View(r_data);
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        //==========================================================  F O R M  2 A  ==========================================================
 
 
 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //    return View(model);
-        //}
+
+
+
+
+
         //public ActionResult Form_2a()
         //{
         //    return View();
@@ -1134,6 +1312,14 @@ namespace form_1a.Controllers
 
             return Json(res_filename.filename, JsonRequestBehavior.AllowGet);
         }
+        [HttpGet]
+        public ActionResult GetLastPDFFilenameForm1C()
+        {
+            var q_lastfilename = "select TOP 1 id, filename from form_1C order by id desc";
+            var res_filename = db.Database.SqlQuery<FilenameInfo>(q_lastfilename).FirstOrDefault();
+
+            return Json(res_filename.filename, JsonRequestBehavior.AllowGet);
+        }
     }
 }
 
@@ -1161,6 +1347,16 @@ public class SearchResultForm1B
     public string name { get; set; }
     public string mother { get; set; }
     public string father { get; set; }
+    public string entry { get; set; }
+    public string filename { get; set; }
+
+}
+
+public class SearchResultForm1C
+{
+    public string name_of_person { get; set; }
+    public string mother_name { get; set; }
+    public string father_name { get; set; }
     public string entry { get; set; }
     public string filename { get; set; }
 

@@ -25,7 +25,6 @@
             </div>
 
             <div class="row add-border">
-
                 <div class="col-md-4">
                     <div class="col-md-12 add-border">
                         <p class="h4"><strong>Transaction Details</strong></p><br />
@@ -67,6 +66,10 @@
                 <div class="col-md-8">
                     <div class="col-md-12 add-border">
                         <p class="h4"><strong>Form Details</strong></p><br />
+                        <div class="col-md-12 form-group">
+                            <label>Date</label>
+                            @Html.TextBoxFor(model => model.entry, new { @class = "form-control datepicker", @id = "entry" })
+                        </div>
                         <div class="col-md-12 form-group">
                             <label>Records of Birth for Year</label>
                             @Html.TextBoxFor(model => model.year, new { @class = "form-control", @placeholder = "Records of Birth for Year" })
@@ -129,7 +132,7 @@
 <script type="text/javascript">
     var date = new Date();
     var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-    var lcr = "";
+    var entryy = "";
 
     var optSimple = {
         format: 'mm-dd-yyyy',
@@ -143,10 +146,9 @@
     $('#entry').datepicker('setDate', today);
 
     $(document).ready(function () {
-        lcr = '@Request.Params["lcr_reg_no"]' || "";
+        entryy = '@Request.Params["entry"]' || "";
 
-        if (lcr != "") {
-
+        if (entryy != "") {
             $('#btnViewPDF').css('display', 'block');
         }
 
@@ -156,29 +158,22 @@
             var data = $("#myForm").serialize();
             $.ajax({
                 type: "POST",
-                url: "/Home/form_1c",
+                url: "/Home/Form_1c",
                 data: data,
                 success: function (response) {
-
-                    alert("Successful");
-
-
-
                 }
             })
         })
     })
 
-
     $('#btnViewPDF').click(function () {
-        var new_date = new Date();
-        var nd = pad((new_date.getMonth() + 1), 2) + "-" + pad(new_date.getDate(),2) + "-" + new_date.getFullYear();
-
-        //alert(nd);
-        var lcr_no = lcr + "_" + nd;
-        window.open("/OUTPUT_PDF/FORM_1C/" + lcr_no + ".pdf");
-
-        //alert(lcr_no);
+        $.ajax({
+            url: '/Home/GetLastPDFFilenameForm1C',
+            type: 'get',
+            success: function (data) {
+                window.open("/OUTPUT_PDF/FORM_1C/" + data + ".pdf");
+            }
+        });
     });
 
     function pad(str, max) {

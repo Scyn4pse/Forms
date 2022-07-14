@@ -7,10 +7,10 @@
                     <form id="myForm">
 
                         <div class="row">
-                            <a href="@Url.Action("Index", null, new { area = string.Empty, controller = "Home" }, Request.Url.Scheme)">
+                            <a href="@Url.Action("SearchItemForm1B", null, new { area = string.Empty, controller = "Home" }, Request.Url.Scheme)">
                                 <div class="col-md-2 add-border return-button">
                                     <i class="fa fa-angle-double-left"></i>
-                                    <i>Return to Menu</i>
+                                    <i>Return to Records</i>
                                 </div>
                             </a>
                         </div>
@@ -58,7 +58,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Date Paid</label>
-                                        <input type="text" value="@Model.date_paid" id="date_paid" class="form-control" />
+                                        <input type="text" value="@Model.date_paid" id="date_paid" class="form-control datepicker" />
                                     </div>
                                 </div>
                             </div>
@@ -76,7 +76,7 @@
                                     </div>
                                     <div class="col-md-6 form-group">
                                         <label>Date of Birth</label>
-                                        <input type="text" value="@Model.date_of_birth" id="date_of_birth" class="form-control" />
+                                        <input type="text" value="@Model.date_of_birth" id="date_of_birth" class="form-control datepicker" />
                                     </div>
                                     <div class="col-md-6 form-group">
                                         <label>Name of Father</label>
