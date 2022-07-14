@@ -46,7 +46,7 @@
                     <td>
                         <input class="btn btn-primary" onclick="ViewPDF('@item.filename')" id="btnViewPDF" type="button" value="View PDF" />&nbsp;
                         <input class="btn btn-primary" type="button" value="Edit" onclick="EditItem('@item.filename' )" />&nbsp;
-                        <input class="btn btn-primary" type="button" value="Copy" onclick="CopyRecordsForm1B('@item.filename' )" />
+                        <input class="btn btn-primary" type="button" value="Copy" onclick="CopyRecords('@item.filename' )" />
                     </td>
                 </tr>
             }
@@ -74,7 +74,7 @@
                 success: function (data) {
                     if (data != "0") {
                         $.each(data, function (a, b) {
-                            htmls = '<tr><td>' + b.name_of_person + '</td><td>' + b.mother_name + '</td><td>' + b.father_name + '</td><td>' + b.entry + '</td><td><input class="btn btn-primary" onclick="ViewPDF(\'' + b.filename + '\')" id="btnViewPDF" type="button" value="View PDF" />&nbsp;<input class="btn btn-primary" type="button" value="Edit"  onclick="EditItem(\'' + b.filename + '\')"  />&nbsp;<input class="btn btn-primary" type="button" value="Copy"  onclick="CopyRecordsForm1B(\'' + b.filename + '\')"  /></td></tr>';
+                            htmls = '<tr><td>' + b.name_of_person + '</td><td>' + b.mother_name + '</td><td>' + b.father_name + '</td><td>' + b.entry + '</td><td><input class="btn btn-primary" onclick="ViewPDF(\'' + b.filename + '\')" id="btnViewPDF" type="button" value="View PDF" />&nbsp;<input class="btn btn-primary" type="button" value="Edit"  onclick="EditItem(\'' + b.filename + '\')"  />&nbsp;<input class="btn btn-primary" type="button" value="Copy"  onclick="CopyRecords(\'' + b.filename + '\')"  /></td></tr>';
                             $('#bodyContents').append(htmls);
                         });
 
@@ -100,7 +100,7 @@
     function EditItem(filename) {
         window.open("/Home/EditItemForm1C?filename=" + filename);
     }
-    function CopyRecordsForm1B(filename) {
+    function CopyRecords(filename) {
         window.open("/Home/CopyRecordsForm1C?filename=" + filename);
     }
     function Refresh() {

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<form_1a.Models.Form_1B>
+﻿@model IEnumerable<form_1a.Models.Form_2A>
 @{
     ViewBag.Title = "Search Item";
 }
@@ -8,10 +8,8 @@
     <div class="col-sm-2">
         <label>Select Search By</label>
         <select class="form-control" id="selType">
-            <option value="name">Child's Name</option>
-            <option value="mothname">Mother's Name</option>
-            <option value="fathname">Father's Name</option>
-
+            <option value="lcrno" selected>LCR No.</option>
+            <option value="name">Name of Deceased</option>
         </select>
     </div>
     <div class="col-sm-8">
@@ -28,9 +26,8 @@
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
-                <th>Child's Name</th>
-                <th>Mother's Name</th>
-                <th>Father's Name</th>
+                <th>LCR No.</th>
+                <th>Name of Deceased</th>
                 <th>Date of Entry</th>
                 <th>Action</th>
             </tr>
@@ -39,9 +36,8 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>@item.name</td>
-                    <td>@item.mother</td>
-                    <td>@item.father</td>
+                    <td>@item.lcr_reg_no</td>
+                    <td>@item.death_name</td>
                     <td>@Html.DisplayFor(modelItem => item.entry)</td>
                     <td>
                         <input class="btn btn-primary" onclick="ViewPDF('@item.filename')" id="btnViewPDF" type="button" value="View PDF" />&nbsp;
@@ -61,27 +57,26 @@
 <script type="text/javascript">
     $('#btnSearch').click(function () {
 
-        var selType = $('#selType').val();          
-        var searchItem = $('#searchItem').val();    
+        var selType = $('#selType').val();
+        var searchItem = $('#searchItem').val();
         var htmls = "";
-        $('#bodyContents').html('');                
+        $('#bodyContents').html('');
 
         if (searchItem != "") {
             $.ajax({
-                url: '/Home/SearchThisForm1B',            
+                url: '/Home/SearchThisForm2A',
                 type: 'get',
-                data: { selType: selType, searchItem: searchItem }, 
+                data: { selType: selType, searchItem: searchItem },
                 success: function (data) {
                     if (data != "0") {
                         $.each(data, function (a, b) {
-                            htmls = '<tr><td>' + b.name + '</td><td>' + b.mother + '</td><td>' + b.father + '</td><td>' + b.entry + '</td><td><input class="btn btn-primary" onclick="ViewPDF(\'' + b.filename + '\')" id="btnViewPDF" type="button" value="View PDF" />&nbsp;<input class="btn btn-primary" type="button" value="Edit"  onclick="EditItem(\'' + b.filename + '\')"  />&nbsp;<input class="btn btn-primary" type="button" value="Copy"  onclick="CopyRecords(\'' + b.filename + '\')"  /></td></tr>';
+                            htmls = '<tr><td>' + b.lcr_reg_no + '</td><td>' + b.death_name + '</td><td>' + b.entry + '</td><td><input class="btn btn-primary" onclick="ViewPDF(\'' + b.filename + '\')" id="btnViewPDF" type="button" value="View PDF" />&nbsp;<input class="btn btn-primary" type="button" value="Edit"  onclick="EditItem(\'' + b.filename + '\')"  />&nbsp;<input class="btn btn-primary" type="button" value="Copy"  onclick="CopyRecords(\'' + b.filename + '\')"  /></td></tr>';
                             $('#bodyContents').append(htmls);
                         });
 
                     } else {
                         alert("No Records Found");
                     }
-
                 }
             })
         } else {
@@ -94,17 +89,17 @@
 
     function ViewPDF(filename) {
         var fname = pad(filename, 5);
-        window.open("/OUTPUT_PDF/FORM_1B/" + fname + ".pdf"); 
+        window.open("/OUTPUT_PDF/FORM_2A/" + fname + ".pdf");
     }
 
     function EditItem(filename) {
-        window.open("/Home/EditItemForm1B?filename=" + filename);
+        window.open("/Home/EditItemForm2A?filename=" + filename);
     }
     function CopyRecords(filename) {
-        window.open("/Home/CopyRecordsForm1B?filename=" + filename);
+        window.open("/Home/CopyRecordsForm2A?filename=" + filename);
     }
     function Refresh() {
-        location.replace("/Home/SearchItemForm1B");
+        location.replace("/Home/SearchItemForm2A");
     }
     function pad(str, max) {
         str = str.toString();

@@ -22,7 +22,7 @@ namespace form_1a.Controllers
             return View();
         }
 
-        //=========================================================== F O R M  1 A =================================================================
+        //==========================================================  F O R M  1 A  ==========================================================
         public ActionResult Form_1a()
         {
             return View();
@@ -36,18 +36,24 @@ namespace form_1a.Controllers
             var q_lastfilename = "select  TOP 1 id, filename from Form_1A order by id desc";
             var res_filename = db.Database.SqlQuery<FilenameInfo>(q_lastfilename).FirstOrDefault();
 
-            if(res_filename.filename == null)
+            if (res_filename == null)
             {
                 newfilename = "00001";
             }
             else
             {
-              
-                int decValue = Convert.ToInt32(res_filename.filename, 16) + 1;
-                newfilename = decValue.ToString("X").PadLeft(5,'0').ToUpper();
+                if (res_filename.filename == null)
+                {
+                    newfilename = "00001";
+                }
+                else
+                {
+                    int decValue = Convert.ToInt32(res_filename.filename, 16) + 1;
+                    newfilename = decValue.ToString("X").PadLeft(5, '0').ToUpper();
+                }
             }
 
-                Form_1A form = new Form_1A
+            Form_1A form = new Form_1A
                 {
                     page = model.page,
                     book = model.book,
@@ -216,7 +222,7 @@ namespace form_1a.Controllers
                         name_child = d.name_child,
                         name_of_mother = d.name_of_mother,
                         name_of_father = d.name_of_father,
-                        entry = date_entry.ToString("MM-dd-yyyy"),
+                        entry = date_entry.ToString("MM/dd/yyyy"),
                         filename = d.filename
                     });
                 }
@@ -289,14 +295,21 @@ namespace form_1a.Controllers
             var q_lastfilename = "select  TOP 1 id, filename from Form_1B order by id desc";
             var res_filename = db.Database.SqlQuery<FilenameInfo>(q_lastfilename).FirstOrDefault();
 
-            if (res_filename.filename == null)
+            if (res_filename == null)
             {
                 newfilename = "00001";
             }
             else
             {
-                int decValue = Convert.ToInt32(res_filename.filename, 16) + 1;
-                newfilename = decValue.ToString("X").PadLeft(5, '0').ToUpper();
+                if (res_filename.filename == null)
+                {
+                    newfilename = "00001";
+                }
+                else
+                {
+                    int decValue = Convert.ToInt32(res_filename.filename, 16) + 1;
+                    newfilename = decValue.ToString("X").PadLeft(5, '0').ToUpper();
+                }
             }
 
             Form_1B form = new Form_1B
@@ -433,7 +446,7 @@ namespace form_1a.Controllers
                         name = d.name,
                         mother = d.mother,
                         father = d.father,
-                        entry = date_entry.ToString("MM-dd-yyyy"),
+                        entry = date_entry.ToString("MM/dd/yyyy"),
                         filename = d.filename
                     });
                 }
@@ -506,14 +519,21 @@ namespace form_1a.Controllers
             var q_lastfilename = "select  TOP 1 id, filename from form_1C order by id desc";
             var res_filename = db.Database.SqlQuery<FilenameInfo>(q_lastfilename).FirstOrDefault();
 
-            if (res_filename.filename == null)
+            if (res_filename == null)
             {
                 newfilename = "00001";
             }
             else
             {
-                int decValue = Convert.ToInt32(res_filename.filename, 16) + 1;
-                newfilename = decValue.ToString("X").PadLeft(5, '0').ToUpper();
+                if (res_filename.filename == null)
+                {
+                    newfilename = "00001";
+                }
+                else
+                {
+                    int decValue = Convert.ToInt32(res_filename.filename, 16) + 1;
+                    newfilename = decValue.ToString("X").PadLeft(5, '0').ToUpper();
+                }
             }
             form_1C form = new form_1C
                 {
@@ -656,7 +676,7 @@ namespace form_1a.Controllers
                         name_of_person = d.name_of_person,
                         mother_name = d.mother_name,
                         father_name = d.father_name,
-                        entry = date_entry.ToString("MM-dd-yyyy"),
+                        entry = date_entry.ToString("MM/dd/yyyy"),
                         filename = d.filename
                     });
                 }
@@ -714,67 +734,237 @@ namespace form_1a.Controllers
         }
 
         //==========================================================  F O R M  2 A  ==========================================================
+        public ActionResult Form_2a()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Form_2a(Form_2A model)
+        {
+            string newfilename = "";
+            var q_lastfilename = "select  TOP 1 id, filename from Form_2A order by id desc";
+            var res_filename = db.Database.SqlQuery<FilenameInfo>(q_lastfilename).FirstOrDefault();
+
+            if (res_filename == null)
+            {
+                newfilename = "00001";
+            }
+            else
+            {
+                if (res_filename.filename == null)
+                {
+                    newfilename = "00001";
+                }
+                else
+                {
+                    int decValue = Convert.ToInt32(res_filename.filename, 16) + 1;
+                    newfilename = decValue.ToString("X").PadLeft(5, '0').ToUpper();
+                }
+            }
+            Form_2A form = new Form_2A
+                {
+                    entry = model.entry,
+                    page = model.page,
+                    book = model.book,
+                    lcr_reg_no = model.lcr_reg_no,
+                    date_of_reg = model.date_of_reg,
+                    death_name = model.death_name,
+                    sex = model.sex,
+                    age = model.age,
+                    civil_status = model.civil_status,
+                    citizenship = model.citizenship,
+                    date_of_death = model.date_of_death,
+                    place_of_death = model.place_of_death,
+                    cause_of_death = model.cause_of_death,
+                    issued_to = model.issued_to,
+                    officer_name = model.officer_name,
+                    officer_title = model.officer_title,
+                    verifier_name = model.verifier_name,
+                    verifier_title = model.verifier_title,
+                    payment = model.payment,
+                    or_no = model.or_no,
+                    date_paid = model.date_paid,
+                    filename = newfilename
+            };
+
+                db.Form_2A.Add(form);
+                db.SaveChanges();
+
+                int latestId = form.Id;
+
+            FillAcroFieldsForm2A(newfilename);
+            return View(model);
+        }
+
+        public string FillAcroFieldsForm2A(string newFilename)
+        {
+            string entry = "";
+            string datepaid = "";
+            string datereg = "";
+            string datedeath = "";
+
+            var form_template = Server.MapPath("/FORM_TEMPLATE/FORM NO. 2A.pdf");
+            var output_pdf = Server.MapPath("/OUTPUT_PDF/FORM_2A/" + newFilename + ".pdf");
+
+            var q_string = "Select * from Form_2A where filename='" + newFilename + "'";
+            var r_data = db.Database.SqlQuery<Form_2A>(q_string).FirstOrDefault();
+            DateTime date1 = (DateTime)r_data.entry;
+            entry = date1.ToString("MM-dd-yyyy");
+
+            try
+            {
+                DateTime date3 = (DateTime)r_data.date_of_death;
+                DateTime date5 = (DateTime)r_data.date_paid;
+                DateTime date2 = (DateTime)r_data.date_of_reg;
+                datereg = date2.ToString("MM-dd-yyyy");
+                datepaid = date5.ToString("MM-dd-yyyy");
+                datedeath = date3.ToString("MM-dd-yyyy");
+            }
+            catch
+            {
+
+            }
+
+            if (r_data != null)
+            {
+                PdfReader pdfReader = new PdfReader(form_template);
+                PdfStamper pdfStamper = new PdfStamper(pdfReader, new FileStream(output_pdf, FileMode.Create));
 
 
+                AcroFields pdfFormFields = pdfStamper.AcroFields;
 
+                pdfFormFields.SetField("txtDate", entry);
+                pdfFormFields.SetField("txtPage", r_data.page);
+                pdfFormFields.SetField("txtBookNo", r_data.book);
+                pdfFormFields.SetField("txtLCRNo", r_data.lcr_reg_no);
+                pdfFormFields.SetField("txtRegDate", datereg);
+                pdfFormFields.SetField("txtDeathName", r_data.death_name);
+                pdfFormFields.SetField("txtSex", r_data.sex);
+                pdfFormFields.SetField("txtAge", r_data.age);
+                pdfFormFields.SetField("txtCivStatus", r_data.civil_status);
+                pdfFormFields.SetField("txtCship", r_data.citizenship);
+                pdfFormFields.SetField("txtDateOfDeath", datedeath);
+                pdfFormFields.SetField("txtPlaceOfDeath", r_data.place_of_death);
+                pdfFormFields.SetField("txtCauseOfDeath", r_data.cause_of_death);
+                pdfFormFields.SetField("txtIssuedTo", r_data.issued_to);
+                pdfFormFields.SetField("txtOfficerName", r_data.officer_name);
+                pdfFormFields.SetField("txtOfficerTitle", r_data.officer_title);
+                pdfFormFields.SetField("txtVerifier", r_data.verifier_name);
+                pdfFormFields.SetField("txtVerifTitle", r_data.verifier_title);
+                pdfFormFields.SetField("txtPayment", r_data.payment);
+                pdfFormFields.SetField("txtORNo", r_data.or_no);
+                pdfFormFields.SetField("txtDatePaid", datepaid);
 
+                pdfStamper.FormFlattening = true;
+                pdfStamper.Close();
+                pdfReader.Close();
 
+                return "Success";
+            }
+            else
+            {
+                return "Failed/Not Exist";
+            }
 
+        }
 
+        public ActionResult SearchItemForm2A()
+        {
+            List<Form_2A> form_2a = db.Form_2A.ToList();
 
-        //public ActionResult Form_2a()
-        //{
-        //    return View();
-        //}
+            return View(form_2a);
+        }
 
-        //[HttpPost]
-        //public ActionResult Form_2a(Form_2A model)
-        //{
+        [HttpGet]
+        public ActionResult SearchThisForm2A(string selType, string searchItem)
+        {
+            var q_item = "";
 
-        //    try
-        //    {
-        //        Form_2A form = new Form_2A
-        //        {
-        //            Id = model.Id,
-        //            entry = model.entry,
-        //            page = model.page,
-        //            book = model.book/* + "_" + nd*/,
-        //            lcr_reg_no = model.lcr_reg_no,
-        //            date_of_reg = model.date_of_reg,
-        //            death_name = model.death_name,
-        //            sex = model.sex,
-        //            age = model.age,
-        //            civil_status = model.civil_status,
-        //            citizenship = model.citizenship,
-        //            date_of_death = model.date_of_death,
-        //            place_of_death = model.place_of_death,
-        //            cause_of_death = model.cause_of_death,
-        //            issued_to = model.issued_to,
-        //            officer_name = model.officer_name,
-        //            officer_title = model.officer_title,
-        //            verifier_name = model.verifier_name,
-        //            verifier_title = model.verifier_title,
-        //            payment = model.payment,
-        //            or_no = model.or_no,
-        //            date_paid = model.date_paid
-        //        };
+            switch (selType)
+            {
+                case "lcrno":
+                    q_item = "Select * from Form_2A where lcr_reg_no like '%" + searchItem + "%'";
+                    break;
+                case "name":
+                    q_item = "Select * from Form_2A where death_name like '%" + searchItem + "%'";
+                    break;
+                default:
+                    break;
 
+            }
 
+            var r_itemdata = db.Database.SqlQuery<Form_2A>(q_item);
+            if (r_itemdata.Count() > 0)
+            {
+                List<SearchResultForm2A> SR = new List<SearchResultForm2A>();
 
-        //        db.Form_2A.Add(form);
-        //        db.SaveChanges();
+                foreach (var d in r_itemdata)
+                {
+                    DateTime date_entry = Convert.ToDateTime(d.entry);
 
-        //        int latestId = form.Id;
+                    SR.Add(new SearchResultForm2A
+                    {
+                        lcr_reg_no = d.lcr_reg_no,
+                        death_name = d.death_name,
+                        entry = date_entry.ToString("MM/dd/yyyy"),
+                        filename = d.filename
+                    });
+                }
 
+                return Json(SR.ToList(), JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("0", JsonRequestBehavior.AllowGet);
+            }
+        }
 
+        [HttpGet]
+        public ActionResult EditItemForm2A(string filename)
+        {
+            var q_item = "Select * from Form_2A where filename = '" + filename + "'";
+            var r_data = db.Database.SqlQuery<Form_2A>(q_item).FirstOrDefault();
 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //    return View(model);
-        //}
+            if (r_data != null)
+            {
+                return View(r_data);
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        [HttpGet]
+        public ActionResult UpdateItemForm2A(string issued_to, string officer_name, string officer_title, string verifier_name, string verifier_title, string payment, string or_no, string date_paid, string lcr_reg_no, string date_of_reg, string death_name, string sex, string age, string page, string book, string civil_status, string citizenship, string date_of_death, string place_of_death, string cause_of_death, string filename)
+        {
+            string q_update = "Update Form_2A Set issued_to='" + issued_to + "', officer_name='" + officer_name + "',officer_title='" + officer_title + "', verifier_name='" + verifier_name + "', verifier_title='" + verifier_title + "',payment='" + payment + "', or_no='" + or_no + "',date_paid='" + date_paid + "',lcr_reg_no='" + lcr_reg_no + "',date_of_reg='" + date_of_reg + "',death_name='" + death_name + "',sex='" + sex + "',age='" + age + "',page='" + page + "',book='" + book + "',civil_status='" + civil_status + "',citizenship='" + citizenship + "',date_of_death='" + date_of_death + "',place_of_death='" + place_of_death + "',cause_of_death='" + cause_of_death + "' where filename='" + filename + "'";
+            db.Database.ExecuteSqlCommand(q_update);
+
+            FillAcroFieldsForm2A(filename);
+
+            return Json("Success", JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult CopyRecordsForm2A(string filename)
+        {
+            var q_item = "Select * from Form_2A where filename = '" + filename + "'";
+            var r_data = db.Database.SqlQuery<Form_2A>(q_item).FirstOrDefault();
+
+            if (r_data != null)
+            {
+                return View(r_data);
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        //==========================================================  F O R M  2 B  ==========================================================
+
         //public ActionResult Form_2b()
         //{
         //    return View();
@@ -1320,6 +1510,14 @@ namespace form_1a.Controllers
 
             return Json(res_filename.filename, JsonRequestBehavior.AllowGet);
         }
+        [HttpGet]
+        public ActionResult GetLastPDFFilenameForm2A()
+        {
+            var q_lastfilename = "select TOP 1 id, filename from Form_2A order by id desc";
+            var res_filename = db.Database.SqlQuery<FilenameInfo>(q_lastfilename).FirstOrDefault();
+
+            return Json(res_filename.filename, JsonRequestBehavior.AllowGet);
+        }
     }
 }
 
@@ -1357,6 +1555,14 @@ public class SearchResultForm1C
     public string name_of_person { get; set; }
     public string mother_name { get; set; }
     public string father_name { get; set; }
+    public string entry { get; set; }
+    public string filename { get; set; }
+
+}
+public class SearchResultForm2A
+{
+    public string lcr_reg_no { get; set; }
+    public string death_name { get; set; }
     public string entry { get; set; }
     public string filename { get; set; }
 

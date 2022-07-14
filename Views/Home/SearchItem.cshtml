@@ -79,7 +79,7 @@
                     if (data != "0") {
                         $.each(data, function (a, b) {
 
-                            htmls = '<tr><td>' + b.lcr_reg_no + '</td><td>' + b.name_child + '</td><td>' + b.name_of_mother + '</td><td>' + b.name_of_father + '</td><td>' + b.entry + '</td><td><input class="btn btn-primary" onclick="ViewPDF(\'' + b.filename + '\')" id="btnViewPDF" type="button" value="View PDF" />&nbsp;<input class="btn btn-primary" type="button" value="Edit"  onclick="EditItem(\'' + b.lcr_reg_no + '\')"  />&nbsp;<input class="btn btn-primary" type="button" value="Copy"  onclick="CopyRecords(\'' + b.lcr_reg_no +'\')"  /></td></tr>'; 
+                            htmls = '<tr><td>' + b.lcr_reg_no + '</td><td>' + b.name_child + '</td><td>' + b.name_of_mother + '</td><td>' + b.name_of_father + '</td><td>' + b.entry + '</td><td><input class="btn btn-primary" onclick="ViewPDF(\'' + b.filename + '\')" id="btnViewPDF" type="button" value="View PDF" />&nbsp;<input class="btn btn-primary" type="button" value="Edit"  onclick="EditItem(\'' + b.lcr_reg_no + '\',\'' + b.filename + '\')"  />&nbsp;<input class="btn btn-primary" type="button" value="Copy"  onclick="CopyRecords(\'' + b.lcr_reg_no + '\',\'' + b.filename + '\')"/></td></tr>'; 
                             $('#bodyContents').append(htmls);
                         });
 
