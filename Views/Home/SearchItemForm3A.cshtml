@@ -1,4 +1,4 @@
-@model IEnumerable<form_1a.Models.Form_1A>
+﻿@model IEnumerable<form_1a.Models.Form_3A>
 @{
     ViewBag.Title = "Search Item";
 }
@@ -8,11 +8,9 @@
     <div class="col-sm-2">
         <label>Select Search By</label>
         <select class="form-control" id="selType">
-            <option value="lcrno" selected>LCR No.</option>
-            <option value="chname">Child's Name</option>
-            <option value="mothname">Mother's Name</option>
-            <option value="fathname">Father's Name</option>
-
+            <option value="regno" selected>Registry No.</option>
+            <option value="namehus">Name of Husband</option>
+            <option value="namewife">Name of Wife</option>
         </select>
     </div>
     <div class="col-sm-8">
@@ -29,10 +27,9 @@
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
-                <th>LCR No.</th>
-                <th>Child's Name</th>
-                <th>Mother's Name</th>
-                <th>Father's Name</th>
+                <th>Reg No.</th>
+                <th>Name of Husband</th>
+                <th>Name of Wife</th>
                 <th>Date of Entry</th>
                 <th>Action</th>
             </tr>
@@ -41,15 +38,14 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>@item.lcr_reg_no</td>
-                    <td>@item.name_child</td>
-                    <td>@item.name_of_mother</td>
-                    <td>@item.name_of_father</td>
+                    <td>@item.reg_no</td>
+                    <td>@item.husband_name</td>
+                    <td>@item.wife_name</td>
                     <td>@Html.DisplayFor(modelItem => item.entry)</td>
                     <td>
                         <input class="btn btn-primary" onclick="ViewPDF('@item.filename')" id="btnViewPDF" type="button" value="View PDF" />&nbsp;
-                        <input class="btn btn-primary" type="button" value="Edit" onclick="EditItem( @item.lcr_reg_no, '@item.filename' )" />&nbsp;
-                        <input class="btn btn-primary" type="button" value="Copy" onclick="CopyRecords( @item.lcr_reg_no, '@item.filename' )" />
+                        <input class="btn btn-primary" type="button" value="Edit" onclick="EditItem('@item.filename' )" />&nbsp;
+                        <input class="btn btn-primary" type="button" value="Copy" onclick="CopyRecords('@item.filename' )" />
                     </td>
                 </tr>
             }
@@ -61,55 +57,52 @@
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script type="text/javascript" src="http://www.datejs.com/build/date.js"></script>
-
 <script type="text/javascript">
     $('#btnSearch').click(function () {
 
-        var selType = $('#selType').val();          
-        var searchItem = $('#searchItem').val();    
+        var selType = $('#selType').val();
+        var searchItem = $('#searchItem').val();
         var htmls = "";
-        $('#bodyContents').html('');                
+        $('#bodyContents').html('');
 
         if (searchItem != "") {
             $.ajax({
-                url: '/Home/SearchThis',           
+                url: '/Home/SearchThisForm3A',
                 type: 'get',
-                data: { selType: selType, searchItem: searchItem }, 
+                data: { selType: selType, searchItem: searchItem },
                 success: function (data) {
                     if (data != "0") {
                         $.each(data, function (a, b) {
-
-                            htmls = '<tr><td>' + b.lcr_reg_no + '</td><td>' + b.name_child + '</td><td>' + b.name_of_mother + '</td><td>' + b.name_of_father + '</td><td>' + b.entry + '</td><td><input class="btn btn-primary" onclick="ViewPDF(\'' + b.filename + '\')" id="btnViewPDF" type="button" value="View PDF" />&nbsp;<input class="btn btn-primary" type="button" value="Edit"  onclick="EditItem(\'' + b.lcr_reg_no + '\',\'' + b.filename + '\')"  />&nbsp;<input class="btn btn-primary" type="button" value="Copy"  onclick="CopyRecords(\'' + b.lcr_reg_no + '\',\'' + b.filename + '\')"/></td></tr>'; 
+                            htmls = '<tr><td>' + b.reg_no + '</td><td>' + b.husband_name + '</td><td>' + b.wife_name + '</td><td>' + b.entry + '</td><td><input class="btn btn-primary" onclick="ViewPDF(\'' + b.filename + '\')" id="btnViewPDF" type="button" value="View PDF" />&nbsp;<input class="btn btn-primary" type="button" value="Edit"  onclick="EditItem(\'' + b.filename + '\')"  />&nbsp;<input class="btn btn-primary" type="button" value="Copy"  onclick="CopyRecords(\'' + b.filename + '\')"  /></td></tr>';
                             $('#bodyContents').append(htmls);
                         });
 
                     } else {
                         alert("No Records Found");
-                        location.replace("/Home/SearchItem");
+                        location.replace("/Home/SearchItemForm3A");
                     }
-
                 }
             })
         } else {
             alert("Field Empty!");
-            location.replace("/Home/SearchItem");
+            location.replace("/Home/SearchItemForm3A");
 
         }
     });
 
     function ViewPDF(filename) {
         var fname = pad(filename, 5);
-        window.open("/OUTPUT_PDF/FORM_1A/" + fname + ".pdf"); 
+        window.open("/OUTPUT_PDF/FORM_3A/" + fname + ".pdf");
     }
 
-    function EditItem(lcrno,filename) {
-        window.open("/Home/EditItem?lcr_no=" + lcrno + "&filename=" + filename);
+    function EditItem(filename) {
+        window.open("/Home/EditItemForm3A?filename=" + filename);
     }
-    function CopyRecords(lcrno, filename) {
-        window.open("/Home/CopyRecords?lcr_no=" + lcrno + "&filename=" + filename);
+    function CopyRecords(filename) {
+        window.open("/Home/CopyRecordsForm3A?filename=" + filename);
     }
     function Refresh() {
-        location.replace("/Home/SearchItem");
+        location.replace("/Home/SearchItemForm3A");
     }
     function pad(str, max) {
         str = str.toString();

@@ -25,7 +25,6 @@
             </div>
 
             <div class="row add-border">
-
                 <div class="col-md-4">
                     <div class="col-md-12 add-border">
                         <p class="h4"><strong>Transaction Details</strong></p><br />
@@ -108,7 +107,7 @@
 <script type="text/javascript">
     var date = new Date();
     var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-    var lcr = "";
+    var entryy = "";
 
     var optSimple = {
         format: 'mm-dd-yyyy',
@@ -122,9 +121,9 @@
     $('#entry').datepicker('setDate', today);
 
     $(document).ready(function () {
-        lcr = '@Request.Params["lcr_reg_no"]' || "";
+        entryy = '@Request.Params["entry"]' || "";
 
-        if (lcr != "") {
+        if (entryy != "") {
 
             $('#btnViewPDF').css('display', 'block');
         }
@@ -135,28 +134,26 @@
             var data = $("#myForm").serialize();
             $.ajax({
                 type: "POST",
-                url: "/Home/form_2b",
+                url: "/Home/Form_2b",
                 data: data,
                 success: function (response) {
-
-                    alert("Successful");
-
                 }
             })
         })
     })
 
 
+
     $('#btnViewPDF').click(function () {
-        var new_date = new Date();
-        var nd = pad((new_date.getMonth() + 1), 2) + "-" + pad(new_date.getDate(),2) + "-" + new_date.getFullYear();
-
-        //alert(nd);
-        var lcr_no = lcr + "_" + nd;
-        window.open("/OUTPUT_PDF/FORM_2B/" + lcr_no + ".pdf");
-
-        //alert(lcr_no);
+        $.ajax({
+            url: '/Home/GetLastPDFFilenameForm2B',
+            type: 'get',
+            success: function (data) {
+                window.open("/OUTPUT_PDF/FORM_2B/" + data + ".pdf");
+            }
+        });
     });
+
 
     function pad(str, max) {
         str = str.toString();

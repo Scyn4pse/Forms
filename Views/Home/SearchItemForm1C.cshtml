@@ -80,15 +80,14 @@
 
                     } else {
                         alert("No Records Found");
+                        location.replace("/Home/SearchItemForm1C");
                     }
 
                 }
             })
         } else {
-            htmls = 'Field is Empty! <input class="btn btn-primary" onclick="Refresh()" id="btnRefresh" type="button" value="OK" />';
-
-            $('#bodyContents').append(htmls);
-
+            alert("Field Empty!");
+            location.replace("/Home/SearchItemForm1C");
         }
     });
 
