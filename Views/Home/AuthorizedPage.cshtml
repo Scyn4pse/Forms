@@ -1,0 +1,55 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <title>AuthorizedPage</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 auth" style="float:none;margin:auto;">
+                <img src="@Url.Content("~/Content/Images/logo.png")" class="auth-img" /><br />        
+                <label>Machine ID:</label>
+                <input type="text" readonly value="@Model.machine_id" class="form-control" id="machine_id" /><br />
+                <label>License Key:</label>
+                <input type="text" value="" class="form-control" id="licence_key" />
+                <br /><br />
+                <input type="button" id="btnGenerate" value="Validate" class="btn btn-success" />                           
+            </div>
+        </div>  
+    </div>
+
+
+</body>
+</html>
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+    $('#btnGenerate').click(function () {
+        var mach_id = $('#machine_id').val();
+        var licence_key = $('#licence_key').val();
+
+        $.ajax({
+            url: '/Home/Validate',
+            type: 'get',
+            data: { machine_id: mach_id, licence_key: licence_key },
+            success: function (data) {
+                alert(data);
+                location.replace("/Home/Index");
+            }
+        });
+
+
+    });
+</script>

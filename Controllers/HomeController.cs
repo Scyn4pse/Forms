@@ -9,7 +9,9 @@ using iTextSharp;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.IO;
-
+using System.Text;
+using System.Security.Cryptography;
+using System.Net.NetworkInformation;
 
 namespace form_1a.Controllers
 {
@@ -19,41 +21,129 @@ namespace form_1a.Controllers
 
         public ActionResult Index()
         {
+            var lic_path = Server.MapPath("/sys/sys.dll");
+
+            if (System.IO.File.Exists(lic_path))
+            {
+                var lic_string = System.IO.File.ReadAllText(@lic_path);
+                var dec_string = Decrypt(lic_string, "Chiara");
+                var mac_id = GetMacAddress().ToString();
+
+                if(mac_id == dec_string)
+                {
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("AuthorizedPage", "Home");
+                }
+                
+            }
+            else
+            {
+                return RedirectToAction("AuthorizedPage","Home");
+            }
+
+            
+        }
+
+        public ActionResult UnauthorizedPage()
+        {
             return View();
         }
+
+        public ActionResult AuthorizedPage()
+        {
+            var MAC = GetMacAddress().ToString();
+            //var enc_mac = Encrypt(MAC, "chiara").ToString();
+            string enc_mac = MAC.ToString();
+
+            var PG = new AuthPG
+            {
+                machine_id = Reverse(enc_mac)
+            };
+
+            return View(PG);
+        }
+
+        public static PhysicalAddress GetMacAddress()
+        {
+            foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces())
+            {
+                // Only consider Ethernet network interfaces
+                if (nic.NetworkInterfaceType == NetworkInterfaceType.Ethernet &&
+                    nic.OperationalStatus == OperationalStatus.Up)
+                {
+                    return nic.GetPhysicalAddress();
+                }
+            }
+            return null;
+        }
+
+        public static string Reverse(string s)
+        {
+            char[] charArray = s.ToCharArray();
+            Array.Reverse(charArray);
+            return new string(charArray);
+        }
+
 
         //==========================================================  F O R M  1 A  ==========================================================
         public ActionResult Form_1a()
         {
-            return View();
-        }
-        
-        [HttpPost]
-        public ActionResult Form_1a(Form_1A model)
-        {
+            var lic_path = Server.MapPath("/sys/sys.dll");
 
-            string newfilename = "";
-            var q_lastfilename = "select  TOP 1 id, filename from Form_1A order by id desc";
-            var res_filename = db.Database.SqlQuery<FilenameInfo>(q_lastfilename).FirstOrDefault();
-
-            if (res_filename == null)
+            if (System.IO.File.Exists(lic_path))
             {
-                newfilename = "00001";
+                var lic_string = System.IO.File.ReadAllText(@lic_path);
+
+                var dec_string = Decrypt(lic_string, "Chiara");
+                var mac_id = GetMacAddress().ToString();
+
+                if (mac_id == dec_string)
+                {
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("AuthorizedPage", "Home");
+                }
+
             }
             else
             {
-                if (res_filename.filename == null)
+                return RedirectToAction("AuthorizedPage", "Home");
+            }
+
+        }
+
+        [HttpPost]
+        public ActionResult Form_1a(Form_1A model)
+        {
+            if(ModelState.IsValid == true)
+            {
+                string newfilename = "";
+                var q_lastfilename = "select  TOP 1 id, filename from Form_1A order by id desc";
+                var res_filename = db.Database.SqlQuery<FilenameInfo>(q_lastfilename).FirstOrDefault();
+
+                if (res_filename == null)
                 {
                     newfilename = "00001";
                 }
                 else
                 {
-                    int decValue = Convert.ToInt32(res_filename.filename, 16) + 1;
-                    newfilename = decValue.ToString("X").PadLeft(5, '0').ToUpper();
+                    if (res_filename.filename == null)
+                    {
+                        newfilename = "00001";
+                    }
+                    else
+                    {
+                        int decValue = Convert.ToInt32(res_filename.filename, 16) + 1;
+                        newfilename = decValue.ToString("X").PadLeft(5, '0').ToUpper();
+                    }
                 }
-            }
 
-            Form_1A form = new Form_1A
+                Form_1A form = new Form_1A
                 {
                     page = model.page,
                     book = model.book,
@@ -80,13 +170,17 @@ namespace form_1a.Controllers
                     date_paid = model.date_paid,
                     filename = newfilename
                 };
-            
+
                 db.Form_1A.Add(form);
                 db.SaveChanges();
 
                 int latestId = form.Id;
 
                 FillAcroFieldsForm1A(form.lcr_reg_no, newfilename);
+            }
+                
+
+            
 
             return View(model);
         }
@@ -174,9 +268,32 @@ namespace form_1a.Controllers
 
         public ActionResult SearchItem()
         {
-            List<Form_1A> form_1a = db.Form_1A.ToList();
+            var lic_path = Server.MapPath("/sys/sys.dll");
 
-            return View(form_1a);
+            if (System.IO.File.Exists(lic_path))
+            {
+                var lic_string = System.IO.File.ReadAllText(@lic_path);
+
+                var dec_string = Decrypt(lic_string, "Chiara");
+                var mac_id = GetMacAddress().ToString();
+
+                if (mac_id == dec_string)
+                {
+                    List<Form_1A> form_1a = db.Form_1A.ToList();
+
+                    return View(form_1a.OrderByDescending(c => c.Id).ToList());
+                }
+                else
+                {
+                    return RedirectToAction("AuthorizedPage", "Home");
+                }
+
+            }
+            else
+            {
+                return RedirectToAction("AuthorizedPage", "Home");
+            }
+           
         }
 
         [HttpGet]
@@ -222,7 +339,7 @@ namespace form_1a.Controllers
                         name_child = d.name_child,
                         name_of_mother = d.name_of_mother,
                         name_of_father = d.name_of_father,
-                        entry = date_entry.ToString("MM/dd/yyyy"),
+                        entry = date_entry.ToString("MM-dd-yyyy"),
                         filename = d.filename
                     });
                 }
@@ -239,17 +356,41 @@ namespace form_1a.Controllers
         [HttpGet]
         public ActionResult EditItem(string lcr_no, string filename)
         {
-            var q_item = "Select * from FORM_1A where lcr_reg_no = '" + lcr_no + "' and filename='" + filename + "'";
-            var r_data = db.Database.SqlQuery<Form_1A>(q_item).FirstOrDefault();
-            
-            if (r_data != null)
+            var lic_path = Server.MapPath("/sys/sys.dll");
+
+            if (System.IO.File.Exists(lic_path))
             {
-                return View(r_data);
+                var lic_string = System.IO.File.ReadAllText(@lic_path);
+
+                var dec_string = Decrypt(lic_string, "Chiara");
+                var mac_id = GetMacAddress().ToString();
+
+                if (mac_id == dec_string)
+                {
+
+                    var q_item = "Select * from FORM_1A where lcr_reg_no = '" + lcr_no + "' and filename='" + filename + "'";
+                    var r_data = db.Database.SqlQuery<Form_1A>(q_item).FirstOrDefault();
+
+                    if (r_data != null)
+                    {
+                        return View(r_data);
+                    }
+                    else
+                    {
+                        return View();
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("AuthorizedPage", "Home");
+                }
+
             }
             else
             {
-                return View();
+                return RedirectToAction("AuthorizedPage", "Home");
             }
+
         }
 
         [HttpGet]
@@ -266,74 +407,125 @@ namespace form_1a.Controllers
         [HttpGet]
         public ActionResult CopyRecords(string lcr_no, string filename)
         {
-            var q_item = "Select * from FORM_1A where lcr_reg_no = '" + lcr_no + "' and filename='" + filename + "'";
-            var r_data = db.Database.SqlQuery<Form_1A>(q_item).FirstOrDefault();
+            var lic_path = Server.MapPath("/sys/sys.dll");
 
-            if (r_data != null)
+            if (System.IO.File.Exists(lic_path))
             {
-                return View(r_data);
+                var lic_string = System.IO.File.ReadAllText(@lic_path);
+
+                var dec_string = Decrypt(lic_string, "Chiara");
+                var mac_id = GetMacAddress().ToString();
+
+                if (mac_id == dec_string)
+                {
+                    var q_item = "Select * from FORM_1A where lcr_reg_no = '" + lcr_no + "' and filename='" + filename + "'";
+                    var r_data = db.Database.SqlQuery<Form_1A>(q_item).FirstOrDefault();
+
+                    if (r_data != null)
+                    {
+                        return View(r_data);
+                    }
+                    else
+                    {
+                        return View();
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("AuthorizedPage", "Home");
+                }
+
             }
             else
             {
-                return View();
+                return RedirectToAction("AuthorizedPage", "Home");
             }
+           
         }
 
         //==========================================================  F O R M  1 B  ==========================================================
         public ActionResult Form_1b()
         {
-            return View();
+
+            var lic_path = Server.MapPath("/sys/sys.dll");
+
+            if (System.IO.File.Exists(lic_path))
+            {
+                var lic_string = System.IO.File.ReadAllText(@lic_path);
+
+                var dec_string = Decrypt(lic_string, "Chiara");
+                var mac_id = GetMacAddress().ToString();
+
+                if (mac_id == dec_string)
+                {
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("AuthorizedPage", "Home");
+                }
+
+            }
+            else
+            {
+                return RedirectToAction("AuthorizedPage", "Home");
+            }
+
         }
 
         [HttpPost]
         public ActionResult Form_1b(Form_1B model)
         {
-            string newfilename = "";
-            var q_lastfilename = "select  TOP 1 id, filename from Form_1B order by id desc";
-            var res_filename = db.Database.SqlQuery<FilenameInfo>(q_lastfilename).FirstOrDefault();
+            if (ModelState.IsValid == true)
+            {
+                string newfilename = "";
+                var q_lastfilename = "select  TOP 1 id, filename from Form_1B order by id desc";
+                var res_filename = db.Database.SqlQuery<FilenameInfo>(q_lastfilename).FirstOrDefault();
 
-            if (res_filename == null)
-            {
-                newfilename = "00001";
-            }
-            else
-            {
-                if (res_filename.filename == null)
+                if (res_filename == null)
                 {
                     newfilename = "00001";
                 }
                 else
                 {
-                    int decValue = Convert.ToInt32(res_filename.filename, 16) + 1;
-                    newfilename = decValue.ToString("X").PadLeft(5, '0').ToUpper();
+                    if (res_filename.filename == null)
+                    {
+                        newfilename = "00001";
+                    }
+                    else
+                    {
+                        int decValue = Convert.ToInt32(res_filename.filename, 16) + 1;
+                        newfilename = decValue.ToString("X").PadLeft(5, '0').ToUpper();
+                    }
                 }
+
+                Form_1B form = new Form_1B
+                {
+                    entry = model.entry,
+                    name = model.name,
+                    date_of_birth = model.date_of_birth,
+                    father = model.father,
+                    mother = model.mother,
+                    year = model.year,
+                    issued_to = model.issued_to,
+                    officer_name = model.officer_name,
+                    officer_title = model.officer_title,
+                    verifier_name = model.verifier_name,
+                    verifier_title = model.verifier_title,
+                    payment = model.payment,
+                    or_no = model.or_no,
+                    date_paid = model.date_paid,
+                    filename = newfilename
+                };
+
+                db.Form_1B.Add(form);
+                db.SaveChanges();
+
+                int latestId = form.Id;
+
+                FillAcroFieldsForm1B(newfilename);
             }
-
-            Form_1B form = new Form_1B
-            {
-                entry = model.entry,
-                name = model.name,
-                date_of_birth = model.date_of_birth,
-                father = model.father,
-                mother = model.mother,
-                year = model.year,
-                issued_to = model.issued_to,
-                officer_name = model.officer_name,
-                officer_title = model.officer_title,
-                verifier_name = model.verifier_name,
-                verifier_title = model.verifier_title,
-                payment = model.payment,
-                or_no = model.or_no,
-                date_paid = model.date_paid,
-                filename = newfilename
-            };
-
-            db.Form_1B.Add(form);
-            db.SaveChanges();
-
-            int latestId = form.Id;
-
-            FillAcroFieldsForm1B(newfilename);
+                
 
             return View(model);
         }
@@ -403,9 +595,32 @@ namespace form_1a.Controllers
 
         public ActionResult SearchItemForm1B()
         {
-            List<Form_1B> form_1b = db.Form_1B.ToList();
+            var lic_path = Server.MapPath("/sys/sys.dll");
 
-            return View(form_1b);
+            if (System.IO.File.Exists(lic_path))
+            {
+                var lic_string = System.IO.File.ReadAllText(@lic_path);
+
+                var dec_string = Decrypt(lic_string, "Chiara");
+                var mac_id = GetMacAddress().ToString();
+
+                if (mac_id == dec_string)
+                {
+                    List<Form_1B> form_1b = db.Form_1B.ToList();
+
+                    return View(form_1b.OrderByDescending(c => c.Id).ToList());
+                }
+                else
+                {
+                    return RedirectToAction("AuthorizedPage", "Home");
+                }
+
+            }
+            else
+            {
+                return RedirectToAction("AuthorizedPage", "Home");
+            }
+           
         }
 
         [HttpGet]
@@ -444,7 +659,7 @@ namespace form_1a.Controllers
                         name = d.name,
                         mother = d.mother,
                         father = d.father,
-                        entry = date_entry.ToString("MM/dd/yyyy"),
+                        entry = date_entry.ToString("MM-dd-yyyy"),
                         filename = d.filename
                     });
                 }
@@ -461,17 +676,40 @@ namespace form_1a.Controllers
         [HttpGet]
         public ActionResult EditItemForm1B(string filename)
         {
-            var q_item = "Select * from FORM_1B where filename = '" + filename + "'";
-            var r_data = db.Database.SqlQuery<Form_1B>(q_item).FirstOrDefault();
+            var lic_path = Server.MapPath("/sys/sys.dll");
 
-            if (r_data != null)
+            if (System.IO.File.Exists(lic_path))
             {
-                return View(r_data);
+                var lic_string = System.IO.File.ReadAllText(@lic_path);
+
+                var dec_string = Decrypt(lic_string, "Chiara");
+                var mac_id = GetMacAddress().ToString();
+
+                if (mac_id == dec_string)
+                {
+                    var q_item = "Select * from FORM_1B where filename = '" + filename + "'";
+                    var r_data = db.Database.SqlQuery<Form_1B>(q_item).FirstOrDefault();
+
+                    if (r_data != null)
+                    {
+                        return View(r_data);
+                    }
+                    else
+                    {
+                        return View();
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("AuthorizedPage", "Home");
+                }
+
             }
             else
             {
-                return View();
+                return RedirectToAction("AuthorizedPage", "Home");
             }
+           
         }
 
         [HttpGet]
@@ -488,50 +726,98 @@ namespace form_1a.Controllers
         [HttpGet]
         public ActionResult CopyRecordsForm1B(string filename)
         {
-            var q_item = "Select * from FORM_1B where filename = '" + filename + "'";
-            var r_data = db.Database.SqlQuery<Form_1B>(q_item).FirstOrDefault();
+            var lic_path = Server.MapPath("/sys/sys.dll");
 
-            if (r_data != null)
+            if (System.IO.File.Exists(lic_path))
             {
-                return View(r_data);
+                var lic_string = System.IO.File.ReadAllText(@lic_path);
+
+                var dec_string = Decrypt(lic_string, "Chiara");
+                var mac_id = GetMacAddress().ToString();
+
+                if (mac_id == dec_string)
+                {
+                    var q_item = "Select * from FORM_1B where filename = '" + filename + "'";
+                    var r_data = db.Database.SqlQuery<Form_1B>(q_item).FirstOrDefault();
+
+                    if (r_data != null)
+                    {
+                        return View(r_data);
+                    }
+                    else
+                    {
+                        return View();
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("AuthorizedPage", "Home");
+                }
+
             }
             else
             {
-                return View();
+                return RedirectToAction("AuthorizedPage", "Home");
             }
+           
         }
 
         //==========================================================  F O R M  1 C  ==========================================================
 
         public ActionResult Form_1c()
         {
-            return View();
+            var lic_path = Server.MapPath("/sys/sys.dll");
+
+            if (System.IO.File.Exists(lic_path))
+            {
+                var lic_string = System.IO.File.ReadAllText(@lic_path);
+
+                var dec_string = Decrypt(lic_string, "Chiara");
+                var mac_id = GetMacAddress().ToString();
+
+                if (mac_id == dec_string)
+                {
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("AuthorizedPage", "Home");
+                }
+
+            }
+            else
+            {
+                return RedirectToAction("AuthorizedPage", "Home");
+            }
+
         }
 
         [HttpPost]
         public ActionResult Form_1c(form_1C model)
         {
-            string newfilename = "";
-            var q_lastfilename = "select  TOP 1 id, filename from form_1C order by id desc";
-            var res_filename = db.Database.SqlQuery<FilenameInfo>(q_lastfilename).FirstOrDefault();
+            if (ModelState.IsValid == true)
+            {
+                string newfilename = "";
+                var q_lastfilename = "select  TOP 1 id, filename from form_1C order by id desc";
+                var res_filename = db.Database.SqlQuery<FilenameInfo>(q_lastfilename).FirstOrDefault();
 
-            if (res_filename == null)
-            {
-                newfilename = "00001";
-            }
-            else
-            {
-                if (res_filename.filename == null)
+                if (res_filename == null)
                 {
                     newfilename = "00001";
                 }
                 else
                 {
-                    int decValue = Convert.ToInt32(res_filename.filename, 16) + 1;
-                    newfilename = decValue.ToString("X").PadLeft(5, '0').ToUpper();
+                    if (res_filename.filename == null)
+                    {
+                        newfilename = "00001";
+                    }
+                    else
+                    {
+                        int decValue = Convert.ToInt32(res_filename.filename, 16) + 1;
+                        newfilename = decValue.ToString("X").PadLeft(5, '0').ToUpper();
+                    }
                 }
-            }
-            form_1C form = new form_1C
+                form_1C form = new form_1C
                 {
                     entry = model.entry,
                     year = model.year,
@@ -558,8 +844,8 @@ namespace form_1a.Controllers
 
                 int latestId = form.Id;
 
-            FillAcroFieldsForm1C(newfilename);
-
+                FillAcroFieldsForm1C(newfilename);
+            }
             return View(model);
         }
 
@@ -631,9 +917,32 @@ namespace form_1a.Controllers
 
         public ActionResult SearchItemForm1C()
         {
-            List<form_1C> form_1C = db.form_1C.ToList();
+            var lic_path = Server.MapPath("/sys/sys.dll");
 
-            return View(form_1C);
+            if (System.IO.File.Exists(lic_path))
+            {
+                var lic_string = System.IO.File.ReadAllText(@lic_path);
+
+                var dec_string = Decrypt(lic_string, "Chiara");
+                var mac_id = GetMacAddress().ToString();
+
+                if (mac_id == dec_string)
+                {
+                    List<form_1C> form_1C = db.form_1C.ToList();
+
+                    return View(form_1C.OrderByDescending(c => c.Id).ToList());
+                }
+                else
+                {
+                    return RedirectToAction("AuthorizedPage", "Home");
+                }
+
+            }
+            else
+            {
+                return RedirectToAction("AuthorizedPage", "Home");
+            }
+           
         }
 
         [HttpGet]
@@ -672,7 +981,7 @@ namespace form_1a.Controllers
                         name_of_person = d.name_of_person,
                         mother_name = d.mother_name,
                         father_name = d.father_name,
-                        entry = date_entry.ToString("MM/dd/yyyy"),
+                        entry = date_entry.ToString("MM-dd-yyyy"),
                         filename = d.filename
                     });
                 }
@@ -689,17 +998,40 @@ namespace form_1a.Controllers
         [HttpGet]
         public ActionResult EditItemForm1C(string filename)
         {
-            var q_item = "Select * from form_1C where filename = '" + filename + "'";
-            var r_data = db.Database.SqlQuery<form_1C>(q_item).FirstOrDefault();
+            var lic_path = Server.MapPath("/sys/sys.dll");
 
-            if (r_data != null)
+            if (System.IO.File.Exists(lic_path))
             {
-                return View(r_data);
+                var lic_string = System.IO.File.ReadAllText(@lic_path);
+
+                var dec_string = Decrypt(lic_string, "Chiara");
+                var mac_id = GetMacAddress().ToString();
+
+                if (mac_id == dec_string)
+                {
+                    var q_item = "Select * from form_1C where filename = '" + filename + "'";
+                    var r_data = db.Database.SqlQuery<form_1C>(q_item).FirstOrDefault();
+
+                    if (r_data != null)
+                    {
+                        return View(r_data);
+                    }
+                    else
+                    {
+                        return View();
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("AuthorizedPage", "Home");
+                }
+
             }
             else
             {
-                return View();
+                return RedirectToAction("AuthorizedPage", "Home");
             }
+            
         }
 
         [HttpGet]
@@ -716,49 +1048,97 @@ namespace form_1a.Controllers
         [HttpGet]
         public ActionResult CopyRecordsForm1C(string filename)
         {
-            var q_item = "Select * from form_1C where filename = '" + filename + "'";
-            var r_data = db.Database.SqlQuery<form_1C>(q_item).FirstOrDefault();
+            var lic_path = Server.MapPath("/sys/sys.dll");
 
-            if (r_data != null)
+            if (System.IO.File.Exists(lic_path))
             {
-                return View(r_data);
+                var lic_string = System.IO.File.ReadAllText(@lic_path);
+
+                var dec_string = Decrypt(lic_string, "Chiara");
+                var mac_id = GetMacAddress().ToString();
+
+                if (mac_id == dec_string)
+                {
+                    var q_item = "Select * from form_1C where filename = '" + filename + "'";
+                    var r_data = db.Database.SqlQuery<form_1C>(q_item).FirstOrDefault();
+
+                    if (r_data != null)
+                    {
+                        return View(r_data);
+                    }
+                    else
+                    {
+                        return View();
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("AuthorizedPage", "Home");
+                }
+
             }
             else
             {
-                return View();
+                return RedirectToAction("AuthorizedPage", "Home");
             }
+           
         }
 
         //==========================================================  F O R M  2 A  ==========================================================
         public ActionResult Form_2a()
         {
-            return View();
+            var lic_path = Server.MapPath("/sys/sys.dll");
+
+            if (System.IO.File.Exists(lic_path))
+            {
+                var lic_string = System.IO.File.ReadAllText(@lic_path);
+
+                var dec_string = Decrypt(lic_string, "Chiara");
+                var mac_id = GetMacAddress().ToString();
+
+                if (mac_id == dec_string)
+                {
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("AuthorizedPage", "Home");
+                }
+
+            }
+            else
+            {
+                return RedirectToAction("AuthorizedPage", "Home");
+            }
+
         }
 
         [HttpPost]
         public ActionResult Form_2a(Form_2A model)
         {
-            string newfilename = "";
-            var q_lastfilename = "select  TOP 1 id, filename from Form_2A order by id desc";
-            var res_filename = db.Database.SqlQuery<FilenameInfo>(q_lastfilename).FirstOrDefault();
+            if (ModelState.IsValid == true)
+            {
+                string newfilename = "";
+                var q_lastfilename = "select  TOP 1 id, filename from Form_2A order by id desc";
+                var res_filename = db.Database.SqlQuery<FilenameInfo>(q_lastfilename).FirstOrDefault();
 
-            if (res_filename == null)
-            {
-                newfilename = "00001";
-            }
-            else
-            {
-                if (res_filename.filename == null)
+                if (res_filename == null)
                 {
                     newfilename = "00001";
                 }
                 else
                 {
-                    int decValue = Convert.ToInt32(res_filename.filename, 16) + 1;
-                    newfilename = decValue.ToString("X").PadLeft(5, '0').ToUpper();
+                    if (res_filename.filename == null)
+                    {
+                        newfilename = "00001";
+                    }
+                    else
+                    {
+                        int decValue = Convert.ToInt32(res_filename.filename, 16) + 1;
+                        newfilename = decValue.ToString("X").PadLeft(5, '0').ToUpper();
+                    }
                 }
-            }
-            Form_2A form = new Form_2A
+                Form_2A form = new Form_2A
                 {
                     entry = model.entry,
                     page = model.page,
@@ -782,14 +1162,15 @@ namespace form_1a.Controllers
                     or_no = model.or_no,
                     date_paid = model.date_paid,
                     filename = newfilename
-            };
+                };
 
                 db.Form_2A.Add(form);
                 db.SaveChanges();
 
                 int latestId = form.Id;
 
-            FillAcroFieldsForm2A(newfilename);
+                FillAcroFieldsForm2A(newfilename);
+            }
             return View(model);
         }
 
@@ -867,9 +1248,32 @@ namespace form_1a.Controllers
 
         public ActionResult SearchItemForm2A()
         {
-            List<Form_2A> form_2a = db.Form_2A.ToList();
+            var lic_path = Server.MapPath("/sys/sys.dll");
 
-            return View(form_2a);
+            if (System.IO.File.Exists(lic_path))
+            {
+                var lic_string = System.IO.File.ReadAllText(@lic_path);
+
+                var dec_string = Decrypt(lic_string, "Chiara");
+                var mac_id = GetMacAddress().ToString();
+
+                if (mac_id == dec_string)
+                {
+                    List<Form_2A> form_2a = db.Form_2A.ToList();
+
+                    return View(form_2a.OrderByDescending(c => c.Id).ToList());
+                }
+                else
+                {
+                    return RedirectToAction("AuthorizedPage", "Home");
+                }
+
+            }
+            else
+            {
+                return RedirectToAction("AuthorizedPage", "Home");
+            }
+            
         }
 
         [HttpGet]
@@ -903,7 +1307,7 @@ namespace form_1a.Controllers
                     {
                         lcr_reg_no = d.lcr_reg_no,
                         death_name = d.death_name,
-                        entry = date_entry.ToString("MM/dd/yyyy"),
+                        entry = date_entry.ToString("MM-dd-yyyy"),
                         filename = d.filename
                     });
                 }
@@ -919,17 +1323,40 @@ namespace form_1a.Controllers
         [HttpGet]
         public ActionResult EditItemForm2A(string filename)
         {
-            var q_item = "Select * from Form_2A where filename = '" + filename + "'";
-            var r_data = db.Database.SqlQuery<Form_2A>(q_item).FirstOrDefault();
+            var lic_path = Server.MapPath("/sys/sys.dll");
 
-            if (r_data != null)
+            if (System.IO.File.Exists(lic_path))
             {
-                return View(r_data);
+                var lic_string = System.IO.File.ReadAllText(@lic_path);
+
+                var dec_string = Decrypt(lic_string, "Chiara");
+                var mac_id = GetMacAddress().ToString();
+
+                if (mac_id == dec_string)
+                {
+                    var q_item = "Select * from Form_2A where filename = '" + filename + "'";
+                    var r_data = db.Database.SqlQuery<Form_2A>(q_item).FirstOrDefault();
+
+                    if (r_data != null)
+                    {
+                        return View(r_data);
+                    }
+                    else
+                    {
+                        return View();
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("AuthorizedPage", "Home");
+                }
+
             }
             else
             {
-                return View();
+                return RedirectToAction("AuthorizedPage", "Home");
             }
+            
         }
 
         [HttpGet]
@@ -946,50 +1373,98 @@ namespace form_1a.Controllers
         [HttpGet]
         public ActionResult CopyRecordsForm2A(string filename)
         {
-            var q_item = "Select * from Form_2A where filename = '" + filename + "'";
-            var r_data = db.Database.SqlQuery<Form_2A>(q_item).FirstOrDefault();
+            var lic_path = Server.MapPath("/sys/sys.dll");
 
-            if (r_data != null)
+            if (System.IO.File.Exists(lic_path))
             {
-                return View(r_data);
+                var lic_string = System.IO.File.ReadAllText(@lic_path);
+
+                var dec_string = Decrypt(lic_string, "Chiara");
+                var mac_id = GetMacAddress().ToString();
+
+                if (mac_id == dec_string)
+                {
+                    var q_item = "Select * from Form_2A where filename = '" + filename + "'";
+                    var r_data = db.Database.SqlQuery<Form_2A>(q_item).FirstOrDefault();
+
+                    if (r_data != null)
+                    {
+                        return View(r_data);
+                    }
+                    else
+                    {
+                        return View();
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("AuthorizedPage", "Home");
+                }
+
             }
             else
             {
-                return View();
+                return RedirectToAction("AuthorizedPage", "Home");
             }
+            
         }
 
         //==========================================================  F O R M  2 B  ==========================================================
 
         public ActionResult Form_2b()
         {
-            return View();
+            var lic_path = Server.MapPath("/sys/sys.dll");
+
+            if (System.IO.File.Exists(lic_path))
+            {
+                var lic_string = System.IO.File.ReadAllText(@lic_path);
+
+                var dec_string = Decrypt(lic_string, "Chiara");
+                var mac_id = GetMacAddress().ToString();
+
+                if (mac_id == dec_string)
+                {
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("AuthorizedPage", "Home");
+                }
+
+            }
+            else
+            {
+                return RedirectToAction("AuthorizedPage", "Home");
+            }
+
         }
 
         [HttpPost]
         public ActionResult Form_2b(form_2B model)
         {
-            string newfilename = "";
-            var q_lastfilename = "select  TOP 1 id, filename from form_2B order by id desc";
-            var res_filename = db.Database.SqlQuery<FilenameInfo>(q_lastfilename).FirstOrDefault();
+            if (ModelState.IsValid == true)
+            {
+                string newfilename = "";
+                var q_lastfilename = "select  TOP 1 id, filename from form_2B order by id desc";
+                var res_filename = db.Database.SqlQuery<FilenameInfo>(q_lastfilename).FirstOrDefault();
 
-            if (res_filename == null)
-            {
-                newfilename = "00001";
-            }
-            else
-            {
-                if (res_filename.filename == null)
+                if (res_filename == null)
                 {
                     newfilename = "00001";
                 }
                 else
                 {
-                    int decValue = Convert.ToInt32(res_filename.filename, 16) + 1;
-                    newfilename = decValue.ToString("X").PadLeft(5, '0').ToUpper();
+                    if (res_filename.filename == null)
+                    {
+                        newfilename = "00001";
+                    }
+                    else
+                    {
+                        int decValue = Convert.ToInt32(res_filename.filename, 16) + 1;
+                        newfilename = decValue.ToString("X").PadLeft(5, '0').ToUpper();
+                    }
                 }
-            }
-            form_2B form = new form_2B
+                form_2B form = new form_2B
                 {
                     entry = model.entry,
                     name = model.name,
@@ -1004,13 +1479,14 @@ namespace form_1a.Controllers
                     or_no = model.or_no,
                     date_paid = model.date_paid,
                     filename = newfilename
-            };
+                };
 
                 db.form_2B.Add(form);
                 db.SaveChanges();
 
                 int latestId = form.Id;
-            FillAcroFieldsForm2B(newfilename);
+                FillAcroFieldsForm2B(newfilename);
+            }
             return View(model);
         }
 
@@ -1076,9 +1552,33 @@ namespace form_1a.Controllers
 
         public ActionResult SearchItemForm2B()
         {
-            List<form_2B> form_2b = db.form_2B.ToList();
+            var lic_path = Server.MapPath("/sys/sys.dll");
 
-            return View(form_2b);
+            if (System.IO.File.Exists(lic_path))
+            {
+                var lic_string = System.IO.File.ReadAllText(@lic_path);
+
+                var dec_string = Decrypt(lic_string, "Chiara");
+                var mac_id = GetMacAddress().ToString();
+
+                if (mac_id == dec_string)
+                {
+                    List<form_2B> form_2b = db.form_2B.ToList();
+
+                    return View(form_2b.OrderByDescending(c => c.Id).ToList());
+                }
+                else
+                {
+                    return RedirectToAction("AuthorizedPage", "Home");
+                }
+
+            }
+            else
+            {
+                return RedirectToAction("AuthorizedPage", "Home");
+            }
+
+            
         }
 
         [HttpGet]
@@ -1113,8 +1613,8 @@ namespace form_1a.Controllers
                     {
                         name = d.name,
                         year = d.year,
-                        date_of_death = date_death.ToString("MM/dd/yyyy"),
-                        entry = date_entry.ToString("MM/dd/yyyy"),
+                        date_of_death = date_death.ToString("MM-dd-yyyy"),
+                        entry = date_entry.ToString("MM-dd-yyyy"),
                         filename = d.filename
                     });
                 }
@@ -1130,17 +1630,40 @@ namespace form_1a.Controllers
         [HttpGet]
         public ActionResult EditItemForm2B(string filename)
         {
-            var q_item = "Select * from form_2B where filename = '" + filename + "'";
-            var r_data = db.Database.SqlQuery<form_2B>(q_item).FirstOrDefault();
+            var lic_path = Server.MapPath("/sys/sys.dll");
 
-            if (r_data != null)
+            if (System.IO.File.Exists(lic_path))
             {
-                return View(r_data);
+                var lic_string = System.IO.File.ReadAllText(@lic_path);
+
+                var dec_string = Decrypt(lic_string, "Chiara");
+                var mac_id = GetMacAddress().ToString();
+
+                if (mac_id == dec_string)
+                {
+                    var q_item = "Select * from form_2B where filename = '" + filename + "'";
+                    var r_data = db.Database.SqlQuery<form_2B>(q_item).FirstOrDefault();
+
+                    if (r_data != null)
+                    {
+                        return View(r_data);
+                    }
+                    else
+                    {
+                        return View();
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("AuthorizedPage", "Home");
+                }
+
             }
             else
             {
-                return View();
+                return RedirectToAction("AuthorizedPage", "Home");
             }
+            
         }
 
         [HttpGet]
@@ -1157,50 +1680,99 @@ namespace form_1a.Controllers
         [HttpGet]
         public ActionResult CopyRecordsForm2B(string filename)
         {
-            var q_item = "Select * from form_2B where filename = '" + filename + "'";
-            var r_data = db.Database.SqlQuery<form_2B>(q_item).FirstOrDefault();
+            var lic_path = Server.MapPath("/sys/sys.dll");
 
-            if (r_data != null)
+            if (System.IO.File.Exists(lic_path))
             {
-                return View(r_data);
+                var lic_string = System.IO.File.ReadAllText(@lic_path);
+
+                var dec_string = Decrypt(lic_string, "Chiara");
+                var mac_id = GetMacAddress().ToString();
+
+                if (mac_id == dec_string)
+                {
+
+                    var q_item = "Select * from form_2B where filename = '" + filename + "'";
+                    var r_data = db.Database.SqlQuery<form_2B>(q_item).FirstOrDefault();
+
+                    if (r_data != null)
+                    {
+                        return View(r_data);
+                    }
+                    else
+                    {
+                        return View();
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("AuthorizedPage", "Home");
+                }
+
             }
             else
             {
-                return View();
+                return RedirectToAction("AuthorizedPage", "Home");
             }
+
         }
 
         //==========================================================  F O R M  3 A  ==========================================================
 
         public ActionResult Form_3a()
         {
-            return View();
+            var lic_path = Server.MapPath("/sys/sys.dll");
+
+            if (System.IO.File.Exists(lic_path))
+            {
+                var lic_string = System.IO.File.ReadAllText(@lic_path);
+
+                var dec_string = Decrypt(lic_string, "Chiara");
+                var mac_id = GetMacAddress().ToString();
+
+                if (mac_id == dec_string)
+                {
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("AuthorizedPage", "Home");
+                }
+
+            }
+            else
+            {
+                return RedirectToAction("AuthorizedPage", "Home");
+            }
+
         }
 
         [HttpPost]
         public ActionResult Form_3a(Form_3A model)
         {
-            string newfilename = "";
-            var q_lastfilename = "select  TOP 1 id, filename from Form_3A order by id desc";
-            var res_filename = db.Database.SqlQuery<FilenameInfo>(q_lastfilename).FirstOrDefault();
+            if (ModelState.IsValid == true)
+            {
+                string newfilename = "";
+                var q_lastfilename = "select  TOP 1 id, filename from Form_3A order by id desc";
+                var res_filename = db.Database.SqlQuery<FilenameInfo>(q_lastfilename).FirstOrDefault();
 
-            if (res_filename == null)
-            {
-                newfilename = "00001";
-            }
-            else
-            {
-                if (res_filename.filename == null)
+                if (res_filename == null)
                 {
                     newfilename = "00001";
                 }
                 else
                 {
-                    int decValue = Convert.ToInt32(res_filename.filename, 16) + 1;
-                    newfilename = decValue.ToString("X").PadLeft(5, '0').ToUpper();
+                    if (res_filename.filename == null)
+                    {
+                        newfilename = "00001";
+                    }
+                    else
+                    {
+                        int decValue = Convert.ToInt32(res_filename.filename, 16) + 1;
+                        newfilename = decValue.ToString("X").PadLeft(5, '0').ToUpper();
+                    }
                 }
-            }
-            Form_3A form = new Form_3A
+                Form_3A form = new Form_3A
                 {
                     entry = model.entry,
                     page = model.page,
@@ -1230,13 +1802,14 @@ namespace form_1a.Controllers
                     or_no = model.or_no,
                     date_paid = model.date_paid,
                     filename = newfilename
-            };
+                };
 
                 db.Form_3A.Add(form);
                 db.SaveChanges();
 
                 int latestId = form.Id;
                 FillAcroFieldsForm3A(newfilename);
+            }
 
             return View(model);
         }
@@ -1321,9 +1894,32 @@ namespace form_1a.Controllers
 
         public ActionResult SearchItemForm3A()
         {
-            List<Form_3A> form_3a = db.Form_3A.ToList();
+            var lic_path = Server.MapPath("/sys/sys.dll");
 
-            return View(form_3a);
+            if (System.IO.File.Exists(lic_path))
+            {
+                var lic_string = System.IO.File.ReadAllText(@lic_path);
+
+                var dec_string = Decrypt(lic_string, "Chiara");
+                var mac_id = GetMacAddress().ToString();
+
+                if (mac_id == dec_string)
+                {
+                    List<Form_3A> form_3a = db.Form_3A.ToList();
+
+                    return View(form_3a.OrderByDescending(c => c.Id).ToList());
+                }
+                else
+                {
+                    return RedirectToAction("AuthorizedPage", "Home");
+                }
+
+            }
+            else
+            {
+                return RedirectToAction("AuthorizedPage", "Home");
+            }
+            
         }
 
         [HttpGet]
@@ -1361,7 +1957,7 @@ namespace form_1a.Controllers
                         reg_no = d.reg_no,
                         husband_name = d.husband_name,
                         wife_name = d.wife_name,
-                        entry = date_entry.ToString("MM/dd/yyyy"),
+                        entry = date_entry.ToString("MM-dd-yyyy"),
                         filename = d.filename
                     });
                 }
@@ -1377,17 +1973,40 @@ namespace form_1a.Controllers
         [HttpGet]
         public ActionResult EditItemForm3A(string filename)
         {
-            var q_item = "Select * from Form_3A where filename = '" + filename + "'";
-            var r_data = db.Database.SqlQuery<Form_3A>(q_item).FirstOrDefault();
+            var lic_path = Server.MapPath("/sys/sys.dll");
 
-            if (r_data != null)
+            if (System.IO.File.Exists(lic_path))
             {
-                return View(r_data);
+                var lic_string = System.IO.File.ReadAllText(@lic_path);
+
+                var dec_string = Decrypt(lic_string, "Chiara");
+                var mac_id = GetMacAddress().ToString();
+
+                if (mac_id == dec_string)
+                {
+                    var q_item = "Select * from Form_3A where filename = '" + filename + "'";
+                    var r_data = db.Database.SqlQuery<Form_3A>(q_item).FirstOrDefault();
+
+                    if (r_data != null)
+                    {
+                        return View(r_data);
+                    }
+                    else
+                    {
+                        return View();
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("AuthorizedPage", "Home");
+                }
+
             }
             else
             {
-                return View();
+                return RedirectToAction("AuthorizedPage", "Home");
             }
+           
         }
 
         [HttpGet]
@@ -1404,50 +2023,99 @@ namespace form_1a.Controllers
         [HttpGet]
         public ActionResult CopyRecordsForm3A(string filename)
         {
-            var q_item = "Select * from Form_3A where filename = '" + filename + "'";
-            var r_data = db.Database.SqlQuery<Form_3A>(q_item).FirstOrDefault();
+            var lic_path = Server.MapPath("/sys/sys.dll");
 
-            if (r_data != null)
+            if (System.IO.File.Exists(lic_path))
             {
-                return View(r_data);
+                var lic_string = System.IO.File.ReadAllText(@lic_path);
+
+                var dec_string = Decrypt(lic_string, "Chiara");
+                var mac_id = GetMacAddress().ToString();
+
+                if (mac_id == dec_string)
+                {
+                    var q_item = "Select * from Form_3A where filename = '" + filename + "'";
+                    var r_data = db.Database.SqlQuery<Form_3A>(q_item).FirstOrDefault();
+
+                    if (r_data != null)
+                    {
+                        return View(r_data);
+                    }
+                    else
+                    {
+                        return View();
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("AuthorizedPage", "Home");
+                }
+
             }
             else
             {
-                return View();
+                return RedirectToAction("AuthorizedPage", "Home");
             }
+            
         }
 
         //==========================================================  F O R M  3 B  ==========================================================
 
         public ActionResult Form_3b()
         {
-            return View();
+            var lic_path = Server.MapPath("/sys/sys.dll");
+
+            if (System.IO.File.Exists(lic_path))
+            {
+                var lic_string = System.IO.File.ReadAllText(@lic_path);
+
+                var dec_string = Decrypt(lic_string, "Chiara");
+                var mac_id = GetMacAddress().ToString();
+
+                if (mac_id == dec_string)
+                {
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("AuthorizedPage", "Home");
+                }
+
+            }
+            else
+            {
+                return RedirectToAction("AuthorizedPage", "Home");
+            }
+
         }
 
         [HttpPost]
         public ActionResult Form_3b(form_3B model)
         {
-            string newfilename = "";
-            var q_lastfilename = "select  TOP 1 id, filename from form_3B order by id desc";
-            var res_filename = db.Database.SqlQuery<FilenameInfo>(q_lastfilename).FirstOrDefault();
+            if (ModelState.IsValid == true)
+            {
+                string newfilename = "";
+                var q_lastfilename = "select  TOP 1 id, filename from form_3B order by id desc";
+                var res_filename = db.Database.SqlQuery<FilenameInfo>(q_lastfilename).FirstOrDefault();
 
-            if (res_filename == null)
-            {
-                newfilename = "00001";
-            }
-            else
-            {
-                if (res_filename.filename == null)
+                if (res_filename == null)
                 {
                     newfilename = "00001";
                 }
                 else
                 {
-                    int decValue = Convert.ToInt32(res_filename.filename, 16) + 1;
-                    newfilename = decValue.ToString("X").PadLeft(5, '0').ToUpper();
+                    if (res_filename.filename == null)
+                    {
+                        newfilename = "00001";
+                    }
+                    else
+                    {
+                        int decValue = Convert.ToInt32(res_filename.filename, 16) + 1;
+                        newfilename = decValue.ToString("X").PadLeft(5, '0').ToUpper();
+                    }
                 }
-            }
-            form_3B form = new form_3B
+
+                form_3B form = new form_3B
                 {
                     entry = model.entry,
                     husband_name = model.husband_name,
@@ -1463,13 +2131,14 @@ namespace form_1a.Controllers
                     or_no = model.or_no,
                     date_paid = model.date_paid,
                     filename = newfilename
-            };
+                };
 
                 db.form_3B.Add(form);
                 db.SaveChanges();
 
                 int latestId = form.Id;
-            FillAcroFieldsForm3B(newfilename);
+                FillAcroFieldsForm3B(newfilename);
+            }
             return View(model);
         }
 
@@ -1536,9 +2205,32 @@ namespace form_1a.Controllers
 
         public ActionResult SearchItemForm3B()
         {
-            List<form_3B> form_3b = db.form_3B.ToList();
+            var lic_path = Server.MapPath("/sys/sys.dll");
 
-            return View(form_3b);
+            if (System.IO.File.Exists(lic_path))
+            {
+                var lic_string = System.IO.File.ReadAllText(@lic_path);
+
+                var dec_string = Decrypt(lic_string, "Chiara");
+                var mac_id = GetMacAddress().ToString();
+
+                if (mac_id == dec_string)
+                {
+                    List<form_3B> form_3b = db.form_3B.ToList();
+
+                    return View(form_3b.OrderByDescending(c => c.Id).ToList());
+                }
+                else
+                {
+                    return RedirectToAction("AuthorizedPage", "Home");
+                }
+
+            }
+            else
+            {
+                return RedirectToAction("AuthorizedPage", "Home");
+            }
+           
         }
 
         [HttpGet]
@@ -1577,8 +2269,8 @@ namespace form_1a.Controllers
                         husband_name = d.husband_name,
                         wife_name = d.wife_name,
                         year = d.year,
-                        date_of_marriage = date_marr.ToString("MM/dd/yyyy"),
-                        entry = date_entry.ToString("MM/dd/yyyy"),
+                        date_of_marriage = date_marr.ToString("MM-dd-yyyy"),
+                        entry = date_entry.ToString("MM-dd-yyyy"),
                         filename = d.filename
                     });
                 }
@@ -1594,17 +2286,40 @@ namespace form_1a.Controllers
         [HttpGet]
         public ActionResult EditItemForm3B(string filename)
         {
-            var q_item = "Select * from form_3B where filename = '" + filename + "'";
-            var r_data = db.Database.SqlQuery<form_3B>(q_item).FirstOrDefault();
+            var lic_path = Server.MapPath("/sys/sys.dll");
 
-            if (r_data != null)
+            if (System.IO.File.Exists(lic_path))
             {
-                return View(r_data);
+                var lic_string = System.IO.File.ReadAllText(@lic_path);
+
+                var dec_string = Decrypt(lic_string, "Chiara");
+                var mac_id = GetMacAddress().ToString();
+
+                if (mac_id == dec_string)
+                {
+                    var q_item = "Select * from form_3B where filename = '" + filename + "'";
+                    var r_data = db.Database.SqlQuery<form_3B>(q_item).FirstOrDefault();
+
+                    if (r_data != null)
+                    {
+                        return View(r_data);
+                    }
+                    else
+                    {
+                        return View();
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("AuthorizedPage", "Home");
+                }
+
             }
             else
             {
-                return View();
+                return RedirectToAction("AuthorizedPage", "Home");
             }
+            
         }
 
         [HttpGet]
@@ -1621,50 +2336,98 @@ namespace form_1a.Controllers
         [HttpGet]
         public ActionResult CopyRecordsForm3B(string filename)
         {
-            var q_item = "Select * from form_3B where filename = '" + filename + "'";
-            var r_data = db.Database.SqlQuery<form_3B>(q_item).FirstOrDefault();
+            var lic_path = Server.MapPath("/sys/sys.dll");
 
-            if (r_data != null)
+            if (System.IO.File.Exists(lic_path))
             {
-                return View(r_data);
+                var lic_string = System.IO.File.ReadAllText(@lic_path);
+
+                var dec_string = Decrypt(lic_string, "Chiara");
+                var mac_id = GetMacAddress().ToString();
+
+                if (mac_id == dec_string)
+                {
+                    var q_item = "Select * from form_3B where filename = '" + filename + "'";
+                    var r_data = db.Database.SqlQuery<form_3B>(q_item).FirstOrDefault();
+
+                    if (r_data != null)
+                    {
+                        return View(r_data);
+                    }
+                    else
+                    {
+                        return View();
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("AuthorizedPage", "Home");
+                }
+
             }
             else
             {
-                return View();
+                return RedirectToAction("AuthorizedPage", "Home");
             }
+            
         }
 
         //==========================================================  F O R M  3 C  ==========================================================
 
         public ActionResult Form_3c()
         {
-            return View();
+            var lic_path = Server.MapPath("/sys/sys.dll");
+
+            if (System.IO.File.Exists(lic_path))
+            {
+                var lic_string = System.IO.File.ReadAllText(@lic_path);
+
+                var dec_string = Decrypt(lic_string, "Chiara");
+                var mac_id = GetMacAddress().ToString();
+
+                if (mac_id == dec_string)
+                {
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("AuthorizedPage", "Home");
+                }
+
+            }
+            else
+            {
+                return RedirectToAction("AuthorizedPage", "Home");
+            }
+
         }
 
         [HttpPost]
         public ActionResult Form_3c(form_3C model)
         {
-            string newfilename = "";
-            var q_lastfilename = "select  TOP 1 id, filename from form_3C order by id desc";
-            var res_filename = db.Database.SqlQuery<FilenameInfo>(q_lastfilename).FirstOrDefault();
+            if (ModelState.IsValid == true)
+            {
+                string newfilename = "";
+                var q_lastfilename = "select  TOP 1 id, filename from form_3C order by id desc";
+                var res_filename = db.Database.SqlQuery<FilenameInfo>(q_lastfilename).FirstOrDefault();
 
-            if (res_filename == null)
-            {
-                newfilename = "00001";
-            }
-            else
-            {
-                if (res_filename.filename == null)
+                if (res_filename == null)
                 {
                     newfilename = "00001";
                 }
                 else
                 {
-                    int decValue = Convert.ToInt32(res_filename.filename, 16) + 1;
-                    newfilename = decValue.ToString("X").PadLeft(5, '0').ToUpper();
+                    if (res_filename.filename == null)
+                    {
+                        newfilename = "00001";
+                    }
+                    else
+                    {
+                        int decValue = Convert.ToInt32(res_filename.filename, 16) + 1;
+                        newfilename = decValue.ToString("X").PadLeft(5, '0').ToUpper();
+                    }
                 }
-            }
-            form_3C form = new form_3C
+                form_3C form = new form_3C
                 {
                     entry = model.entry,
                     year = model.year,
@@ -1690,6 +2453,7 @@ namespace form_1a.Controllers
 
                 int latestId = form.Id;
                 FillAcroFieldsForm3C(newfilename);
+            }
 
             return View(model);
         }
@@ -1758,9 +2522,32 @@ namespace form_1a.Controllers
 
         public ActionResult SearchItemForm3C()
         {
-            List<form_3C> form_3c = db.form_3C.ToList();
+            var lic_path = Server.MapPath("/sys/sys.dll");
 
-            return View(form_3c);
+            if (System.IO.File.Exists(lic_path))
+            {
+                var lic_string = System.IO.File.ReadAllText(@lic_path);
+
+                var dec_string = Decrypt(lic_string, "Chiara");
+                var mac_id = GetMacAddress().ToString();
+
+                if (mac_id == dec_string)
+                {
+                    List<form_3C> form_3c = db.form_3C.ToList();
+
+                    return View(form_3c.OrderByDescending(c => c.Id).ToList());
+                }
+                else
+                {
+                    return RedirectToAction("AuthorizedPage", "Home");
+                }
+
+            }
+            else
+            {
+                return RedirectToAction("AuthorizedPage", "Home");
+            }
+            
         }
 
         [HttpGet]
@@ -1798,7 +2585,7 @@ namespace form_1a.Controllers
                         husband_name = d.husband_name,
                         wife_name = d.wife_name,
                         year = d.year,
-                        entry = date_entry.ToString("MM/dd/yyyy"),
+                        entry = date_entry.ToString("MM-dd-yyyy"),
                         filename = d.filename
                     });
                 }
@@ -1814,17 +2601,40 @@ namespace form_1a.Controllers
         [HttpGet]
         public ActionResult EditItemForm3C(string filename)
         {
-            var q_item = "Select * from form_3C where filename = '" + filename + "'";
-            var r_data = db.Database.SqlQuery<form_3C>(q_item).FirstOrDefault();
+            var lic_path = Server.MapPath("/sys/sys.dll");
 
-            if (r_data != null)
+            if (System.IO.File.Exists(lic_path))
             {
-                return View(r_data);
+                var lic_string = System.IO.File.ReadAllText(@lic_path);
+
+                var dec_string = Decrypt(lic_string, "Chiara");
+                var mac_id = GetMacAddress().ToString();
+
+                if (mac_id == dec_string)
+                {
+                    var q_item = "Select * from form_3C where filename = '" + filename + "'";
+                    var r_data = db.Database.SqlQuery<form_3C>(q_item).FirstOrDefault();
+
+                    if (r_data != null)
+                    {
+                        return View(r_data);
+                    }
+                    else
+                    {
+                        return View();
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("AuthorizedPage", "Home");
+                }
+
             }
             else
             {
-                return View();
+                return RedirectToAction("AuthorizedPage", "Home");
             }
+            
         }
 
         [HttpGet]
@@ -1841,17 +2651,42 @@ namespace form_1a.Controllers
         [HttpGet]
         public ActionResult CopyRecordsForm3C(string filename)
         {
-            var q_item = "Select * from form_3C where filename = '" + filename + "'";
-            var r_data = db.Database.SqlQuery<form_3C>(q_item).FirstOrDefault();
+            var lic_path = Server.MapPath("/sys/sys.dll");
 
-            if (r_data != null)
+            if (System.IO.File.Exists(lic_path))
             {
-                return View(r_data);
+                var lic_string = System.IO.File.ReadAllText(@lic_path);
+
+                var dec_string = Decrypt(lic_string, "Chiara");
+                var mac_id = GetMacAddress().ToString();
+
+                if (mac_id == dec_string)
+                {
+                    var q_item = "Select * from form_3C where filename = '" + filename + "'";
+                    var r_data = db.Database.SqlQuery<form_3C>(q_item).FirstOrDefault();
+
+
+                    if (r_data != null)
+                    {
+
+                        return View(r_data);
+                    }
+                    else
+                    {
+                        return View();
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("AuthorizedPage", "Home");
+                }
+
             }
             else
             {
-                return View();
+                return RedirectToAction("AuthorizedPage", "Home");
             }
+            
         }
 
 
@@ -1928,6 +2763,198 @@ namespace form_1a.Controllers
             return Json(res_filename.filename, JsonRequestBehavior.AllowGet);
 
         }
+
+
+        public byte[] AES_Encrypt(byte[] bytesToBeEncrypted, byte[] passwordBytes)
+        {
+            byte[] encryptedBytes = null;
+
+            // Set your salt here, change it to meet your flavor:  
+            byte[] saltBytes = passwordBytes;
+            // Example:  
+            //saltBytes = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8 };  
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                using (RijndaelManaged AES = new RijndaelManaged())
+                {
+                    AES.KeySize = 256;
+                    AES.BlockSize = 128;
+
+                    var key = new Rfc2898DeriveBytes(passwordBytes, saltBytes, 1000);
+                    AES.Key = key.GetBytes(AES.KeySize / 8);
+                    AES.IV = key.GetBytes(AES.BlockSize / 8);
+
+                    AES.Mode = CipherMode.CBC;
+
+                    using (CryptoStream cs = new CryptoStream(ms, AES.CreateEncryptor(), CryptoStreamMode.Write))
+                    {
+                        cs.Write(bytesToBeEncrypted, 0, bytesToBeEncrypted.Length);
+                        cs.Close();
+                    }
+                    encryptedBytes = ms.ToArray();
+                }
+            }
+
+            return encryptedBytes;
+        }
+        public byte[] AES_Decrypt(byte[] bytesToBeDecrypted, byte[] passwordBytes)
+        {
+            try
+            {
+                byte[] decryptedBytes = null;
+                // Set your salt here to meet your flavor:  
+                byte[] saltBytes = passwordBytes;
+                // Example:  
+                //saltBytes = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8 };  
+
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    using (RijndaelManaged AES = new RijndaelManaged())
+                    {
+                        AES.KeySize = 256;
+                        AES.BlockSize = 128;
+
+                        var key = new Rfc2898DeriveBytes(passwordBytes, saltBytes, 1000);
+                        AES.Key = key.GetBytes(AES.KeySize / 8);
+                        AES.IV = key.GetBytes(AES.BlockSize / 8);
+
+                        //AES.Mode = CipherMode.CBC;  
+
+                        using (CryptoStream cs = new CryptoStream(ms, AES.CreateDecryptor(), CryptoStreamMode.Write))
+                        {
+                            cs.Write(bytesToBeDecrypted, 0, bytesToBeDecrypted.Length);
+                            //If(cs.Length = ""  
+                            cs.Close();
+                        }
+                        decryptedBytes = ms.ToArray();
+                    }
+                }
+                return decryptedBytes;
+            }
+            catch (Exception Ex)
+            {
+                return null;
+            }
+        }
+        public string Encrypt(string text, string pwd)
+        {
+            byte[] originalBytes = Encoding.UTF8.GetBytes(text);
+            byte[] encryptedBytes = null;
+            byte[] passwordBytes = Encoding.UTF8.GetBytes(pwd);
+
+            // Hash the password with SHA256  
+            passwordBytes = SHA256.Create().ComputeHash(passwordBytes);
+
+            // Getting the salt size  
+            int saltSize = GetSaltSize(passwordBytes);
+            // Generating salt bytes  
+            byte[] saltBytes = GetRandomBytes(saltSize);
+
+            // Appending salt bytes to original bytes  
+            byte[] bytesToBeEncrypted = new byte[saltBytes.Length + originalBytes.Length];
+            for (int i = 0; i < saltBytes.Length; i++)
+            {
+                bytesToBeEncrypted[i] = saltBytes[i];
+            }
+            for (int i = 0; i < originalBytes.Length; i++)
+            {
+                bytesToBeEncrypted[i + saltBytes.Length] = originalBytes[i];
+            }
+
+            encryptedBytes = AES_Encrypt(bytesToBeEncrypted, passwordBytes);
+
+            return Convert.ToBase64String(encryptedBytes);
+        }
+        public string Decrypt(string decryptedText, string pwd)
+        {
+            byte[] bytesToBeDecrypted = Convert.FromBase64String(decryptedText);
+            byte[] passwordBytes = Encoding.UTF8.GetBytes(pwd);
+
+            // Hash the password with SHA256  
+            passwordBytes = SHA256.Create().ComputeHash(passwordBytes);
+
+            byte[] decryptedBytes = AES_Decrypt(bytesToBeDecrypted, passwordBytes);
+
+            if (decryptedBytes != null)
+            {
+                // Getting the size of salt  
+                int saltSize = GetSaltSize(passwordBytes);
+
+                // Removing salt bytes, retrieving original bytes  
+                byte[] originalBytes = new byte[decryptedBytes.Length - saltSize];
+                for (int i = saltSize; i < decryptedBytes.Length; i++)
+                {
+                    originalBytes[i - saltSize] = decryptedBytes[i];
+                }
+                return Encoding.UTF8.GetString(originalBytes);
+            }
+            else
+            {
+                return null;
+            }
+        }
+        private int GetSaltSize(byte[] passwordBytes)
+        {
+            var key = new Rfc2898DeriveBytes(passwordBytes, passwordBytes, 1000);
+            byte[] ba = key.GetBytes(2);
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < ba.Length; i++)
+            {
+                sb.Append(Convert.ToInt32(ba[i]).ToString());
+            }
+            int saltSize = 0;
+            string s = sb.ToString();
+            foreach (char c in s)
+            {
+                int intc = Convert.ToInt32(c.ToString());
+                saltSize = saltSize + intc;
+            }
+
+            return saltSize;
+        }
+        public byte[] GetRandomBytes(int length)
+        {
+            byte[] ba = new byte[length];
+            RNGCryptoServiceProvider.Create().GetBytes(ba);
+            return ba;
+        }
+
+        [HttpGet]
+        public ActionResult Validate(string machine_id, string licence_key)
+        {
+            try
+            {
+                var dec_machine_id = Reverse(machine_id);
+                var dec_licence_key = Decrypt(licence_key, "Chiara");
+
+                if (dec_machine_id == dec_licence_key)
+                {
+
+                    var lic_path = Server.MapPath("/sys/sys.dll");
+                    FileStream fParameter = new FileStream(lic_path, FileMode.Create, FileAccess.Write);
+                    StreamWriter m_WriterParameter = new StreamWriter(fParameter);
+                    m_WriterParameter.BaseStream.Seek(0, SeekOrigin.End);
+                    m_WriterParameter.Write(licence_key);
+                    m_WriterParameter.Flush();
+                    m_WriterParameter.Close();
+
+                    return Json("Success", JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json("Failed", JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return Json("Failed", JsonRequestBehavior.AllowGet);
+            }
+
+
+
+        }
+
     }
 }
 
@@ -2009,4 +3036,32 @@ public class SearchResultForm3C
     public string entry { get; set; }
     public string filename { get; set; }
 
+}
+
+
+//public class CopyForm3C
+//{
+//    public string Id { get; set; }
+//    public string entry { get; set; }
+//    public string year { get; set; }
+//    public string month_year1 { get; set; }
+//    public string month_year2 { get; set; }
+//    public string reason { get; set; }
+//    public string husband_name { get; set; }
+//    public string place_of_marriage { get; set; }
+//    public string issued_name { get; set; }
+//    public string officer_name { get; set; }
+//    public string officer_title { get; set; }
+//    public string verifier_name { get; set; }
+//    public string verifier_title { get; set; }
+//    public string payment { get; set; }
+//    public string or_no { get; set; }
+//    public string date_paid { get; set; }
+//    public string wife_name { get; set; }
+//    public string filename { get; set; }
+//}
+
+public class AuthPG
+{
+    public string machine_id { get; set; }
 }

@@ -3,57 +3,77 @@
     ViewBag.Title = "Search Item";
 }
 
-<h3>Search Item</h3>
 <div class="container-fluid">
-    <div class="col-sm-2">
-        <label>Select Search By</label>
-        <select class="form-control" id="selType">
-            <option value="husname">Name of Husband</option>
-            <option value="wifename">Name of Wife</option>
-            <option value="year">Records of Marriages for Year</option>
-        </select>
+    <div class="row">
+        <div class="col-md-12 add-border" style="padding-bottom: 40px;">
+            <div class="col-md-12">
+                <p class="h3"><strong>Civil Registry Form No. 3B</strong></p>
+                <p class="h4">(Marriage-not Available)</p>
+            </div>
+            <div class="col-md-12 form-group">
+                <hr class="solid" />
+            </div>
+            <div class="col-sm-2">
+                <label>Select Search By</label>
+                <select class="form-control" id="selType">
+                    <option value="husname">Name of Husband</option>
+                    <option value="wifename">Name of Wife</option>
+                    <option value="year">Records of Marriages for Year</option>
+                </select>
+            </div>
+            <div class="col-sm-8">
+                <label>Enter Search Item</label>
+                <input type="text" class="form-control" placeholder="search item" id="searchItem" />
+            </div>
+            <div class="col-sm-2">
+                <label>&nbsp;</label>
+                <input type="button" class="form-control btn btn-primary" value="Search" id="btnSearch" />
+            </div>
+            <br />
+        </div>
     </div>
-    <div class="col-sm-8">
-        <label>Enter Search Item</label>
-        <input type="text" class="form-control" placeholder="search item" id="searchItem" />
-    </div>
-    <div class="col-sm-2">
-        <label>&nbsp;</label>
-        <input type="button" class="form-control btn btn-primary" value="Search" id="btnSearch" />
+    <br />
+    <div class="row">
+        <div class="col-md-12 add-border" style="padding-top: 25px;">
+            <div class="col-md-12">
+                <p class="h4" style="padding-bottom: 10px;"><strong>List of Records</strong></p>
+            </div>
+            <div id="divResult" class="col-lg-12">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name of Husband</th>
+                            <th>Name of Wife</th>
+                            <th>Date of Marriage</th>
+                            <th>Records of Marriages for Year</th>
+                            <th>Date of Entry</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bodyContents">
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.husband_name</td>
+                                <td>@item.wife_name</td>
+                                <td>@Html.DisplayFor(modelItem => item.date_of_marriage)</td>
+                                <td>@item.year</td>
+                                <td>@Html.DisplayFor(modelItem => item.entry)</td>
+                                <td>
+                                    <input class="btn btn-primary" onclick="ViewPDF('@item.filename')" id="btnViewPDF" type="button" value="View PDF" />&nbsp;
+                                    <input class="btn btn-primary" type="button" value="Edit" onclick="EditItem('@item.filename' )" />&nbsp;
+                                    <input class="btn btn-primary" type="button" value="Copy" onclick="CopyRecords('@item.filename' )" />
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
-<br />
-<div id="divResult" class="col-lg-12">
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>Name of Husband</th>
-                <th>Name of Wife</th>
-                <th>Date of Marriage</th>
-                <th>Records of Marriages for Year</th>
-                <th>Date of Entry</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody id="bodyContents">
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>@item.husband_name</td>
-                    <td>@item.wife_name</td>
-                    <td>@Html.DisplayFor(modelItem => item.date_of_marriage)</td>
-                    <td>@item.year</td>
-                    <td>@Html.DisplayFor(modelItem => item.entry)</td>
-                    <td>
-                        <input class="btn btn-primary" onclick="ViewPDF('@item.filename')" id="btnViewPDF" type="button" value="View PDF" />&nbsp;
-                        <input class="btn btn-primary" type="button" value="Edit" onclick="EditItem('@item.filename' )" />&nbsp;
-                        <input class="btn btn-primary" type="button" value="Copy" onclick="CopyRecords('@item.filename' )" />
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
+
+
 
 <script src="~/Scripts/bootstrap.min.js"></script>
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
@@ -99,10 +119,10 @@
     }
 
     function EditItem(filename) {
-        window.open("/Home/EditItemForm3B?filename=" + filename);
+        location.replace("/Home/EditItemForm3B?filename=" + filename);
     }
     function CopyRecords(filename) {
-        window.open("/Home/CopyRecordsForm3B?filename=" + filename);
+        location.replace("/Home/CopyRecordsForm3B?filename=" + filename);
     }
     function Refresh() {
         location.replace("/Home/SearchItemForm3B");

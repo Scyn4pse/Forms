@@ -2,10 +2,10 @@
 @{
     ViewBag.Title = "form_1a";
 }
+
 <div>
     @{if (Model != null)
         {
-
             <div class="container">
                 <div class="row">
                     <div class="row">
@@ -61,7 +61,11 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Date Paid</label>
-                                        @Html.TextBoxFor(model => model.date_paid, new { @class = "datepicker form-control", @placeholder = "Date Paid", @id = "date_paid" })
+                                        @{
+                                            DateTime dp = Convert.ToDateTime(Model.date_paid);
+                                            <input type="text" value="@dp.ToString("MM-dd-yyyy")" placeholder="Date Paid" id="date_paid" class="form-control datepicker" name="date_paid" />
+                                        }
+                                        @*@Html.TextBoxFor(model => model.date_paid, new { @class = "datepicker form-control", @placeholder = "Date Paid", @id = "date_paid" })*@
                                     </div>
                                 </div>
                             </div>
@@ -76,11 +80,14 @@
                                     <div class="col-md-6 form-group">
                                         <label>LCR Registry Number</label>
                                         @Html.TextBoxFor(model => model.lcr_reg_no, new { @class = "form-control", @placeholder = "LCR Registration Number", @id = "lcr_no" })
-                                        @*<input type="text" value="@Model.lcr_reg_no" />*@
                                     </div>
                                     <div class="col-md-6 form-group">
                                         <label>Date of Registration</label>
-                                        @Html.TextBoxFor(model => model.date_of_reg, new { @class = "datepicker form-control", @placeholder = "Date of Registration", @id = "date_of_reg" })
+                                        @{
+                                            DateTime dr = Convert.ToDateTime(Model.date_of_reg);
+                                            <input type="text" value="@dr.ToString("MM-dd-yyyy")" class="datepicker form-control" placeholder="Date of Registration" id="date_of_reg" name="date_of_reg" />
+                                        }
+                                        @*@Html.TextBoxFor(model => model.date_of_reg, new { @class = "datepicker form-control", @placeholder = "Date of Registration", @id = "date_of_reg" })*@
                                     </div>
                                     <div class="col-md-6 form-group">
                                         <label>Name of Child</label>
@@ -111,7 +118,11 @@
                                     </div>
                                     <div class="col-md-6 form-group">
                                         <label>Date of Birth</label>
-                                        @Html.TextBoxFor(model => model.date_of_birth, new { @class = "datepicker form-control", @placeholder = "Date of Birth", @id = "date_of_birth" })
+                                        @{
+                                            DateTime db = Convert.ToDateTime(Model.date_of_birth);
+                                            <input type="text" value="@db.ToString("MM-dd-yyyy")" class="datepicker form-control" placeholder="Date of Birth" id="date_of_birth" name="date_of_birth" />
+                                        }
+                                        @*@Html.TextBoxFor(model => model.date_of_birth, new { @class = "datepicker form-control", @placeholder = "Date of Birth", @id = "date_of_birth" })*@
                                     </div>
                                     <div class="col-md-6 form-group">
                                         <label>Place of Birth</label>
@@ -127,10 +138,14 @@
                                     </div>
                                     <div class="col-md-6 form-group">
                                         <label>Date of Marriage of Parents</label>
-                                        @Html.TextBoxFor(model => model.date_of_marriage_of_parents, new { @class = "datepicker form-control", @placeholder = "Date of Marriage of Parents", @id = "date_of_marriage_of_parents" })
+                                        @{
+                                            DateTime dmp = Convert.ToDateTime(Model.date_of_marriage_of_parents);
+                                            <input type="text" value="@dmp.ToString("MM-dd-yyyy")" class="datepicker form-control" placeholder="Date of Marriage of Parents" id="date_of_marriage_of_parents" name="date_of_marriage_of_parents" />
+                                        }
+                                        @*@Html.TextBoxFor(model => model.date_of_marriage_of_parents, new { @class = "datepicker form-control", @placeholder = "Date of Marriage of Parents", @id = "date_of_marriage_of_parents" })*@
                                     </div>
                                     <div class="col-md-6 form-group">
-                                        <label>Place of Marriage of Father</label>
+                                        <label>Place of Marriage of Parents</label>
                                         @Html.TextBoxFor(model => model.place_of_marriage_of_parents, new { @class = "form-control", @placeholder = "Place of Marriage of Parents" })
                                     </div>
                                 </div>
@@ -143,7 +158,7 @@
                                 <div class="col-md-12">
                                     <input type="Submit" value="Submit" class="btn btn-block btn-primary" id="btnSubmit" />
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-12" style="margin-top: 15px;">
                                     <input type="button" value="View PDF" class="btn btn-block btn-primary" id="btnViewPDF" style="display: none;" />
                                 </div>
                             </div>
@@ -156,14 +171,13 @@
         }
         else
         {
-
             <div class="container">
                 <div class="row">
                     <div class="row">
-                        <a href="@Url.Action("Index", null, new { area = string.Empty, controller = "Home" }, Request.Url.Scheme)">
+                        <a href="@Url.Action("SearchItem", null, new { area = string.Empty, controller = "Home" }, Request.Url.Scheme)">
                             <div class="col-md-2 add-border return-button">
                                 <i class="fa fa-angle-double-left"></i>
-                                <i>Return to Menu</i>
+                                <i>Return to Records</i>
                             </div>
                         </a>
                     </div>
@@ -210,9 +224,10 @@
                                         <label>O.R. Number</label>
                                         @Html.TextBoxFor(model => model.or_no, new { @class = "form-control", @placeholder = "OR Number" })
                                     </div>
-                                    <div class="form-group">
-                                        <label>Date Paid</label>
-                                        @Html.TextBoxFor(model => model.date_paid, new { @class = "datepicker form-control", @placeholder = "Date Paid", @id = "date_paid" })
+                                    <div class="form-group required">
+                                        <label class="control-label">Date Paid</label>
+                                        @Html.TextBoxFor(model => model.date_paid, new { @class = "datepicker form-control", @placeholder = "Date Paid", @id = "date_paid", @name = "date_paid" })
+                                        @Html.ValidationMessageFor(model => model.date_paid, "", new { @class = "error" })
                                     </div>
                                 </div>
                             </div>
@@ -224,34 +239,47 @@
                                         <label>Date</label>
                                         @Html.TextBoxFor(model => model.entry, new { @class = "form-control datepicker", @id = "entry" })
                                     </div>
-                                    <div class="col-md-6 form-group">
-                                        <label>LCR Registry Number</label>
-                                        @Html.TextBoxFor(model => model.lcr_reg_no, new { @class = "form-control", @placeholder = "LCR Registration Number", @id = "lcr_no" })
-                                        @*<input type="text" value="@Model.lcr_reg_no" />*@
+                                    <div class="row pad-form">
+                                        <div class="col-md-6 form-group required">
+                                            <label class="control-label">LCR Registry Number</label>
+                                            @Html.TextBoxFor(model => model.lcr_reg_no, new { @class = "form-control", @placeholder = "LCR Registration Number", @id = "lcr_no" })
+                                            @Html.ValidationMessageFor(model => model.lcr_reg_no, "", new { @class = "error" })
+                                            @*<input type="text" value="@Model.lcr_reg_no" />*@
+                                        </div>
+                                        <div class="col-md-6 form-group required">
+                                            <label class="control-label">Date of Registration</label>
+                                            @Html.TextBoxFor(model => model.date_of_reg, new { @class = "datepicker form-control", @placeholder = "Date of Registration", @id = "date_of_reg", @name = "date_of_reg" })
+                                            @Html.ValidationMessageFor(model => model.date_of_reg, "", new { @class = "error" })
+                                        </div>
                                     </div>
-                                    <div class="col-md-6 form-group">
-                                        <label>Date of Registration</label>
-                                        @Html.TextBoxFor(model => model.date_of_reg, new { @class = "datepicker form-control", @placeholder = "Date of Registration", @id = "date_of_reg" })
+
+                                    <div class="row pad-form">
+                                        <div class="col-md-6 form-group required">
+                                            <label class="control-label">Name of Child</label>
+                                            @Html.TextBoxFor(model => model.name_child, new { @class = "form-control", @placeholder = "Name of Child" })
+                                            @Html.ValidationMessageFor(model => model.name_child, "", new { @class = "error" })
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label>Sex</label>
+                                            @Html.TextBoxFor(model => model.sex, new { @class = "form-control", @placeholder = "Sex" })
+                                        </div>
                                     </div>
-                                    <div class="col-md-6 form-group">
-                                        <label>Name of Child</label>
-                                        @Html.TextBoxFor(model => model.name_child, new { @class = "form-control", @placeholder = "Name of Child" })
+                                    <div class="row pad-form">
+                                        <div class="col-md-6 form-group required">
+                                            <label class="control-label">Name of Mother</label>
+                                            @Html.TextBoxFor(model => model.name_of_mother, new { @class = "form-control", @placeholder = "Name of Mother" })
+                                            @Html.ValidationMessageFor(model => model.name_of_mother, "", new { @class = "error" })
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label>Name of Father</label>
+                                            @Html.TextBoxFor(model => model.name_of_father, new { @class = "form-control", @placeholder = "Name of Father" })
+                                        </div>
                                     </div>
-                                    <div class="col-md-6 form-group">
-                                        <label>Sex</label>
-                                        @Html.TextBoxFor(model => model.sex, new { @class = "form-control", @placeholder = "Sex" })
-                                    </div>
-                                    <div class="col-md-6 form-group">
-                                        <label>Name of Mother</label>
-                                        @Html.TextBoxFor(model => model.name_of_mother, new { @class = "form-control", @placeholder = "Name of Mother" })
-                                    </div>
-                                    <div class="col-md-6 form-group">
-                                        <label>Name of Father</label>
-                                        @Html.TextBoxFor(model => model.name_of_father, new { @class = "form-control", @placeholder = "Name of Father" })
-                                    </div>
+
                                     <div class="col-md-12 form-group">
                                         <hr class="solid" />
                                     </div>
+
                                     <div class="col-md-6 form-group">
                                         <label>Page</label>
                                         @Html.TextBoxFor(model => model.page, new { @class = "form-control", @placeholder = "Page Number" })
@@ -260,14 +288,18 @@
                                         <label>Book Number</label>
                                         @Html.TextBoxFor(model => model.book, new { @class = "form-control", @placeholder = "Book Number" })
                                     </div>
-                                    <div class="col-md-6 form-group">
-                                        <label>Date of Birth</label>
-                                        @Html.TextBoxFor(model => model.date_of_birth, new { @class = "datepicker form-control", @placeholder = "Date of Birth", @id = "date_of_birth" })
+                                    <div class="row pad-form">
+                                        <div class="col-md-6 form-group required">
+                                            <label class="control-label">Date of Birth</label>
+                                            @Html.TextBoxFor(model => model.date_of_birth, new { @class = "datepicker form-control", @placeholder = "Date of Birth", @id = "date_of_birth", @name = "date_of_birth" })
+                                            @Html.ValidationMessageFor(model => model.date_of_birth, "", new { @class = "error" })
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label>Place of Birth</label>
+                                            @Html.TextBoxFor(model => model.place_of_birth, new { @class = "form-control", @placeholder = "Place of Birth" })
+                                        </div>
                                     </div>
-                                    <div class="col-md-6 form-group">
-                                        <label>Place of Birth</label>
-                                        @Html.TextBoxFor(model => model.place_of_birth, new { @class = "form-control", @placeholder = "Place of Birth" })
-                                    </div>
+
                                     <div class="col-md-6 form-group">
                                         <label>Citizenship of Mother</label>
                                         @Html.TextBoxFor(model => model.citizenship_of_mother, new { @class = "form-control", @placeholder = "Citizenship of Mother" })
@@ -276,14 +308,18 @@
                                         <label>Citizenship of Father</label>
                                         @Html.TextBoxFor(model => model.citizenship_of_father, new { @class = "form-control", @placeholder = "Citizenship of Father" })
                                     </div>
-                                    <div class="col-md-6 form-group">
-                                        <label>Date of Marriage of Parents</label>
-                                        @Html.TextBoxFor(model => model.date_of_marriage_of_parents, new { @class = "datepicker form-control", @placeholder = "Date of Marriage of Parents", @id = "date_of_marriage_of_parents" })
+                                    <div class="row pad-form">
+                                        <div class="col-md-6 form-group required">
+                                            <label class="control-label">Date of Marriage of Parents</label>
+                                            @Html.TextBoxFor(model => model.date_of_marriage_of_parents, new { @class = "datepicker form-control", @placeholder = "Date of Marriage of Parents", @id = "date_of_marriage_of_parents", @name = "date_of_marriage_of_parents" })
+                                            @Html.ValidationMessageFor(model => model.date_of_marriage_of_parents, "", new { @class = "error" })
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label>Place of Marriage of Parents</label>
+                                            @Html.TextBoxFor(model => model.place_of_marriage_of_parents, new { @class = "form-control", @placeholder = "Place of Marriage of Parents" })
+                                        </div>
                                     </div>
-                                    <div class="col-md-6 form-group">
-                                        <label>Place of Marriage of Parents</label>
-                                        @Html.TextBoxFor(model => model.place_of_marriage_of_parents, new { @class = "form-control", @placeholder = "Place of Marriage of Parents" })
-                                    </div>
+
                                 </div>
                             </div>
 
@@ -294,7 +330,7 @@
                                 <div class="col-md-12">
                                     <input type="Submit" value="Submit" class="btn btn-block btn-primary" id="btnSubmit" />
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-12" style="margin-top: 15px;">
                                     <input type="button" value="View PDF" class="btn btn-block btn-primary" id="btnViewPDF" />
                                 </div>
                             </div>
@@ -312,6 +348,8 @@
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
 <script src="~/Scripts/jquery-ui.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
 <script type="text/javascript">
     var date = new Date();
@@ -346,7 +384,7 @@
                 url: "/Home/Form_1a",
                 data: data,
                 success: function (response) {
-                   
+
                 }
             })
         })

@@ -10,6 +10,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 namespace form_1a.Models
+
 {
     using System;
     using System.Collections.Generic;
@@ -18,12 +19,13 @@ namespace form_1a.Models
     {
         public int Id { get; set; }
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}")]
         public Nullable<System.DateTime> entry { get; set; }
         public string year { get; set; }
         public string month_year1 { get; set; }
         public string month_year2 { get; set; }
         public string reason { get; set; }
+        [Required(ErrorMessage = "Name of husband is required.")]
         public string husband_name { get; set; }
         public string place_of_marriage { get; set; }
         public string issued_name { get; set; }
@@ -33,7 +35,11 @@ namespace form_1a.Models
         public string verifier_title { get; set; }
         public string payment { get; set; }
         public string or_no { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}")]
+        [Required(ErrorMessage = "Date paid is required.")]
         public Nullable<System.DateTime> date_paid { get; set; }
+        [Required(ErrorMessage = "Name of wife is required.")]
         public string wife_name { get; set; }
         public string filename { get; set; }
     }

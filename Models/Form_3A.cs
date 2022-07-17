@@ -18,11 +18,13 @@ namespace form_1a.Models
     {
         public int Id { get; set; }
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}")]
         public Nullable<System.DateTime> entry { get; set; }
         public string page { get; set; }
         public string book { get; set; }
+        [Required(ErrorMessage = "Name of husband is required.")]
         public string husband_name { get; set; }
+        [Required(ErrorMessage = "Name of wife is required.")]
         public string wife_name { get; set; }
         public string husband_age { get; set; }
         public string wife_age { get; set; }
@@ -35,7 +37,9 @@ namespace form_1a.Models
         public string husband_mother { get; set; }
         public string wife_mother { get; set; }
         public string reg_no { get; set; }
+        [Required(ErrorMessage = "Date of registration is required.")]
         public Nullable<System.DateTime> date_of_reg { get; set; }
+        [Required(ErrorMessage = "Date of marriage is required.")]
         public Nullable<System.DateTime> date_of_marriage { get; set; }
         public string place_of_marriage { get; set; }
         public string issued_to { get; set; }
@@ -45,6 +49,7 @@ namespace form_1a.Models
         public string verifier_title { get; set; }
         public string payment { get; set; }
         public string or_no { get; set; }
+        [Required(ErrorMessage = "Date paid is required.")]
         public Nullable<System.DateTime> date_paid { get; set; }
         public string filename { get; set; }
     }

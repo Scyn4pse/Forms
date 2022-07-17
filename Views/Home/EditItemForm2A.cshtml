@@ -58,7 +58,7 @@
                                      </div>
                                      <div class="form-group">
                                          <label>Date Paid</label>
-                                         <input type="text" value="@Model.date_paid" id="date_paid" class="form-control datepicker" />
+                                         <input type="text" value="@Model.date_paid.ToString("MM-dd-yyyy")" id="date_paid" class="form-control datepicker" />
                                      </div>
                                  </div>
                              </div>
@@ -68,7 +68,7 @@
                                      <p class="h4"><strong>Form Details</strong></p><br />
                                      <div class="col-md-12 form-group">
                                          <label>Date</label>
-                                         <input type="text" value="@Model.entry" id="entry" class="form-control" readonly />
+                                         <input type="text" value="@Model.entry.ToString("MM-dd-yyyy")" id="entry" class="form-control" readonly />
                                      </div>
                                      <div class="col-md-6 form-group">
                                          <label>LCR Registry Number</label>
@@ -76,7 +76,7 @@
                                      </div>
                                      <div class="col-md-6 form-group">
                                          <label>Date of Registration</label>
-                                         <input type="text" value="@Model.date_of_reg" id="date_of_reg" class="form-control datepicker" />
+                                         <input type="text" value="@Model.date_of_reg.ToString("MM-dd-yyyy")" id="date_of_reg" class="form-control datepicker" />
                                      </div>
                                      <div class="col-md-6 form-group">
                                          <label>Name of the Deceased</label>
@@ -111,7 +111,7 @@
                                      </div>
                                      <div class="col-md-6 form-group">
                                          <label>Date of Death</label>
-                                         <input type="text" value="@Model.date_of_death" id="date_of_death" class="form-control datepicker" />
+                                         <input type="text" value="@Model.date_of_death.ToString("MM-dd-yyyy")" id="date_of_death" class="form-control datepicker" />
                                      </div>
                                      <div class="col-md-6 form-group">
                                          <label>Place of Death</label>

@@ -39,16 +39,18 @@ textarea {
 
 .nav-li {
     padding-top: 18px;
+    padding-bottom: 18px;
     font-size: 18px;
 }
 
 .navbar-brand {
     padding-top: 32px;
+    padding-bottom: 32px;
     font-size: 25px;
 }
 
 .nav-img {
-    height: 70px;
+    height: 65px;
     width: auto;
     margin: 10px 20px 10px 5px;
 }
@@ -69,7 +71,11 @@ textarea {
 .fa-card {
     text-align: center;
     padding: 15px;
-    font-size: 60px;
+    font-size: 80px;
+}
+
+.fa-search i{
+    -webkit-text-stroke: 1px #fff;
 }
 
 .form-container {
@@ -78,27 +84,50 @@ textarea {
 
 .form-1 {
     border: 1px solid #d72830;
-    color: #d72830;
+}
+
+.form-1:hover {
+    background-color: #d72830;
 }
 
 .form-1-main {
     color: #d72830;
 }
 
+.form-1-main:hover {
+    color: #fff;
+}
+
 .form-2 {
     border: 1px solid #4bb54a;
+}
+
+.form-2:hover {
+    background-color: #4bb54a;
 }
 
 .form-2-main {
     color: #4bb54a;
 }
 
+.form-2-main:hover {
+    color: #fff;
+}
+
 .form-3 {
     border: 1px solid #4564ba;
 }
 
+.form-3:hover {
+    background-color: #4564ba;
+}
+
 .form-3-main {
     color: #4564ba;
+}
+
+.form-3-main:hover {
+    color: #fff;
 }
 
 .card {
@@ -115,9 +144,9 @@ textarea {
 }
 
 .card-main {
-    display: flex; 
-    flex-direction: column; 
-    justify-content: center; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
     padding: 15px 0;
 }
@@ -131,7 +160,7 @@ textarea {
 .add-border {
     border: 1px solid #ddd;
     border-radius: 4px;
-    padding: 25px 20px;
+    padding: 20px 20px;
 }
 
 .return-button {
@@ -153,3 +182,39 @@ textarea {
     margin: 22px 0;
 }
 
+.create {
+    text-align: center;
+}
+
+.error{
+    color: red;
+}
+
+.form-group.required .control-label:after {
+    color: #d00;
+    content: "*";
+    position: absolute;
+    margin-left: 8px;
+}
+
+.pad-form {
+    padding: 0 15px;
+}
+
+.auth{
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: auto 0;
+    padding: 75px 0px;
+}
+
+.auth-img {
+    height: 180px;
+    width: auto;
+    margin-bottom: 50px;
+}

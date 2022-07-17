@@ -3,56 +3,75 @@
     ViewBag.Title = "Search Item";
 }
 
-<h3>Search Item</h3>
 <div class="container-fluid">
-    <div class="col-sm-2">
-        <label>Select Search By</label>
-        <select class="form-control" id="selType">
-            <option value="name">Child's Name</option>
-            <option value="mothname">Mother's Name</option>
-            <option value="fathname">Father's Name</option>
+    <div class="row">
+        <div class="col-md-12 add-border" style="padding-bottom: 40px;">
+            <div class="col-md-12">
+                <p class="h3"><strong>Civil Registry Form No. 1B</strong></p>
+                <p class="h4">(Birth-not Available)</p>
+            </div>
+            <div class="col-md-12 form-group">
+                <hr class="solid" />
+            </div>
+            <div class="col-sm-2">
+                <label>Select Search By</label>
+                <select class="form-control" id="selType">
+                    <option value="name">Child's Name</option>
+                    <option value="mothname">Mother's Name</option>
+                    <option value="fathname">Father's Name</option>
 
-        </select>
+                </select>
+            </div>
+            <div class="col-sm-8">
+                <label>Enter Search Item</label>
+                <input type="text" class="form-control" placeholder="search item" id="searchItem" />
+            </div>
+            <div class="col-sm-2">
+                <label>&nbsp;</label>
+                <input type="button" class="form-control btn btn-primary" value="Search" id="btnSearch" />
+            </div>
+            <br />
+        </div>
     </div>
-    <div class="col-sm-8">
-        <label>Enter Search Item</label>
-        <input type="text" class="form-control" placeholder="search item" id="searchItem" />
-    </div>
-    <div class="col-sm-2">
-        <label>&nbsp;</label>
-        <input type="button" class="form-control btn btn-primary" value="Search" id="btnSearch" />
-    </div>
+    <br />
+   <div class="row">
+       <div class="col-md-12 add-border" style="padding-top: 25px;">
+           <div class="col-md-12">
+               <p class="h4" style="padding-bottom: 10px;"><strong>List of Records</strong></p>
+           </div>
+           <div id="divResult" class="col-lg-12">
+               <table class="table table-bordered table-striped">
+                   <thead>
+                       <tr>
+                           <th>Child's Name</th>
+                           <th>Mother's Name</th>
+                           <th>Father's Name</th>
+                           <th>Date of Entry</th>
+                           <th>Action</th>
+                       </tr>
+                   </thead>
+                   <tbody id="bodyContents">
+                       @foreach (var item in Model)
+                       {
+                           <tr>
+                               <td>@item.name</td>
+                               <td>@item.mother</td>
+                               <td>@item.father</td>
+                               <td>@Html.DisplayFor(modelItem => item.entry)</td>
+                               <td>
+                                   <input class="btn btn-primary" onclick="ViewPDF('@item.filename')" id="btnViewPDF" type="button" value="View PDF" />&nbsp;
+                                   <input class="btn btn-primary" type="button" value="Edit" onclick="EditItem('@item.filename' )" />&nbsp;
+                                   <input class="btn btn-primary" type="button" value="Copy" onclick="CopyRecords('@item.filename' )" />
+                               </td>
+                           </tr>
+                       }
+                   </tbody>
+               </table>
+           </div>
+       </div>
+   </div>
 </div>
-<br />
-<div id="divResult" class="col-lg-12">
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>Child's Name</th>
-                <th>Mother's Name</th>
-                <th>Father's Name</th>
-                <th>Date of Entry</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody id="bodyContents">
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>@item.name</td>
-                    <td>@item.mother</td>
-                    <td>@item.father</td>
-                    <td>@Html.DisplayFor(modelItem => item.entry)</td>
-                    <td>
-                        <input class="btn btn-primary" onclick="ViewPDF('@item.filename')" id="btnViewPDF" type="button" value="View PDF" />&nbsp;
-                        <input class="btn btn-primary" type="button" value="Edit" onclick="EditItem('@item.filename' )" />&nbsp;
-                        <input class="btn btn-primary" type="button" value="Copy" onclick="CopyRecords('@item.filename' )" />
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
+
 
 <script src="~/Scripts/bootstrap.min.js"></script>
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
@@ -97,10 +116,10 @@
     }
 
     function EditItem(filename) {
-        window.open("/Home/EditItemForm1B?filename=" + filename);
+        location.replace("/Home/EditItemForm1B?filename=" + filename);
     }
     function CopyRecords(filename) {
-        window.open("/Home/CopyRecordsForm1B?filename=" + filename);
+        location.replace("/Home/CopyRecordsForm1B?filename=" + filename);
     }
     function Refresh() {
         location.replace("/Home/SearchItemForm1B");

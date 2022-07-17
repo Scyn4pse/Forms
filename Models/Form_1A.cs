@@ -17,16 +17,22 @@ namespace form_1a.Models
     public partial class Form_1A
     {
         public int Id { get; set; }
+        [Required(ErrorMessage = "LCR NO. is required.")]
         public string lcr_reg_no { get; set; }
+        [Required(ErrorMessage = "Date of registration is required.")]
         public Nullable<System.DateTime> date_of_reg { get; set; }
+        [Required(ErrorMessage = "Name of child is required.")]
         public string name_child { get; set; }
         public string sex { get; set; }
+        [Required(ErrorMessage = "Date of birth is required.")]
         public Nullable<System.DateTime> date_of_birth { get; set; }
         public string place_of_birth { get; set; }
+        [Required(ErrorMessage = "Name of mother is required.")]
         public string name_of_mother { get; set; }
         public string citizenship_of_mother { get; set; }
         public string name_of_father { get; set; }
         public string citizenship_of_father { get; set; }
+        [Required(ErrorMessage = "Date of marriage of parents is required.")]
         public Nullable<System.DateTime> date_of_marriage_of_parents { get; set; }
         public string place_of_marriage_of_parents { get; set; }
         public string issued_to { get; set; }
@@ -36,11 +42,12 @@ namespace form_1a.Models
         public string verifier_title { get; set; }
         public string payment { get; set; }
         public string or_no { get; set; }
+        [Required(ErrorMessage = "Date paid is required.")]
         public Nullable<System.DateTime> date_paid { get; set; }
         public string page { get; set; }
         public string book { get; set; }
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}")]
         public Nullable<System.DateTime> entry { get; set; }
         public string filename { get; set; }
     }

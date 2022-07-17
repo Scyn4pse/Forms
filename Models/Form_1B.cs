@@ -18,11 +18,14 @@ namespace form_1a.Models
     {
         public int Id { get; set; }
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}")]
         public Nullable<System.DateTime> entry { get; set; }
+        [Required(ErrorMessage = "Name of child is required.")]
         public string name { get; set; }
+        [Required(ErrorMessage = "Date of birth is required.")]
         public Nullable<System.DateTime> date_of_birth { get; set; }
         public string father { get; set; }
+        [Required(ErrorMessage = "Name of mother is required.")]
         public string mother { get; set; }
         public string year { get; set; }
         public string issued_to { get; set; }
@@ -32,6 +35,7 @@ namespace form_1a.Models
         public string verifier_title { get; set; }
         public string payment { get; set; }
         public string or_no { get; set; }
+        [Required(ErrorMessage = "Date paid is required.")]
         public Nullable<System.DateTime> date_paid { get; set; }
         public string filename { get; set; }
     }

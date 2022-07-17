@@ -8,25 +8,24 @@
 
             <div class="container">
                 <div class="row">
-                    <div class="row">
-                        <a href="@Url.Action("Index", null, new { area = string.Empty, controller = "Home" }, Request.Url.Scheme)">
-                            <div class="col-md-2 add-border return-button">
-                                <i class="fa fa-angle-double-left"></i>
-                                <i>Return to Menu</i>
-                            </div>
-                        </a>
-                    </div>
-                    <br />
-
-                    <div class="col-md-12">
-                        <br />
-                        <p class="h3"><strong>Civil Registry Form No. 1C</strong></p>
-                        <p class="h4">(Birth Destroyed)</p>
-                        <br />
-                    </div>
-
-
                     <form id="myForm">
+
+                        <div class="row">
+                            <a href="@Url.Action("SearchItemForm1C", null, new { area = string.Empty, controller = "Home" }, Request.Url.Scheme)">
+                                <div class="col-md-2 add-border return-button">
+                                    <i class="fa fa-angle-double-left"></i>
+                                    <i>Return to Records</i>
+                                </div>
+                            </a>
+                        </div>
+                        <br />
+
+                        <div class="col-md-12">
+                            <br />
+                            <p class="h3"><strong>Civil Registry Form No. 1C</strong></p>
+                            <p class="h4">(Birth Destroyed)</p>
+                            <br />
+                        </div>
 
                         <div class="row add-border">
                             <div class="col-md-4">
@@ -62,7 +61,11 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Date Paid</label>
-                                        @Html.TextBoxFor(model => model.date_paid, new { @class = "datepicker form-control", @placeholder = "Date Paid", @id = "date_paid" })
+                                        @{
+                                            DateTime dp = Convert.ToDateTime(Model.date_paid);
+                                            <input type="text" value="@dp.ToString("MM-dd-yyyy")" placeholder="Date Paid" , id="date_paid" class="form-control datepicker" name="date_paid"/>
+                                        }
+                                        @*@Html.TextBoxFor(model => model.date_paid, new { @class = "datepicker form-control", @placeholder = "Date Paid", @id = "date_paid" })*@
                                     </div>
                                 </div>
                             </div>
@@ -108,7 +111,11 @@
 
                                     <div class="col-md-12 form-group">
                                         <label>Date of Birth</label>
-                                        @Html.TextBoxFor(model => model.date_of_birth, new { @class = "datepicker form-control", @placeholder = "Date of Birth", @id = "date_of_birth" })
+                                        @{
+                                            DateTime db = Convert.ToDateTime(Model.date_of_birth);
+                                            <input type="text" value="@db.ToString("MM-dd-yyyy")" class="datepicker form-control" placeholder="Date of Birth" id="date_of_birth" name="date_of_birth"/>
+                                        }
+                                        @*@Html.TextBoxFor(model => model.date_of_birth, new { @class = "datepicker form-control", @placeholder = "Date of Birth", @id = "date_of_birth" })*@
                                     </div>
 
                                 </div>
@@ -120,7 +127,7 @@
                                 <div class="col-md-12">
                                     <input type="Submit" value="Submit" class="btn btn-block btn-primary" id="btnSubmit" />
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-12" style="margin-top: 15px;">
                                     <input type="button" value="View PDF" class="btn btn-block btn-primary" id="btnViewPDF" style="display: none;" />
                                 </div>
                             </div>
@@ -134,131 +141,136 @@
         }
         else
         {
+            <div class="container">
+                <div class="row">
+                    <form id="myForm">
 
-<div class="container">
-    <div class="row">
-        <div class="row">
-            <a href="@Url.Action("Index", null, new { area = string.Empty, controller = "Home" }, Request.Url.Scheme)">
-                <div class="col-md-2 add-border return-button">
-                    <i class="fa fa-angle-double-left"></i>
-                    <i>Return to Menu</i>
-                </div>
-            </a>
-        </div>
-        <br />
+                        <div class="row">
+                            <a href="@Url.Action("SearchItemForm1C", null, new { area = string.Empty, controller = "Home" }, Request.Url.Scheme)">
+                                <div class="col-md-2 add-border return-button">
+                                    <i class="fa fa-angle-double-left"></i>
+                                    <i>Return to Records</i>
+                                </div>
+                            </a>
+                        </div>
+                        <br />
 
-        <div class="col-md-12">
-            <br />
-            <p class="h3"><strong>Civil Registry Form No. 1C</strong></p>
-            <p class="h4">(Birth Destroyed)</p>
-            <br />
-        </div>
-
-
-        <form id="myForm">
-
-            <div class="row add-border">
-                <div class="col-md-4">
-                    <div class="col-md-12 add-border">
-                        <p class="h4"><strong>Transaction Details</strong></p><br />
-                        <div class="form-group">
-                            <label>Issued To</label>
-                            @Html.TextBoxFor(model => model.issued_name, new { @class = "form-control", @placeholder = "Issued To" })
-                        </div>
-                        <div class="form-group">
-                            <label>Officer Name</label>
-                            @Html.TextBoxFor(model => model.officer_name, new { @class = "form-control", @placeholder = "Officer Name" })
-                        </div>
-                        <div class="form-group">
-                            <label>Officer Title</label>
-                            @Html.TextBoxFor(model => model.officer_title, new { @class = "form-control", @placeholder = "Officer Title" })
-                        </div>
-                        <div class="form-group">
-                            <label>Verifier Name</label>
-                            @Html.TextBoxFor(model => model.verifier_name, new { @class = "form-control", @placeholder = "Verifier Name" })
-                        </div>
-                        <div class="form-group">
-                            <label>Verifier Title</label>
-                            @Html.TextBoxFor(model => model.verifier_title, new { @class = "form-control", @placeholder = "Verifier Title" })
-                        </div>
-                        <div class="form-group">
-                            <label>Amount Paid</label>
-                            @Html.TextBoxFor(model => model.payment, new { @class = "form-control", @placeholder = "Payment" })
-                        </div>
-                        <div class="form-group">
-                            <label>O.R. Number</label>
-                            @Html.TextBoxFor(model => model.or_no, new { @class = "form-control", @placeholder = "OR Number" })
-                        </div>
-                        <div class="form-group">
-                            <label>Date Paid</label>
-                            @Html.TextBoxFor(model => model.date_paid, new { @class = "datepicker form-control", @placeholder = "Date Paid", @id = "date_paid" })
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-8">
-                    <div class="col-md-12 add-border">
-                        <p class="h4"><strong>Form Details</strong></p><br />
-                        <div class="col-md-12 form-group">
-                            <label>Date</label>
-                            @Html.TextBoxFor(model => model.entry, new { @class = "form-control datepicker", @id = "entry" })
-                        </div>
-                        <div class="col-md-12 form-group">
-                            <label>Records of Birth for Year</label>
-                            @Html.TextBoxFor(model => model.year, new { @class = "form-control", @placeholder = "Records of Birth for Year" })
-                        </div>
-                        <div class="col-md-12 form-group">
-                            <label>Name</label>
-                            @Html.TextBoxFor(model => model.name_of_person, new { @class = "form-control", @placeholder = "Name" })
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>Name of Father</label>
-                            @Html.TextBoxFor(model => model.father_name, new { @class = "form-control", @placeholder = "Name of Father" })
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>Name of Mother</label>
-                            @Html.TextBoxFor(model => model.mother_name, new { @class = "form-control", @placeholder = "Name of Mother" })
-                        </div>
-                        <div class="col-md-12 form-group">
-                            <hr class="solid" />
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>Initial Period</label>
-                            @Html.TextBoxFor(model => model.month_year1, new { @class = "form-control", @placeholder = "Initial Period" })
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>Latest Period</label>
-                            @Html.TextBoxFor(model => model.month_year2, new { @class = "form-control", @placeholder = "Latest Period" })
-                        </div>
-                        <div class="col-md-12 form-group">
-                            <label>Reason of Destruction</label>
-                            @Html.TextBoxFor(model => model.reason, new { @class = "form-control", @placeholder = "Reason of Destruction" })
+                        <div class="col-md-12">
+                            <br />
+                            <p class="h3"><strong>Civil Registry Form No. 1C</strong></p>
+                            <p class="h4">(Birth Destroyed)</p>
+                            <br />
                         </div>
 
-                        <div class="col-md-12 form-group">
-                            <label>Date of Birth</label>
-                            @Html.TextBoxFor(model => model.date_of_birth, new { @class = "datepicker form-control", @placeholder = "Date of Birth", @id = "date_of_birth" })
+                        <div class="row add-border">
+                            <div class="col-md-4">
+                                <div class="col-md-12 add-border">
+                                    <p class="h4"><strong>Transaction Details</strong></p><br />
+                                    <div class="form-group">
+                                        <label>Issued To</label>
+                                        @Html.TextBoxFor(model => model.issued_name, new { @class = "form-control", @placeholder = "Issued To" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Officer Name</label>
+                                        @Html.TextBoxFor(model => model.officer_name, new { @class = "form-control", @placeholder = "Officer Name" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Officer Title</label>
+                                        @Html.TextBoxFor(model => model.officer_title, new { @class = "form-control", @placeholder = "Officer Title" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Verifier Name</label>
+                                        @Html.TextBoxFor(model => model.verifier_name, new { @class = "form-control", @placeholder = "Verifier Name" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Verifier Title</label>
+                                        @Html.TextBoxFor(model => model.verifier_title, new { @class = "form-control", @placeholder = "Verifier Title" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Amount Paid</label>
+                                        @Html.TextBoxFor(model => model.payment, new { @class = "form-control", @placeholder = "Payment" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label>O.R. Number</label>
+                                        @Html.TextBoxFor(model => model.or_no, new { @class = "form-control", @placeholder = "OR Number" })
+                                    </div>
+                                    <div class="form-group required">
+                                        <label class="control-label">Date Paid</label>
+                                        @Html.TextBoxFor(model => model.date_paid, new { @class = "datepicker form-control", @placeholder = "Date Paid", @id = "date_paid", @name = "date_paid" })
+                                        @Html.ValidationMessageFor(model => model.date_paid, "", new { @class = "error" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-8">
+                                <div class="col-md-12 add-border">
+                                    <p class="h4"><strong>Form Details</strong></p><br />
+                                    <div class="col-md-12 form-group">
+                                        <label>Date</label>
+                                        @Html.TextBoxFor(model => model.entry, new { @class = "form-control datepicker", @id = "entry" })
+                                    </div>
+                                    <div class="col-md-12 form-group">
+                                        <label>Records of Birth for Year</label>
+                                        @Html.TextBoxFor(model => model.year, new { @class = "form-control", @placeholder = "Records of Birth for Year" })
+                                    </div>
+                                    <div class="col-md-12 form-group required">
+                                        <label class="control-label">Name</label>
+                                        @Html.TextBoxFor(model => model.name_of_person, new { @class = "form-control", @placeholder = "Name" })
+                                        @Html.ValidationMessageFor(model => model.name_of_person, "", new { @class = "error" })
+                                    </div>
+                                    <div class="row pad-form">
+                                        <div class="col-md-6 form-group">
+                                            <label>Name of Father</label>
+                                            @Html.TextBoxFor(model => model.father_name, new { @class = "form-control", @placeholder = "Name of Father" })
+                                        </div>
+                                        <div class="col-md-6 form-group required">
+                                            <label class="control-label">Name of Mother</label>
+                                            @Html.TextBoxFor(model => model.mother_name, new { @class = "form-control", @placeholder = "Name of Mother" })
+                                            @Html.ValidationMessageFor(model => model.mother_name, "", new { @class = "error" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 form-group">
+                                        <hr class="solid" />
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label>Initial Period</label>
+                                        @Html.TextBoxFor(model => model.month_year1, new { @class = "form-control", @placeholder = "Initial Period" })
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label>Latest Period</label>
+                                        @Html.TextBoxFor(model => model.month_year2, new { @class = "form-control", @placeholder = "Latest Period" })
+                                    </div>
+                                    <div class="col-md-12 form-group">
+                                        <label>Reason of Destruction</label>
+                                        @Html.TextBoxFor(model => model.reason, new { @class = "form-control", @placeholder = "Reason of Destruction" })
+                                    </div>
+
+                                    <div class="col-md-12 form-group required">
+                                        <label class="control-label">Date of Birth</label>
+                                        @Html.TextBoxFor(model => model.date_of_birth, new { @class = "datepicker form-control", @placeholder = "Date of Birth", @id = "date_of_birth" , @name = "date_of_birth" })
+                                        @Html.ValidationMessageFor(model => model.date_of_birth, "", new { @class = "error" })
+                                    </div>
+
+                                </div>
+                            </div>
                         </div>
 
-                    </div>
+                        <div class="row">
+                            <div class="col-md-3 pull-right button-margin">
+                                <div class="col-md-12">
+                                    <input type="Submit" value="Submit" class="btn btn-block btn-primary" id="btnSubmit" />
+                                </div>
+                                <div class="col-md-12" style="margin-top: 15px;">
+                                    <input type="button" value="View PDF" class="btn btn-block btn-primary" id="btnViewPDF" />
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </form>
                 </div>
             </div>
-
-            <div class="row">
-                <div class="col-md-3 pull-right button-margin">
-                    <div class="col-md-12">
-                        <input type="Submit" value="Submit" class="btn btn-block btn-primary" id="btnSubmit" />
-                    </div>
-                    <div class="col-md-12">
-                        <input type="button" value="View PDF" class="btn btn-block btn-primary" id="btnViewPDF" />
-                    </div>
-                </div>
-            </div>
-
-
-        </form>
-    </div>
-</div>
 
         }
     }
@@ -268,6 +280,8 @@
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
 <script src="~/Scripts/jquery-ui.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
 <script type="text/javascript">
     var date = new Date();

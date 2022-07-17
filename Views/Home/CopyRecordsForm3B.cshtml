@@ -10,10 +10,10 @@
             <div class="container">
                 <div class="row">
                     <div class="row">
-                        <a href="@Url.Action("Index", null, new { area = string.Empty, controller = "Home" }, Request.Url.Scheme)">
+                        <a href="@Url.Action("SearchItemForm3B", null, new { area = string.Empty, controller = "Home" }, Request.Url.Scheme)">
                             <div class="col-md-2 add-border return-button">
                                 <i class="fa fa-angle-double-left"></i>
-                                <i>Return to Menu</i>
+                                <i>Return to Records</i>
                             </div>
                         </a>
                     </div>
@@ -62,7 +62,11 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Date Paid</label>
-                                        @Html.TextBoxFor(model => model.date_paid, new { @class = "datepicker form-control", @placeholder = "Date Paid", @id = "date_paid" })
+                                        @{
+                                            DateTime dp = Convert.ToDateTime(Model.date_paid);
+                                            <input type="text" value="@dp.ToString("MM-dd-yyyy")" placeholder="Date Paid" id="date_paid" class="form-control datepicker" name="date_paid"/>
+                                        }
+                                        @*@Html.TextBoxFor(model => model.date_paid, new { @class = "datepicker form-control", @placeholder = "Date Paid", @id = "date_paid" })*@
                                     </div>
                                 </div>
                             </div>
@@ -84,7 +88,11 @@
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <label>Date of Marriage</label>
-                                        @Html.TextBoxFor(model => model.date_of_marriage, new { @class = "datepicker form-control", @placeholder = "Date of Marriage", @id = "date_of_marriage" })
+                                        @{
+                                            DateTime dm = Convert.ToDateTime(Model.date_of_marriage);
+                                            <input type="text" value="@dm.ToString("MM-dd-yyyy")" placeholder="Date of Marriage" id="date_of_marriage" class="form-control datepicker" name="date_of_marriage"/>
+                                        }
+                                        @*@Html.TextBoxFor(model => model.date_of_marriage, new { @class = "datepicker form-control", @placeholder = "Date of Marriage", @id = "date_of_marriage" })*@
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <label>Records of Marriages for Year</label>
@@ -99,7 +107,7 @@
                                 <div class="col-md-12">
                                     <input type="Submit" value="Submit" class="btn btn-block btn-primary" id="btnSubmit" />
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-12" style="margin-top: 15px;">
                                     <input type="button" value="View PDF" class="btn btn-block btn-primary" id="btnViewPDF" style="display: none;" />
                                 </div>
                             </div>
@@ -116,10 +124,10 @@
             <div class="container">
                 <div class="row">
                     <div class="row">
-                        <a href="@Url.Action("Index", null, new { area = string.Empty, controller = "Home" }, Request.Url.Scheme)">
+                        <a href="@Url.Action("SearchItemForm3B", null, new { area = string.Empty, controller = "Home" }, Request.Url.Scheme)">
                             <div class="col-md-2 add-border return-button">
                                 <i class="fa fa-angle-double-left"></i>
-                                <i>Return to Menu</i>
+                                <i>Return to Records</i>
                             </div>
                         </a>
                     </div>
@@ -166,9 +174,10 @@
                                         <label>O.R. Number</label>
                                         @Html.TextBoxFor(model => model.or_no, new { @class = "form-control", @placeholder = "OR Number" })
                                     </div>
-                                    <div class="form-group">
-                                        <label>Date Paid</label>
-                                        @Html.TextBoxFor(model => model.date_paid, new { @class = "datepicker form-control", @placeholder = "Date Paid", @id = "date_paid" })
+                                    <div class="form-group required">
+                                        <label class="control-label">Date Paid</label>
+                                        @Html.TextBoxFor(model => model.date_paid, new { @class = "datepicker form-control", @placeholder = "Date Paid", @id = "date_paid", @name = "date_paid" })
+                                        @Html.ValidationMessageFor(model => model.date_paid, "", new { @class = "error" })
                                     </div>
                                 </div>
                             </div>
@@ -180,17 +189,20 @@
                                         <label>Date</label>
                                         @Html.TextBoxFor(model => model.entry, new { @class = "form-control datepicker", @id = "entry" })
                                     </div>
-                                    <div class="col-md-12 form-group">
-                                        <label>Name of Husband</label>
+                                    <div class="col-md-12 form-group required">
+                                        <label class="control-label">Name of Husband</label>
                                         @Html.TextBoxFor(model => model.husband_name, new { @class = "form-control", @placeholder = "Name of Husband" })
+                                        @Html.ValidationMessageFor(model => model.husband_name, "", new { @class = "error" })
                                     </div>
-                                    <div class="col-md-12 form-group">
-                                        <label>Name of Wife</label>
+                                    <div class="col-md-12 form-group required">
+                                        <label class="control-label">Name of Wife</label>
                                         @Html.TextBoxFor(model => model.wife_name, new { @class = "form-control", @placeholder = "Name of Wife" })
+                                        @Html.ValidationMessageFor(model => model.wife_name, "", new { @class = "error" })
                                     </div>
-                                    <div class="col-md-12 form-group">
-                                        <label>Date of Marriage</label>
-                                        @Html.TextBoxFor(model => model.date_of_marriage, new { @class = "datepicker form-control", @placeholder = "Date of Marriage", @id = "date_of_marriage" })
+                                    <div class="col-md-12 form-group required">
+                                        <label class="control-label">Date of Marriage</label>
+                                        @Html.TextBoxFor(model => model.date_of_marriage, new { @class = "datepicker form-control", @placeholder = "Date of Marriage", @id = "date_of_marriage", @name = "date_of_marriage" })
+                                        @Html.ValidationMessageFor(model => model.date_of_marriage, "", new { @class = "error" })
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <label>Records of Marriages for Year</label>
@@ -205,7 +217,7 @@
                                 <div class="col-md-12">
                                     <input type="Submit" value="Submit" class="btn btn-block btn-primary" id="btnSubmit" />
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-12" style="margin-top: 15px;">
                                     <input type="button" value="View PDF" class="btn btn-block btn-primary" id="btnViewPDF" />
                                 </div>
                             </div>
@@ -224,6 +236,8 @@
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
 <script src="~/Scripts/jquery-ui.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
 <script type="text/javascript">
     var date = new Date();

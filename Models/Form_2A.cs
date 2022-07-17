@@ -18,17 +18,21 @@ namespace form_1a.Models
     {
         public int Id { get; set; }
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}")]
         public Nullable<System.DateTime> entry { get; set; }
         public string page { get; set; }
         public string book { get; set; }
+        [Required(ErrorMessage = "LCR NO. is required.")]
         public string lcr_reg_no { get; set; }
+        [Required(ErrorMessage = "Date of registration is required.")]
         public Nullable<System.DateTime> date_of_reg { get; set; }
+        [Required(ErrorMessage = "Name is required.")]
         public string death_name { get; set; }
         public string sex { get; set; }
         public string age { get; set; }
         public string civil_status { get; set; }
         public string citizenship { get; set; }
+        [Required(ErrorMessage = "Date of death is required.")]
         public Nullable<System.DateTime> date_of_death { get; set; }
         public string place_of_death { get; set; }
         public string cause_of_death { get; set; }
@@ -39,6 +43,7 @@ namespace form_1a.Models
         public string verifier_title { get; set; }
         public string payment { get; set; }
         public string or_no { get; set; }
+        [Required(ErrorMessage = "Date paid is required.")]
         public Nullable<System.DateTime> date_paid { get; set; }
         public string filename { get; set; }
     }
